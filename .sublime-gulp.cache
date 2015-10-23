@@ -1,0 +1,1 @@
+{"D:\\GitHub\\react_tjube\\gulpfile.js":{"sha1":"2641da4ee2b30163720b5b11c69cc032c4e39b76","tasks":{"default":{"name":"default","dependencies":"build"},"clean":{"name":"clean","dependencies":""},"build":{"name":"build","dependencies":""}}}}
