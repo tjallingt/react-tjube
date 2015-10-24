@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import SearchResultsList from './SearchResultsList';
+import VideoList from '../VideoList/VideoList';
  
 export default class Search extends React.Component {
 	static propTypes = {
@@ -28,7 +28,7 @@ export default class Search extends React.Component {
 
 	handleClick( video ) {
 		this.setState({ 
-			searchResults: this.state.searchResults.filter( ( item ) => item.id.videoId !== video.id )
+			searchResults: this.state.searchResults.filter( ( item ) => item.id.videoId !== video.id.videoId )
 		});
 		this.props.addVideo( video );
 	}
@@ -68,7 +68,7 @@ export default class Search extends React.Component {
 		return (
 			<div style={styles.search}>
 				<SearchBar onChange={::this.handleChange} searchText={this.state.searchText} />
-				<SearchResultsList onClick={::this.handleClick} searchResults={this.state.searchResults} />
+				<VideoList onClick={::this.handleClick} list={this.state.searchResults} />
 			</div>
 		);
 	}

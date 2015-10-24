@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import YouTube from 'react-youtube';
 
-import PlayList from './components/PlayList';
+import VideoList from './components/VideoList/VideoList';
 import Search from './components/Search/Search';
 
 export default class VideoAppScreen extends React.Component {
@@ -47,7 +47,7 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	scaleVideo() {
-		this.setState( ( state ) => ({fill: !state.fill});
+		this.setState( ( state ) => ({fill: !state.fill}) );
 	}
 
 	render() {
@@ -56,7 +56,7 @@ export default class VideoAppScreen extends React.Component {
 			height: '100%',
 			width: '100%',
 			playerVars: {
-				controls: 1,
+				controls: 1, // disable later
 				cc_load_policy : 0,
 				iv_load_policy: 3,
 				modestbranding: 1,
@@ -104,7 +104,7 @@ export default class VideoAppScreen extends React.Component {
 		}
 
 		if( typeof this.state.playlist[this.state.playing] !== 'undefined' ) {
-			url = 'http://youtu.be/' + this.state.playlist[this.state.playing].id;
+			url = 'http://youtu.be/' + this.state.playlist[this.state.playing].id.videoId;
 		}
 
 		return(
@@ -121,7 +121,7 @@ export default class VideoAppScreen extends React.Component {
 						onError={::this.onError}
 					/>
 				</div>
-				<PlayList style={styles.playlist} playlist={this.state.playlist} />
+				<VideoList style={styles.playlist} list={this.state.playlist} />
 				<Search style={styles.search} addVideo={::this.addVideo} />
 			</div>
 		);

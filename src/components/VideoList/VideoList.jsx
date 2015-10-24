@@ -1,13 +1,15 @@
 import React from 'react';
-import SearchResultsItem from './SearchResultsItem';
+import VideoListItem from './VideoListItem';
  
-export default class SearchResultsList extends React.Component {
+export default class VideoList extends React.Component {
 	static propTypes = {
-		searchResults: React.PropTypes.array.isRequired,
+		style: React.PropTypes.object,
+		list: React.PropTypes.array.isRequired,
 		onClick: React.PropTypes.func
 	};
 
 	static defaultProps = {
+		style: {},
 		onClick: () => {}
 	};
 
@@ -23,14 +25,13 @@ export default class SearchResultsList extends React.Component {
 			}
 		};
 
-		this.props.searchResults.forEach( ( item ) => {
+		Object.assign( styles.list, this.props.style );
+
+		this.props.list.forEach( ( item ) => {
 			list.push(
-				<SearchResultsItem 
+				<VideoListItem 
 					key={item.id.videoId}
-					videoId={item.id.videoId}
-					title={item.snippet.title}
-					channelTitle={item.snippet.channelTitle}
-					thumbnails={item.snippet.thumbnails}
+					video={item}
 					onClick={this.props.onClick}
 				/> 
 			);
