@@ -4,13 +4,11 @@ import VideoList from '../VideoList/VideoList';
  
 export default class Search extends React.Component {
 	static propTypes = {
-		style: React.PropTypes.object,
-		addVideo: React.PropTypes.func
+		onClickVideo: React.PropTypes.func
 	};
 
 	static defaultProps = {
-		style: {},
-		addVideo: () => {}
+		onClickVideo: () => {}
 	};
 
 	state = { 
@@ -26,11 +24,14 @@ export default class Search extends React.Component {
 		this.searchTimeout = null;
 	}
 
-	handleClick( video ) {
+	handleClick( video ) {		
+		this.props.onClickVideo( video, () => this.removeVideo( video ) );
+	}
+
+	removeVideo( video ) {
 		this.setState({ 
 			searchResults: this.state.searchResults.filter( ( item ) => item.id.videoId !== video.id.videoId )
 		});
-		this.props.addVideo( video );
 	}
 
 	handleChange( value ) {
@@ -66,9 +67,9 @@ export default class Search extends React.Component {
 		Object.assign( styles.search, this.props.style );
 
 		return (
-			<div style={styles.search}>
-				<SearchBar onChange={::this.handleChange} searchText={this.state.searchText} />
-				<VideoList onClick={::this.handleClick} list={this.state.searchResults} />
+			<div id={this.props.id} style={styles.search}>
+				<SearchBar id="searchbar" onChange={::this.handleChange} searchText={this.state.searchText} />
+				<VideoList onClickVideo={::this.handleClick} list={this.state.searchResults} />
 			</div>
 		);
 	}

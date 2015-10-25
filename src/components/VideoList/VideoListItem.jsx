@@ -2,15 +2,13 @@ import React from 'react';
  
 export default class VideoListItem extends React.Component {
 	static propTypes = {
-		style: React.PropTypes.object,
 		video: React.PropTypes.object,
-		onClick: React.PropTypes.func
+		onClickVideo: React.PropTypes.func
 	};
 
 	static defaultProps = {
-		style: {},
 		videoId: {},
-		onClick: () => {}
+		onClickVideo: () => {}
 	};
 
 	constructor( props ) {
@@ -18,7 +16,7 @@ export default class VideoListItem extends React.Component {
 	}
 
 	handleClick() {
-		this.props.onClick( this.props.video );
+		this.props.onClickVideo( this.props.video );
 	}
 
 	render() {
@@ -26,7 +24,11 @@ export default class VideoListItem extends React.Component {
 			item: {
 				textOverflow: "ellipsis",
 				whiteSpace: "nowrap",
-				overflow: "hidden"
+				overflow: "hidden",
+				"backgroundRepeat": "no-repeat",
+				"backgroundPosition": "center",
+				"backgroundSize": "cover",
+				"backgroundImage": `url( ${this.props.video.snippet.thumbnails.default.url} )`
 			}
 		};
 

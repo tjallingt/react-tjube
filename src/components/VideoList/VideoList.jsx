@@ -3,14 +3,12 @@ import VideoListItem from './VideoListItem';
  
 export default class VideoList extends React.Component {
 	static propTypes = {
-		style: React.PropTypes.object,
 		list: React.PropTypes.array.isRequired,
-		onClick: React.PropTypes.func
+		onClickVideo: React.PropTypes.func
 	};
 
 	static defaultProps = {
-		style: {},
-		onClick: () => {}
+		onClickVideo: () => {}
 	};
 
 	constructor( props ) {
@@ -32,13 +30,13 @@ export default class VideoList extends React.Component {
 				<VideoListItem 
 					key={item.id.videoId}
 					video={item}
-					onClick={this.props.onClick}
+					onClickVideo={this.props.onClickVideo}
 				/> 
 			);
 		});
 
 		return(
-			<ul style={styles.list}>
+			<ul id={this.props.id} style={styles.list}>
 				{list}
 			</ul>
 		);

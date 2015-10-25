@@ -26,20 +26,19 @@ export default class SearchBar extends React.Component {
 	render() {
 		const styles = {
 			searchbar: {
-				height: "30px",
 				position: "relative"
 			},
 			input: {
 				width: "95%",
 				border: "none",
 				height: "100%",
-				fontSize: "15px",
-				padding: "0px 10px 0px 10px",
+				fontSize: "inherit",
+				padding: "0px 5px 0px 5px",
 				boxSizing: "border-box"
 			},
 			button: {
 				width: "5%",
-				minWidth: "20px",
+				minWidth: "15px",
 				background: "white",
 				color: "black",
 				height: "100%",
@@ -53,7 +52,7 @@ export default class SearchBar extends React.Component {
 		Object.assign( styles.searchbar, this.props.style );
 
 		return (
-			<div style={styles.searchbar}>
+			<div id={this.props.id} style={styles.searchbar}>
 				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} />
 				<button type="button" style={styles.button} onClick={::this.clearSearch}>X</button>
 			</div>

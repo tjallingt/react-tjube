@@ -8,23 +8,26 @@ export default class VideoAppRemote extends React.Component {
 		super( props );
 	}
 
-	addVideo( video ) {
-		if( confirm( "Do you want to add this video to the playlist?\n\n add name + channel or smth" ) ) socket.emit( "cueVideo", video );
+	addVideo( video, removeVideo ) {
+		if( confirm( `Do you want to add "${video.snippet.title}" by "${video.snippet.channelTitle}" to the playlist?` ) ) {
+			socket.emit( "cueVideo", video );
+			removeVideo();
+		}		
 	}
 
 	render() {
 		const styles = {
 			search: {
-				position: "absolute",
-				top: 10,
-				left: "25%",
-				width: "50%"
+				// position: "absolute",
+				// top: 10,
+				// left: "25%",
+				// width: "50%"
 			}
 		};
 
 		return(
 			<div>
-				<Search style={styles.search} addVideo={::this.addVideo} />
+				<Search id="search" style={styles.search} onClickVideo={::this.addVideo} />
 			</div>
 		);
 	}

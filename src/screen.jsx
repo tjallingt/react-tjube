@@ -17,9 +17,13 @@ export default class VideoAppScreen extends React.Component {
 		socket.on( "cueVideo", ::this.addVideo );
 	}
 
-	addVideo( video ) {
+	addVideo( video, removeVideo ) {
 		console.log( "addVideo", video, this.state );
 		this.setState( ( state ) => ({playlist: state.playlist.concat( video )}) );
+		//calls by socket.io don't have a remove callback...
+		if( typeof removeVideo === "function" ) {
+			removeVideo();
+		}
 	}
 
 	onReady( event ) {
@@ -66,23 +70,23 @@ export default class VideoAppScreen extends React.Component {
 			}
 		};
 		const styles = {
-			player: {
-				height: "100vh",
-				width: "100vw",
-				zIndex: -1
-			},
-			playlist: {
-				position: "absolute", 
-				top: 10,
-				right: 10,
-				maxWidth: 250,
-			},
-			search: {
-				position: "absolute",
-				top: 10,
-				left: 10,
-				maxWidth: 300
-			},
+			// player: {
+			// 	height: "100vh",
+			// 	width: "100vw",
+			// 	zIndex: -1
+			// },
+			// playlist: {
+			// 	position: "absolute", 
+			// 	top: 10,
+			// 	right: 10,
+			// 	maxWidth: 250,
+			// },
+			// search: {
+			// 	position: "absolute",
+			// 	top: 10,
+			// 	left: 10,
+			// 	maxWidth: 300
+			// },
 			button: {
 				position: "absolute",
 				left: 20,
@@ -90,27 +94,13 @@ export default class VideoAppScreen extends React.Component {
 			}
 		};
 
-		if( this.state.fill == true ) {
-			Object.assign( styles.player, {
-				position: "absolute",
-				left: "50%",
-				top: "50%",
-				transform: "translate(-50%, -50%)",
-				width: "100vw",
-				height: "56.25vw",
-				minHeight: "100vh",
-				minWidth: "177.78vh"
-			});
-		}
-
 		if( typeof this.state.playlist[this.state.playing] !== 'undefined' ) {
 			url = 'http://youtu.be/' + this.state.playlist[this.state.playing].id.videoId;
 		}
 
 		return(
 			<div>
-				<div style={styles.button} onClick={::this.scaleVideo}>fit/fill</div>
-				<div id="player" style={styles.player}>
+				<div id="player" className={this.state.fill ? "fill":"fit"}>
 					<YouTube
 						url={url}
 						opts={opts}
@@ -121,8 +111,9 @@ export default class VideoAppScreen extends React.Component {
 						onError={::this.onError}
 					/>
 				</div>
-				<VideoList style={styles.playlist} list={this.state.playlist} />
-				<Search style={styles.search} addVideo={::this.addVideo} />
+				<VideoList id="playlist" style={styles.playlist} list={this.state.playlist} />
+				<Search id="search" style={styles.search} onClickVideo={::this.addVideo} />
+				<div style={styles.button} onClick={::this.scaleVideo}>fit/fill</div>
 			</div>
 		);
 	}
