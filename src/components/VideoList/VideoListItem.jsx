@@ -28,7 +28,7 @@ export default class VideoListItem extends React.Component {
 				"backgroundRepeat": "no-repeat",
 				"backgroundPosition": "center",
 				"backgroundSize": "cover",
-				"backgroundImage": `url( ${this.props.video.snippet.thumbnails.default.url} )`
+				"backgroundImage": `url( ${this.props.video.snippet.thumbnails.high.url} )`
 			}
 		};
 
