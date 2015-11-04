@@ -16,18 +16,9 @@ export default class VideoAppRemote extends React.Component {
 	}
 
 	render() {
-		const styles = {
-			search: {
-				// position: "absolute",
-				// top: 10,
-				// left: "25%",
-				// width: "50%"
-			}
-		};
-
 		return(
 			<div>
-				<Search id="search" style={styles.search} onClickVideo={::this.addVideo} />
+				<Search id="search" onClickVideo={::this.addVideo} />
 			</div>
 		);
 	}

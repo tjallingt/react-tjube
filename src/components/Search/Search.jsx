@@ -60,16 +60,10 @@ export default class Search extends React.Component {
 	}
 	
 	render() {
-		const styles = {
-			search: {}
-		};
-
-		Object.assign( styles.search, this.props.style );
-
 		return (
-			<div id={this.props.id} style={styles.search}>
-				<SearchBar id="searchbar" onChange={::this.handleChange} searchText={this.state.searchText} />
-				<VideoList onClickVideo={::this.handleClick} list={this.state.searchResults} />
+			<div id={this.props.id}>
+				<SearchBar id="search-bar" onChange={::this.handleChange} searchText={this.state.searchText} />
+				<VideoList id="search-results" onClickVideo={::this.handleClick} list={this.state.searchResults} />
 			</div>
 		);
 	}
