@@ -30,7 +30,13 @@ export default class VideoAppScreen extends React.Component {
 
 	addVideo( video, removeVideo ) {
 		console.log( "addVideo", video, this.state );
-		this.setState( ( state ) => ({playlist: state.playlist.concat( video )}), ::this.updateSessionStore );
+		this.setState(
+			( state ) => {
+				state.playlist.push( video );
+				return {playlist: state.playlist};
+			},
+			::this.updateSessionStore
+		);
 
 		//calls by socket.io don't have a remove callback...
 		if( typeof removeVideo === "function" ) {
@@ -40,19 +46,29 @@ export default class VideoAppScreen extends React.Component {
 
 	nextVideo() {
 		console.log( "nextVideo" );
-		this.setState( ( state ) => ({playlist: state.playlist.slice( 1, state.playlist.length )}), ::this.updateSessionStore );
+		this.setState( 
+			( state ) => {
+				state.playlist.shift();
+				return {playlist: state.playlist};
+			},
+			::this.updateSessionStore
+		);
 	}
 
 	updateProgressBar() {
 		// don't know if this is any good (repeatedly calling setState...)
-		this.setState( ( state ) => ({progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100}) );
+		this.setState( ( state ) => {
+			return {progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100};
+		});
 		if( this.youtube.getPlayerState() === YT.PlayerState.PLAYING ) {
 			setTimeout( ::this.updateProgressBar, 250 );
 		}
 	}
 
 	scaleVideo() {
-		this.setState( ( state ) => ({fill: !state.fill}) );
+		this.setState( ( state ) => {
+			return {fill: !state.fill};
+		});
 	}
 
 	updateSessionStore() {
