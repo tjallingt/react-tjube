@@ -24,14 +24,8 @@ export default class Search extends React.Component {
 		this.searchTimeout = null;
 	}
 
-	handleClick( video ) {		
-		this.props.onClickVideo( video, () => this.removeVideo( video ) );
-	}
-
-	removeVideo( video ) {
-		this.setState({ 
-			searchResults: this.state.searchResults.filter( ( item ) => item.id.videoId !== video.id.videoId )
-		});
+	handleClick( video ) {
+		this.props.onClickVideo( video );
 	}
 
 	handleChange( value ) {
@@ -53,8 +47,13 @@ export default class Search extends React.Component {
 
 	search() {
 		$.getJSON( this.apiUrl + "search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=" + this.apiKey + "&q=" + this.state.searchText , ( json ) => {
-			this.setState({
-				searchResults: json.items
+			var videos = json.items.map( (item) => {
+				return item.id.videoId;
+			});
+			$.getJSON( this.apiUrl + "videos?part=snippet&key=" + this.apiKey + "&id=" + videos.toString() , ( json ) => {
+				this.setState({
+					searchResults: json.items
+				});
 			});
 		});
 	}
