@@ -5,6 +5,7 @@
 
 body {
 	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
 	background: #000;
 	color: #FFF;
 }
@@ -25,17 +26,25 @@ body {
 	min-width: 177.78vh;
 }
 
-#title {
+#title, #subtitle {
 	position: absolute;
-    top: 10px;
-    left: 325px;
+	top: 10px;
+	left: 10px;
+	font-size: 1.2em;
+	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+}
+
+#subtitle {
+	top: 30px;
+	left: 30px;
+	font-size: 1em;
 }
 
 #search {
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	max-width: 300px;
+	top: 0px;
+	right: 0px;
+	width: 300px;
 }
 
 #search-bar {
@@ -43,15 +52,20 @@ body {
 }
 
 #search-results {
-	max-height: calc(100vh - 30px);
+	max-height: calc(100vh - 20px);
 	overflow: auto;
+}
+
+.video-list-item {
+	padding: 5px;
+	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 }
 
 #playlist {
 	position: absolute;
-	top: 10px;
-	right: 10px;
-	max-width: 250px;
+	top: 20px;
+	right: 0px;
+	width: 300px;
 }
 
 #progress-bar {
@@ -64,6 +78,7 @@ body {
 	position: absolute;
 	left: 10px;
 	bottom: 20px;
+	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 }
 
 #button-row > * {
