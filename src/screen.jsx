@@ -31,8 +31,7 @@ export default class VideoAppScreen extends React.Component {
 	addVideo( video ) {
 		console.log( "addVideo", video, this.state );
 		// check if video is not already in the playlist (react doesn't like children with the same key)
-		console.log( "testing", (this.state.playlist.indexOf(video) === -1) );
-		if( this.state.playlist.indexOf(video) == -1 ) {
+		if( this.state.playlist.indexOf(video) === -1 ) {
 			this.setState(
 				( state ) => {
 					state.playlist.push( video );
@@ -98,10 +97,12 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	render() {
+		// set default values
 		let url = '';
-		let title = 'add videos to the playlist to begin';
-		let subtitle = '';
+		let title = 'Add videos to the playlist to begin watching!';
+		let subtitle = 'Add videos remotely at ' + location.host + '/add/' + room;
 
+		// alter variables
 		if( this.state.playlist.length > 0 ) {
 			url = 'http://youtu.be/' + this.state.playlist[0].id;
 			title = this.state.playlist[0].snippet.title;
@@ -110,6 +111,7 @@ export default class VideoAppScreen extends React.Component {
 			}
 		}
 
+		// youtube player options
 		let opts = {
 			height: '100%',
 			width: '100%',
@@ -124,6 +126,8 @@ export default class VideoAppScreen extends React.Component {
 				fs: 0
 			}
 		};
+
+		// calculate component classes
 		let playerClass = ClassNames({
 			fill: this.state.fill
 		});
@@ -134,7 +138,7 @@ export default class VideoAppScreen extends React.Component {
 		});
 		let nextVideoClass = ClassNames({
 			'fa': true,
-			'fa-fast-forward': (this.state.playlist.length > 1)
+			'fa-fast-forward': (this.state.playlist.length > 0)
 		});
 
 		return(
@@ -151,14 +155,22 @@ export default class VideoAppScreen extends React.Component {
 					/>
 				</div>
 				<ProgressBar id="progress-bar" now={this.state.progress} />
-				<span id="title">{title}</span>
-				<span id="subtitle" onClick={::this.nextVideo}><i className={nextVideoClass}></i> {subtitle}</span>
+
+				<div id="title-wrapper">
+					<div id="title">{title}</div>
+					<div id="subtitle" onClick={::this.nextVideo}>
+						<i className={nextVideoClass}></i> {subtitle}
+					</div>
+				</div>
+
 				<VideoList id="playlist" list={this.state.playlist} />
 				<Search id="search" onClickVideo={::this.addVideo} />
-				<div id="button-row">
+
+				<div id="button-wrapper">
 					<i className={scaleBtnClass} onClick={::this.scaleVideo}></i>
 					<span>/add/{room}</span>
 				</div>
+
 			</div>
 		);
 	}

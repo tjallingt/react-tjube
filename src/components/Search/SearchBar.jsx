@@ -54,7 +54,7 @@ export default class SearchBar extends React.Component {
 
 		return (
 			<div id={this.props.id} style={styles.searchbar}>
-				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} />
+				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} placeholder="Search for videos" />
 				<button type="button" style={styles.button} onClick={::this.clearSearch}>X</button>
 			</div>
 		);
