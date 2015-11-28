@@ -28,7 +28,7 @@ export default class VideoAppScreen extends React.Component {
 		}
 	}
 
-	addVideo( video, removeVideo ) {
+	addVideo( video ) {
 		console.log( "addVideo", video, this.state );
 		this.setState(
 			( state ) => {
@@ -37,11 +37,6 @@ export default class VideoAppScreen extends React.Component {
 			},
 			::this.updateSessionStore
 		);
-
-		//calls by socket.io don't have a remove callback...
-		if( typeof removeVideo === "function" ) {
-			removeVideo();
-		}
 	}
 
 	nextVideo() {
@@ -126,7 +121,7 @@ export default class VideoAppScreen extends React.Component {
 		});
 
 		if( this.state.playlist.length > 0 ) {
-			url = 'http://youtu.be/' + this.state.playlist[0].id.videoId;
+			url = 'http://youtu.be/' + this.state.playlist[0].id;
 			title = this.state.playlist[0].snippet.title;
 		}
 

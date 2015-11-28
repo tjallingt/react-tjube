@@ -8,10 +8,9 @@ export default class VideoAppRemote extends React.Component {
 		super( props );
 	}
 
-	addVideo( video, removeVideo ) {
+	addVideo( video ) {
 		if( confirm( `Do you want to add "${video.snippet.title}" by "${video.snippet.channelTitle}" to the playlist?` ) ) {
 			socket.emit( "cueVideo", video );
-			removeVideo();
 		}		
 	}
 
