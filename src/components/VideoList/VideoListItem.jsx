@@ -29,8 +29,7 @@ export default class VideoListItem extends React.Component {
 			item: {
 				textOverflow: "ellipsis",
 				whiteSpace: "nowrap",
-				overflow: "hidden",
-				backgroundColor: "#000"
+				overflow: "hidden"
 			}
 		};
 

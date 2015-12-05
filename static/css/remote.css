@@ -16,10 +16,6 @@ body {
 	width: 50%;
 }
 
-#searchbar {
-	height: 20px;
-}
-
 @media (max-width: 900px) {
 	#search {
 		position: absolute;
@@ -28,8 +24,7 @@ body {
 		width: 100%;
 	}
 
-	#searchbar {
-		height: 40px;
-		font-size: 20px;
+	#search-bar {
+		font-size: 1.2rem;
 	}
 }
