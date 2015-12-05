@@ -64,7 +64,7 @@ body {
 	padding: 5px;
 	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 	background-color: #000;
-	border: 1px solid #FFF;
+	border-bottom: 1px dotted #FFF;
 }
 
 #playlist {

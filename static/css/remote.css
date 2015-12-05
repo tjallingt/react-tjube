@@ -16,6 +16,11 @@ body {
 	width: 50%;
 }
 
+.video-list-item {
+	padding: 5px;
+	border-bottom: 1px dotted #FFF;
+}
+
 @media (max-width: 900px) {
 	#search {
 		position: absolute;
