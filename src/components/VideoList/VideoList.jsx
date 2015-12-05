@@ -31,6 +31,8 @@ export default class VideoList extends React.Component {
 					key={item.id}
 					video={item}
 					onClickVideo={this.props.onClickVideo}
+					showThumbnail={this.props.showThumbnails}
+					thumbnailQuality={this.props.thumbnailQuality}
 				/> 
 			);
 		});
