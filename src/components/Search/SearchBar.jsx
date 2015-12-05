@@ -30,7 +30,7 @@ export default class SearchBar extends React.Component {
 			},
 			input: {
 				width: "100%",
-				border: "none",
+				border: "solid white",
 				height: "100%",
 				fontSize: "inherit",
 				padding: "0px 5px 0px 5px",
