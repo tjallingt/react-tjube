@@ -3,24 +3,34 @@ import React from 'react';
 export default class SearchBar extends React.Component {
 	static propTypes = {
 		searchText: React.PropTypes.string,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		onEnter: React.PropTypes.func
 	};
 
 	static defaultProps = {
 		searchText: "",
-		onChange: () => {}
+		onChange: () => {},
+		onEnter: () => {}
 	};
 
 	constructor( props ) {
 		super( props );
 	}
 
-	handleChange( e ) {
-		this.props.onChange( e.target.value );
+	handleChange( event ) {
+		this.props.onChange( event.target.value );
+	}
+
+	handleKeyPress( event ) {
+		if( event.key === "Enter" ) {
+			this.searchInput.blur();
+			this.props.onEnter( event );
+		}
 	}
 
 	clearSearch() {
 		this.props.onChange( "" );
+		this.searchInput.focus();
 	}
 
 	render() {
@@ -60,7 +70,7 @@ export default class SearchBar extends React.Component {
 
 		return (
 			<div id={this.props.id} style={styles.searchbar}>
-				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} placeholder="Search for videos" />
+				<input style={styles.input} type="text" ref={(ref) => this.searchInput = ref} onChange={::this.handleChange} onKeyPress={::this.handleKeyPress} value={this.props.searchText} placeholder="Search for videos" />
 				{button}
 			</div>
 		);

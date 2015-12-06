@@ -35,14 +35,19 @@ export default class Search extends React.Component {
 			searchText: value
 		});
 
-		if( value === "" ) {
+		if( value.length == 0 ) {
 			this.setState({
 				searchResults: []
 			});
 		}
 		else if( value.length > 2 ) {
-			this.searchTimeout = setTimeout( ::this.search, 300 );
+			this.searchTimeout = setTimeout( ::this.search, 500 );
 		}
+	}
+
+	handleEnter() {
+		clearTimeout( this.searchTimeout );
+		this.search();
 	}
 
 	search() {
@@ -61,7 +66,7 @@ export default class Search extends React.Component {
 	render() {
 		return (
 			<div id={this.props.id}>
-				<SearchBar id="search-bar" onChange={::this.handleChange} searchText={this.state.searchText} />
+				<SearchBar id="search-bar" onChange={::this.handleChange} onEnter={::this.handleEnter} searchText={this.state.searchText} />
 				<VideoList id="search-results" onClickVideo={::this.handleClick} list={this.state.searchResults} showThumbnails={false}/>
 			</div>
 		);
