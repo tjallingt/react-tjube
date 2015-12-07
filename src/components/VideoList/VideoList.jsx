@@ -28,9 +28,11 @@ export default class VideoList extends React.Component {
 		this.props.list.forEach( ( item ) => {
 			list.push(
 				<VideoListItem 
-					key={item.id.videoId}
+					key={item.id}
 					video={item}
 					onClickVideo={this.props.onClickVideo}
+					showThumbnail={this.props.showThumbnails}
+					thumbnailQuality={this.props.thumbnailQuality}
 				/> 
 			);
 		});

@@ -16,8 +16,9 @@ body {
 	width: 50%;
 }
 
-#searchbar {
-	height: 20px;
+.video-list-item {
+	padding: 5px;
+	border-bottom: 1px dotted #FFF;
 }
 
 @media (max-width: 900px) {
@@ -28,8 +29,7 @@ body {
 		width: 100%;
 	}
 
-	#searchbar {
-		height: 40px;
-		font-size: 20px;
+	#search-bar {
+		font-size: 1.2rem;
 	}
 }

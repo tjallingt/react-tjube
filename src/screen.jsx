@@ -28,31 +28,45 @@ export default class VideoAppScreen extends React.Component {
 		}
 	}
 
-	addVideo( video, removeVideo ) {
+	addVideo( video ) {
 		console.log( "addVideo", video, this.state );
-		this.setState( ( state ) => ({playlist: state.playlist.concat( video )}), ::this.updateSessionStore );
-
-		//calls by socket.io don't have a remove callback...
-		if( typeof removeVideo === "function" ) {
-			removeVideo();
+		// check if video is not already in the playlist (react doesn't like children with the same key)
+		if( this.state.playlist.indexOf(video) === -1 ) {
+			this.setState(
+				( state ) => {
+					state.playlist.push( video );
+					return {playlist: state.playlist};
+				},
+				::this.updateSessionStore
+			);
 		}
 	}
 
 	nextVideo() {
 		console.log( "nextVideo" );
-		this.setState( ( state ) => ({playlist: state.playlist.slice( 1, state.playlist.length )}), ::this.updateSessionStore );
+		this.setState( 
+			( state ) => {
+				state.playlist.shift();
+				return {playlist: state.playlist};
+			},
+			::this.updateSessionStore
+		);
 	}
 
 	updateProgressBar() {
 		// don't know if this is any good (repeatedly calling setState...)
-		this.setState( ( state ) => ({progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100}) );
+		this.setState( ( state ) => {
+			return {progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100};
+		});
 		if( this.youtube.getPlayerState() === YT.PlayerState.PLAYING ) {
 			setTimeout( ::this.updateProgressBar, 250 );
 		}
 	}
 
 	scaleVideo() {
-		this.setState( ( state ) => ({fill: !state.fill}) );
+		this.setState( ( state ) => {
+			return {fill: !state.fill};
+		});
 	}
 
 	updateSessionStore() {
@@ -83,9 +97,22 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	render() {
+		// set default values
 		let url = '';
-		let title = 'add videos to the playlist to begin';
-		const opts = {
+		let title = 'Add videos to the playlist to begin watching!';
+		let subtitle = 'Add videos remotely at ' + location.host + '/add/' + room;
+
+		// alter variables
+		if( this.state.playlist.length > 0 ) {
+			url = 'http://youtu.be/' + this.state.playlist[0].id;
+			title = this.state.playlist[0].snippet.title;
+			if( this.state.playlist.length > 1 ) { 
+				subtitle = this.state.playlist[1].snippet.title;
+			}
+		}
+
+		// youtube player options
+		let opts = {
 			height: '100%',
 			width: '100%',
 			playerVars: {
@@ -99,20 +126,20 @@ export default class VideoAppScreen extends React.Component {
 				fs: 0
 			}
 		};
+
+		// calculate component classes
 		let playerClass = ClassNames({
 			fill: this.state.fill
 		});
 		let scaleBtnClass = ClassNames({
 			'fa': true,
-			'fa-lg': true,
 			'fa-compress': this.state.fill,
 			'fa-expand': !this.state.fill
 		});
-
-		if( this.state.playlist.length > 0 ) {
-			url = 'http://youtu.be/' + this.state.playlist[0].id.videoId;
-			title = this.state.playlist[0].snippet.title;
-		}
+		let nextVideoClass = ClassNames({
+			'fa': true,
+			'fa-fast-forward': (this.state.playlist.length > 0)
+		});
 
 		return(
 			<div>
@@ -128,13 +155,22 @@ export default class VideoAppScreen extends React.Component {
 					/>
 				</div>
 				<ProgressBar id="progress-bar" now={this.state.progress} />
-				<span id="title" onClick={::this.nextVideo}>{title}</span>
+
+				<div id="title-wrapper">
+					<div id="title">{title}</div>
+					<div id="subtitle" onClick={::this.nextVideo}>
+						<i className={nextVideoClass}></i> {subtitle}
+					</div>
+				</div>
+
 				<VideoList id="playlist" list={this.state.playlist} />
 				<Search id="search" onClickVideo={::this.addVideo} />
-				<div id="button-row">
+
+				<div id="button-wrapper">
 					<i className={scaleBtnClass} onClick={::this.scaleVideo}></i>
 					<span>/add/{room}</span>
 				</div>
+
 			</div>
 		);
 	}

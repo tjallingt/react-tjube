@@ -5,6 +5,7 @@
 
 var port = 1337;
 var express = require( 'express' );
+var bodyParser = require('body-parser');
 var mustache = require( 'mustache-express' );
 var app = express();
 var server = require( 'http' ).createServer( app );
@@ -18,6 +19,9 @@ console.log( `server started on port ${port}` );
 // Serve static files
 app.use( express.static( './static' ) );
 
+// Parse application/json post body
+app.use(bodyParser.json());
+
 // Use mustache to render html 
 app.engine( 'mustache', mustache() );
 
@@ -30,7 +34,8 @@ app.get( '/', ( req, res ) => {
 
 // Show about page
 app.get( '/about', ( req, res ) => {
-	res.sendFile( 'about.html' );
+	//res.sendFile( __dirname + '/about.html' );
+	res.send( "about" );
 });
 
 // Show public screen
@@ -43,6 +48,12 @@ app.get( `/add/:room(${roomIdRegex})`, ( req, res ) => {
 	res.render( 'template.mustache', {view: 'remote', room: req.params.room} );
 });
 
+// add video with post request
+app.post( `/add/:room(${roomIdRegex})`, ( req, res ) => {
+	io.to( req.params.room ).emit( 'cueVideo', req.body );
+	res.json({status:"ok"});
+});
+
 // Communicate with clients
 io.on( 'connection', ( socket ) => {
 	socket.on( 'registerRoom', ( room ) => {
@@ -50,9 +61,8 @@ io.on( 'connection', ( socket ) => {
 		socket.join( socket.room );
 	});
 	
-	socket.on( 'cueVideo', ( id ) => {
-		socket.broadcast.to( socket.room ).emit( 'cueVideo',  id );
-		socket.emit( 'addedVideo',  id );
+	socket.on( 'cueVideo', ( video ) => {
+		socket.broadcast.to( socket.room ).emit( 'cueVideo',  video );
 	});
 });
 

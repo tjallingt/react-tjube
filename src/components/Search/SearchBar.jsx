@@ -29,32 +29,39 @@ export default class SearchBar extends React.Component {
 				position: "relative"
 			},
 			input: {
-				width: "95%",
-				border: "none",
+				width: "100%",
+				border: "solid white",
 				height: "100%",
 				fontSize: "inherit",
-				padding: "0px 5px 0px 5px",
+				padding: "5px",
 				boxSizing: "border-box"
 			},
 			button: {
 				width: "5%",
-				minWidth: "15px",
+				minWidth: "20px",
+				height: "100%",
 				background: "white",
 				color: "black",
-				height: "100%",
+				"fontSize": "inherit",
 				border: "none",
 				position: "absolute",
 				top: "0px",
-				bottom: "0px"
+				bottom: "0px",
+				right: "0px"
 			}
 		};
+		let button;
+
+		if( this.props.searchText !== "" ) {
+			button = <button type="button" style={styles.button} onClick={::this.clearSearch}><i className="fa fa-times"></i></button>;
+		}
 
 		Object.assign( styles.searchbar, this.props.style );
 
 		return (
 			<div id={this.props.id} style={styles.searchbar}>
-				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} />
-				<button type="button" style={styles.button} onClick={::this.clearSearch}>X</button>
+				<input style={styles.input} type="text" onChange={::this.handleChange} value={this.props.searchText} placeholder="Search for videos" />
+				{button}
 			</div>
 		);
 	}
