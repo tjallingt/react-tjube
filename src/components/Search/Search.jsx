@@ -1,4 +1,7 @@
 import React from 'react';
+
+import FilterYoutubeData from '../../FilterYoutubeData.js';
+
 import SearchBar from './SearchBar';
 import VideoList from '../VideoList/VideoList';
  
@@ -53,12 +56,10 @@ export default class Search extends React.Component {
 	search() {
 		$.getJSON( this.apiUrl + "search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=" + this.apiKey + "&q=" + this.state.searchText , ( json ) => {
 			var videos = json.items.map( (item) => {
-				return item.id.videoId;
+				return FilterYoutubeData(item);
 			});
-			$.getJSON( this.apiUrl + "videos?part=snippet&key=" + this.apiKey + "&id=" + videos.toString() , ( json ) => {
-				this.setState({
-					searchResults: json.items
-				});
+			this.setState({
+				searchResults: videos
 			});
 		});
 	}

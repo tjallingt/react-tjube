@@ -105,9 +105,9 @@ export default class VideoAppScreen extends React.Component {
 		// alter variables
 		if( this.state.playlist.length > 0 ) {
 			url = 'http://youtu.be/' + this.state.playlist[0].id;
-			title = this.state.playlist[0].snippet.title;
+			title = this.state.playlist[0].title;
 			if( this.state.playlist.length > 1 ) { 
-				subtitle = this.state.playlist[1].snippet.title;
+				subtitle = this.state.playlist[1].title;
 			}
 		}
 

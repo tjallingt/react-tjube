@@ -38,7 +38,7 @@ export default class VideoListItem extends React.Component {
 				"backgroundRepeat": "no-repeat",
 				"backgroundPosition": "center",
 				"backgroundSize": "cover",
-				"backgroundImage": `url( ${this.props.video.snippet.thumbnails[this.props.thumbnailQuality].url} )`
+				"backgroundImage": `url( ${this.props.video.thumbnails[this.props.thumbnailQuality].url} )`
 			});
 		}
 
@@ -46,8 +46,8 @@ export default class VideoListItem extends React.Component {
 
 		return (
 			<li className='video-list-item' style={styles.item} onClick={::this.handleClick}>
-				{this.props.video.snippet.title}<br />
-				by {this.props.video.snippet.channelTitle}
+				{this.props.video.title}<br />
+				by {this.props.video.channelTitle}
 			</li>
 		);
 	}

@@ -13,6 +13,8 @@ var io = require( 'socket.io' )( server );
 var roomIdLength = 3;
 var roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
 
+var FilterYoutubeData = require('./src/FilterYoutubeData.js')
+
 server.listen( port );
 console.log( `server started on port ${port}` );
 
@@ -50,8 +52,14 @@ app.get( `/add/:room(${roomIdRegex})`, ( req, res ) => {
 
 // add video with post request
 app.post( `/add/:room(${roomIdRegex})`, ( req, res ) => {
-	io.to( req.params.room ).emit( 'cueVideo', req.body );
-	res.json({status:"ok"});
+	var video = FilterYoutubeData(req.body);
+	if( video !== false ) {
+		io.to( req.params.room ).emit( 'cueVideo', video );
+		res.json({status:"ok"});
+	}
+	else {
+		res.json({status:"error"});
+	}
 });
 
 // Communicate with clients
