@@ -14,27 +14,42 @@ export default class VideoAppScreen extends React.Component {
 		progress: 0
 	};
 
-	constructor( props ) {
-		super( props );
-		socket.on( "cueVideo", ::this.addVideo );
+	constructor(props) {
+		super(props );
+		socket.on("cueVideo", ::this.addVideo);
 
 		this.youtube = {};
 	}
 
 	componentDidMount() {
-		let playlist = JSON.parse( sessionStorage.getItem( room ) );
-		if( playlist ) {
+		let playlist = JSON.parse(sessionStorage.getItem(room));
+		if (playlist) {
 			//this.setState({playlist: playlist});
 		}
 	}
 
-	addVideo( video ) {
-		console.log( "addVideo", video, this.state );
+	addVideo(video) {
+		console.log("addVideo", video, this.state);
 		// check if video is not already in the playlist (react doesn't like children with the same key)
-		if( this.state.playlist.indexOf(video) === -1 ) {
+		if (this.state.playlist.indexOf(video) === -1) {
 			this.setState(
-				( state ) => {
-					state.playlist.push( video );
+				(state) => {
+					state.playlist.push(video);
+					return {playlist: state.playlist};
+				},
+				::this.updateSessionStore
+			);
+		}
+	}
+
+	deleteVideo(video) {
+		console.log("deleteVideo", video, this.state);
+		// check if video is in the playlist
+		let index = this.state.playlist.indexOf(video);
+		if ( index !== -1) {
+			this.setState(
+				(state) => {
+					state.playlist.splice(index,1);
 					return {playlist: state.playlist};
 				},
 				::this.updateSessionStore
@@ -43,9 +58,9 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	nextVideo() {
-		console.log( "nextVideo" );
+		console.log("nextVideo");
 		this.setState( 
-			( state ) => {
+			(state) => {
 				state.playlist.shift();
 				return {playlist: state.playlist};
 			},
@@ -55,45 +70,45 @@ export default class VideoAppScreen extends React.Component {
 
 	updateProgressBar() {
 		// don't know if this is any good (repeatedly calling setState...)
-		this.setState( ( state ) => {
+		this.setState((state)=> {
 			return {progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100};
 		});
-		if( this.youtube.getPlayerState() === YT.PlayerState.PLAYING ) {
-			setTimeout( ::this.updateProgressBar, 250 );
+		if (this.youtube.getPlayerState() === YT.PlayerState.PLAYING) {
+			setTimeout(::this.updateProgressBar, 250);
 		}
 	}
 
 	scaleVideo() {
-		this.setState( ( state ) => {
+		this.setState((state) => {
 			return {fill: !state.fill};
 		});
 	}
 
 	updateSessionStore() {
-		sessionStorage.setItem( room, JSON.stringify( this.state.playlist ) );
+		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
 	}
 
-	onReady( event ) {
-		console.log( "onReady", event, this.state );
+	onReady(event) {
+		console.log("onReady", event, this.state);
 		this.youtube = event.target;
 	}
 
-	onPlay( event ) {
-		console.log( "onPlay", event, this.state );
+	onPlay(event) {
+		console.log("onPlay", event, this.state);
 		this.updateProgressBar();
 	}
 
-	onPause( event ) {
-		console.log( "onPause", event, this.state );
+	onPause(event) {
+		console.log("onPause", event, this.state);
 	}
 
-	onEnd( event ) {
-		console.log( "onEnd", event, this.state );
+	onEnd(event) {
+		console.log("onEnd", event, this.state);
 		this.nextVideo();
 	}
 
-	onError( event ) {
-		console.log( "onError", event, this.state );
+	onError(event) {
+		console.log("onError", event, this.state);
 	}
 
 	render() {
@@ -103,10 +118,10 @@ export default class VideoAppScreen extends React.Component {
 		let subtitle = 'Add videos remotely at ' + location.host + '/add/' + room;
 
 		// alter variables
-		if( this.state.playlist.length > 0 ) {
+		if (this.state.playlist.length > 0) {
 			url = 'http://youtu.be/' + this.state.playlist[0].id;
 			title = this.state.playlist[0].title;
-			if( this.state.playlist.length > 1 ) { 
+			if (this.state.playlist.length > 1) { 
 				subtitle = this.state.playlist[1].title;
 			}
 		}
@@ -132,9 +147,13 @@ export default class VideoAppScreen extends React.Component {
 			fill: this.state.fill
 		});
 		let scaleBtnClass = ClassNames({
+			'pointer': true,
 			'fa': true,
 			'fa-compress': this.state.fill,
 			'fa-expand': !this.state.fill
+		});
+		let subtitleClass = ClassNames({
+			'pointer': (this.state.playlist.length > 0)
 		});
 		let nextVideoClass = ClassNames({
 			'fa': true,
@@ -158,12 +177,12 @@ export default class VideoAppScreen extends React.Component {
 
 				<div id="title-wrapper">
 					<div id="title">{title}</div>
-					<div id="subtitle" onClick={::this.nextVideo}>
+					<div id="subtitle" className={subtitleClass} onClick={::this.nextVideo}>
 						<i className={nextVideoClass}></i> {subtitle}
 					</div>
 				</div>
 
-				<VideoList id="playlist" list={this.state.playlist} />
+				<VideoList id="playlist" list={this.state.playlist} onClickDelete={::this.deleteVideo} />
 				<Search id="search" onClickVideo={::this.addVideo} />
 
 				<div id="button-wrapper">

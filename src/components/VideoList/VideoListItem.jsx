@@ -16,15 +16,24 @@ export default class VideoListItem extends React.Component {
 		onClickVideo: () => {}
 	};
 
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 	}
 
-	handleClick() {
-		this.props.onClickVideo( this.props.video );
+	handleClickVideo() {
+		this.props.onClickVideo(this.props.video);
+	}
+
+	handleClickDelete() {
+		this.props.onClickDelete(this.props.video);
 	}
 
 	render() {
+		let deleteButton;
+		if (this.props.onClickDelete) {
+			deleteButton = <div className="delete-button" onClick={::this.handleClickDelete}><i className="fa fa-times"></i></div>;
+		}
+
 		const styles = {
 			item: {
 				textOverflow: "ellipsis",
@@ -33,8 +42,8 @@ export default class VideoListItem extends React.Component {
 			}
 		};
 
-		if( this.props.showThumbnail == true ) {
-			Object.assign( styles.item, {
+		if (this.props.showThumbnail === true) {
+			Object.assign(styles.item, {
 				"backgroundRepeat": "no-repeat",
 				"backgroundPosition": "center",
 				"backgroundSize": "cover",
@@ -42,12 +51,13 @@ export default class VideoListItem extends React.Component {
 			});
 		}
 
-		Object.assign( styles.item, this.props.style );
+		Object.assign(styles.item, this.props.style);
 
 		return (
-			<li className='video-list-item' style={styles.item} onClick={::this.handleClick}>
+			<li className='video-list-item' style={styles.item} onClick={::this.handleClickVideo}>
 				{this.props.video.title}<br />
 				by {this.props.video.channelTitle}
+				{deleteButton}
 			</li>
 		);
 	}

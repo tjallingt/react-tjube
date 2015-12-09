@@ -11,8 +11,8 @@ export default class VideoList extends React.Component {
 		onClickVideo: () => {}
 	};
 
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 	}
 
 	render() {
@@ -23,14 +23,15 @@ export default class VideoList extends React.Component {
 			}
 		};
 
-		Object.assign( styles.list, this.props.style );
+		Object.assign(styles.list, this.props.style);
 
-		this.props.list.forEach( ( item ) => {
+		this.props.list.forEach((item) => {
 			list.push(
 				<VideoListItem 
 					key={item.id}
 					video={item}
 					onClickVideo={this.props.onClickVideo}
+					onClickDelete={this.props.onClickDelete}
 					showThumbnail={this.props.showThumbnails}
 					thumbnailQuality={this.props.thumbnailQuality}
 				/> 

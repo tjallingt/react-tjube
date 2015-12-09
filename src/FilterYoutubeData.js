@@ -10,7 +10,7 @@ var FilterYoutubeData = function(data) {
 			title: data.snippet.title,
 			channelTitle: data.snippet.channelTitle,
 			thumbnails: data.snippet.thumbnails
-		}
+		};
 		if (data.kind === YTTYPE.SEARCHRESULT) {
 			newData.id = newData.id.videoId; // id for searchresult is wrapped in id object
 		}

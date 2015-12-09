@@ -10,10 +10,11 @@ var mustache = require( 'mustache-express' );
 var app = express();
 var server = require( 'http' ).createServer( app );
 var io = require( 'socket.io' )( server );
-var roomIdLength = 3;
-var roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
 
 var FilterYoutubeData = require('./src/FilterYoutubeData.js')
+
+var roomIdLength = 3;
+var roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
 
 server.listen( port );
 console.log( `server started on port ${port}` );

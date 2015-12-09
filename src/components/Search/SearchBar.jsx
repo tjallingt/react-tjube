@@ -47,17 +47,18 @@ export default class SearchBar extends React.Component {
 				boxSizing: "border-box"
 			},
 			button: {
+				position: "absolute",
+				top: "0px",
+				bottom: "0px",
+				right: "0px",
 				width: "5%",
 				minWidth: "20px",
 				height: "100%",
 				background: "white",
 				color: "black",
-				"fontSize": "inherit",
+				fontSize: "inherit",
 				border: "none",
-				position: "absolute",
-				top: "0px",
-				bottom: "0px",
-				right: "0px"
+				cursor: "pointer"
 			}
 		};
 		let button;
