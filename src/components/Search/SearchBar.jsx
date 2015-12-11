@@ -1,73 +1,75 @@
 import React from 'react';
- 
+
 export default class SearchBar extends React.Component {
 	static propTypes = {
+		id: React.PropTypes.string,
+		style: React.PropTypes.object,
 		searchText: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		onEnter: React.PropTypes.func
+		onEnter: React.PropTypes.func,
 	};
 
 	static defaultProps = {
-		searchText: "",
+		searchText: '',
 		onChange: () => {},
-		onEnter: () => {}
+		onEnter: () => {},
 	};
 
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 	}
 
-	handleChange( event ) {
-		this.props.onChange( event.target.value );
+	handleChange(event) {
+		this.props.onChange(event.target.value);
 	}
 
-	handleKeyPress( event ) {
-		if( event.key === "Enter" ) {
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
 			this.searchInput.blur();
-			this.props.onEnter( event );
+			this.props.onEnter(event);
 		}
 	}
 
 	clearSearch() {
-		this.props.onChange( "" );
+		this.props.onChange('');
 		this.searchInput.focus();
 	}
 
 	render() {
 		const styles = {
 			searchbar: {
-				position: "relative"
+				position: 'relative',
 			},
 			input: {
-				width: "100%",
-				border: "solid white",
-				height: "100%",
-				fontSize: "inherit",
-				padding: "5px",
-				boxSizing: "border-box"
+				width: '100%',
+				border: 'solid white',
+				height: '100%',
+				fontSize: 'inherit',
+				padding: '5px',
+				boxSizing: 'border-box',
 			},
 			button: {
-				position: "absolute",
-				top: "0px",
-				bottom: "0px",
-				right: "0px",
-				width: "5%",
-				minWidth: "20px",
-				height: "100%",
-				background: "white",
-				color: "black",
-				fontSize: "inherit",
-				border: "none",
-				cursor: "pointer"
-			}
+				position: 'absolute',
+				top: '0px',
+				bottom: '0px',
+				right: '0px',
+				width: '5%',
+				minWidth: '20px',
+				height: '100%',
+				background: 'white',
+				color: 'black',
+				fontSize: 'inherit',
+				border: 'none',
+				cursor: 'pointer',
+			},
 		};
 		let button;
 
-		if( this.props.searchText !== "" ) {
+		if (this.props.searchText !== '') {
 			button = <button type="button" style={styles.button} onClick={::this.clearSearch}><i className="fa fa-times"></i></button>;
 		}
 
-		Object.assign( styles.searchbar, this.props.style );
+		Object.assign(styles.searchbar, this.props.style);
 
 		return (
 			<div id={this.props.id} style={styles.searchbar}>

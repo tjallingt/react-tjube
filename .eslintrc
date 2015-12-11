@@ -1,0 +1,9 @@
+{
+	"parser": "babel-eslint",
+	"extends": "eslint-config-airbnb",
+	"rules": {
+		"indent": [2, "tab"],
+		"object-curly-spacing": [2, "never"],
+		"strict": [0],
+	}
+}

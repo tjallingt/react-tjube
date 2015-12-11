@@ -1,28 +1,28 @@
-var YTTYPE = {
-	VIDEO: "youtube#video",
-	SEARCHRESULT: "youtube#searchResult"
+'use strict';
+
+const YTTYPE = {
+	VIDEO: 'youtube#video',
+	SEARCHRESULT: 'youtube#searchResult',
 };
 
-var FilterYoutubeData = function(data) {
+function filterYoutubeData(data) {
+	let newData;
 	if (data.kind === YTTYPE.VIDEO || (data.kind === YTTYPE.SEARCHRESULT && data.id.kind === YTTYPE.VIDEO)) {
-		var newData = {
+		newData = {
 			id: data.id,
 			title: data.snippet.title,
 			channelTitle: data.snippet.channelTitle,
-			thumbnails: data.snippet.thumbnails
+			thumbnails: data.snippet.thumbnails,
 		};
 		if (data.kind === YTTYPE.SEARCHRESULT) {
 			newData.id = newData.id.videoId; // id for searchresult is wrapped in id object
 		}
-		return newData;
 	}
-	else {
-		return false;
-	}
-};
+	return newData;
+}
 
-if(typeof module !== 'undefined' && module.exports) {
-	module.exports = FilterYoutubeData;
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = filterYoutubeData;
 } else {
-	window.FilterYoutubeData = FilterYoutubeData;
+	window.filterYoutubeData = filterYoutubeData;
 }

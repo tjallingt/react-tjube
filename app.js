@@ -11,7 +11,7 @@ var app = express();
 var server = require( 'http' ).createServer( app );
 var io = require( 'socket.io' )( server );
 
-var FilterYoutubeData = require('./src/FilterYoutubeData.js')
+var filterYoutubeData = require('./src/filterYoutubeData.js')
 
 var roomIdLength = 3;
 var roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
@@ -53,8 +53,8 @@ app.get( `/add/:room(${roomIdRegex})`, ( req, res ) => {
 
 // add video with post request
 app.post( `/add/:room(${roomIdRegex})`, ( req, res ) => {
-	var video = FilterYoutubeData(req.body);
-	if( video !== false ) {
+	var video = filterYoutubeData(req.body);
+	if (video) {
 		io.to( req.params.room ).emit( 'cueVideo', video );
 		res.json({status:"ok"});
 	}
