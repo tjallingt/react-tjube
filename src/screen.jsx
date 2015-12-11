@@ -1,6 +1,7 @@
 /* global room, YT */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import update from 'react-addons-update';
 import YouTube from 'react-youtube';
 
 import io from 'socket.io-client';
@@ -60,10 +61,11 @@ export default class VideoAppScreen extends React.Component {
 		// check if video is not already in the playlist (react doesn't like children with the same key)
 		if (this.state.playlist.indexOf(video) === -1) {
 			this.setState(
-				(state) => {
-					state.playlist.push(video);
-					return {playlist: state.playlist};
-				},
+				update(this.state, {
+					playlist: {
+						$push: [video],
+					},
+				}),
 				::this.updateSessionStore
 			);
 		}
@@ -75,22 +77,25 @@ export default class VideoAppScreen extends React.Component {
 		const index = this.state.playlist.indexOf(video);
 		if (index !== -1) {
 			this.setState(
-				(state) => {
-					state.playlist.splice(index, 1);
-					return {playlist: state.playlist};
-				},
+				update(this.state, {
+					playlist: {
+						$splice: [[index, 1]],
+					},
+				}),
 				::this.updateSessionStore
 			);
 		}
 	}
 
+	// depricate in favour of using deleteVideo(this.state.playlist[0]) ?
 	nextVideo() {
 		console.log('nextVideo');
 		this.setState(
-			(state) => {
-				state.playlist.shift();
-				return {playlist: state.playlist};
-			},
+			update(this.state, {
+				playlist: {
+					$splice: [[0, 1]],
+				},
+			}),
 			::this.updateSessionStore
 		);
 	}
@@ -104,9 +109,7 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	scaleVideo() {
-		this.setState((state) => {
-			return {fill: !state.fill};
-		});
+		this.setState({fill: !this.state.fill});
 	}
 
 	updateSessionStore() {
