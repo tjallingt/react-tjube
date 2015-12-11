@@ -1,8 +1,9 @@
-/* global socket, room, YT */
+/* global room, YT */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import YouTube from 'react-youtube';
 
+import io from 'socket.io-client';
 import classNames from 'classnames';
 
 import ProgressBar from './components/ProgressBar';
@@ -12,7 +13,9 @@ import Search from './components/Search/Search';
 export default class VideoAppScreen extends React.Component {
 	constructor(props) {
 		super(props);
-		socket.on('cueVideo', ::this.addVideo);
+		this.socket = io.connect(window.location.origin);
+		this.socket.emit('registerRoom', room);
+		this.socket.on('cueVideo', ::this.addVideo);
 		this.youtube = {};
 	}
 
