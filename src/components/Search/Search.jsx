@@ -1,69 +1,69 @@
+/* global $ */
 import React from 'react';
 
-import FilterYoutubeData from '../../FilterYoutubeData.js';
+import filterYoutubeData from '../../filterYoutubeData.js';
 
 import SearchBar from './SearchBar';
 import VideoList from '../VideoList/VideoList';
- 
+
 export default class Search extends React.Component {
 	static propTypes = {
-		onClickVideo: React.PropTypes.func
+		id: React.PropTypes.string,
+		onClickVideo: React.PropTypes.func,
 	};
 
 	static defaultProps = {
-		onClickVideo: () => {}
+		onClickVideo: () => {},
 	};
 
-	state = { 
-		searchText: "",
-		searchResults: []
-	};
-
-	constructor( props ) {
-		super( props );
-		
-		this.apiKey = "AIzaSyC-lsLJ5p1Iegs3xOtY1C-N5-qB6mlaKEI";
-		this.apiUrl = "https://www.googleapis.com/youtube/v3/";
+	constructor(props) {
+		super(props);
+		this.apiKey = 'AIzaSyC-lsLJ5p1Iegs3xOtY1C-N5-qB6mlaKEI';
+		this.apiUrl = 'https://www.googleapis.com/youtube/v3/';
 		this.searchTimeout = null;
 	}
 
-	handleClick( video ) {
-		this.props.onClickVideo( video );
+	state = {
+		searchText: '',
+		searchResults: [],
+	};
+
+	handleClick(video) {
+		this.props.onClickVideo(video);
 	}
 
-	handleChange( value ) {
-		clearTimeout( this.searchTimeout );
+	handleChange(value) {
+		clearTimeout(this.searchTimeout);
 
 		this.setState({
-			searchText: value
+			searchText: value,
 		});
 
-		if( value.length == 0 ) {
+		if (value.length === 0) {
 			this.setState({
-				searchResults: []
+				searchResults: [],
 			});
-		}
-		else if( value.length > 2 ) {
-			this.searchTimeout = setTimeout( ::this.search, 500 );
+		} else if (value.length > 2) {
+			this.searchTimeout = setTimeout(::this.search, 500);
 		}
 	}
 
 	handleEnter() {
-		clearTimeout( this.searchTimeout );
+		clearTimeout(this.searchTimeout);
 		this.search();
 	}
 
 	search() {
-		$.getJSON( this.apiUrl + "search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=" + this.apiKey + "&q=" + this.state.searchText , ( json ) => {
-			var videos = json.items.map( (item) => {
-				return FilterYoutubeData(item);
+		$.getJSON(this.apiUrl + 'search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=' + this.apiKey + '&q=' + this.state.searchText, (json) => {
+			const videos = json.items.map((item) => {
+				return filterYoutubeData(item);
 			});
 			this.setState({
-				searchResults: videos
+				searchResults: videos,
 			});
 		});
 	}
-	
+
 	render() {
 		return (
 			<div id={this.props.id}>
