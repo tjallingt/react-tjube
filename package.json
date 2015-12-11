@@ -8,6 +8,7 @@
     "url": "git@github.com:tjallingt/react-tjube.git"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "gulp",
     "lint": "eslint --ext .js --ext .jsx app.js src"

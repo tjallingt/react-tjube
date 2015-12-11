@@ -4,16 +4,16 @@
 	The server generates a unique room id when a user connects and allows the remotes to send data to the screen(s).
 */
 
-const port = 1337;
 const express = require('express');
-const bodyParser = require('body-parser');
-const mustache = require('mustache-express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+const bodyParser = require('body-parser');
+const mustache = require('mustache-express');
 const filterYoutubeData = require('./src/filterYoutubeData.js');
 
+const port = 1337;
 const roomIdLength = 3;
 const roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
 
