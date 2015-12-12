@@ -89,6 +89,10 @@ body {
 	width: 300px;
 }
 
+#playlist>.video-list-item:first-child .delete-button .fa-times:before {
+	content: "\f051"; /* fa-step-forward */
+}
+
 #progress-bar {
 	position: fixed;
 	bottom: 0px;

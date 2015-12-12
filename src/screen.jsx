@@ -73,7 +73,7 @@ export default class VideoAppScreen extends React.Component {
 						$push: [video],
 					},
 				}),
-				::this.updateSessionStore
+				::this.setSessionPlaylist
 			);
 		}
 	}
@@ -86,7 +86,7 @@ export default class VideoAppScreen extends React.Component {
 					$splice: [[index, 1]],
 				},
 			}),
-			::this.updateSessionStore
+			::this.setSessionPlaylist
 		);
 	}
 
@@ -148,13 +148,6 @@ export default class VideoAppScreen extends React.Component {
 			'fa-compress': this.state.fill,
 			'fa-expand': !this.state.fill,
 		});
-		const subtitleClass = classNames({
-			'pointer': (this.state.playlist.length > 0),
-		});
-		const nextVideoClass = classNames({
-			'fa': true,
-			'fa-fast-forward': (this.state.playlist.length > 0),
-		});
 
 		return (
 			<div>
@@ -173,9 +166,7 @@ export default class VideoAppScreen extends React.Component {
 
 				<div id="title-wrapper">
 					<div id="title">{title}</div>
-					<div id="subtitle" className={subtitleClass} onClick={::this.nextVideo}>
-						<i className={nextVideoClass}></i> {subtitle}
-					</div>
+					<div id="subtitle">{subtitle}</div>
 				</div>
 
 				<VideoList id="playlist" list={this.state.playlist}>
