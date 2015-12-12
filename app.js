@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 'use strict';
 /*
 	Node server for Tjube.Ninja.
@@ -55,12 +56,12 @@ app.get('/about', (req, res) => {
 
 // Show public screen
 app.get(`/room/:room(${roomIdRegex})`, (req, res) => {
-	res.render('template.mustache', {view: 'screen', room: req.params.room});
+	res.render('template.mustache', { view: 'screen', room: req.params.room });
 });
 
 // Show remote screen
 app.get(`/add/:room(${roomIdRegex})`, (req, res) => {
-	res.render('template.mustache', {view: 'remote', room: req.params.room});
+	res.render('template.mustache', { view: 'remote', room: req.params.room });
 });
 
 // add video with post request
@@ -68,9 +69,9 @@ app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 	const video = filterYoutubeData(req.body);
 	if (video) {
 		io.to(req.params.room).emit('cueVideo', video);
-		res.json({status: 'ok'});
+		res.json({ status: 'ok' });
 	} else {
-		res.json({status: 'error'});
+		res.status(422).json({ status: 'error' });
 	}
 });
 

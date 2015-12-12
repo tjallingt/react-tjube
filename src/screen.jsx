@@ -1,12 +1,13 @@
+/* eslint no-console: 0 */ // while in dev mode...
 /* global room, YT */
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import update from 'react-addons-update';
-import YouTube from 'react-youtube';
-
-import io from 'socket.io-client';
 import classNames from 'classnames';
+import io from 'socket.io-client';
 
+import YouTube from 'react-youtube';
 import ProgressBar from './components/ProgressBar';
 import VideoList from './components/VideoList/VideoList';
 import Search from './components/Search/Search';
@@ -18,6 +19,7 @@ export default class VideoAppScreen extends React.Component {
 		this.socket.emit('registerRoom', room);
 		this.socket.on('cueVideo', ::this.addVideo);
 		this.youtube = {};
+		this.state.playlist = this.getSessionPlaylist();
 	}
 
 	state = {
@@ -25,13 +27,6 @@ export default class VideoAppScreen extends React.Component {
 		fill: false,
 		progress: 0,
 	};
-
-	componentDidMount() {
-		const playlist = JSON.parse(sessionStorage.getItem(room));
-		if (playlist) {
-			// this.setState({playlist: playlist});
-		}
-	}
 
 	onReady(event) {
 		console.log('onReady', event, this.state);
@@ -54,6 +49,18 @@ export default class VideoAppScreen extends React.Component {
 
 	onError(event) {
 		console.log('onError', event, this.state);
+	}
+
+	getSessionPlaylist() {
+		const playlist = JSON.parse(sessionStorage.getItem(room));
+		if (playlist) {
+			return playlist;
+		}
+		return [];
+	}
+
+	setSessionPlaylist() {
+		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
 	}
 
 	addVideo(video) {
@@ -90,29 +97,25 @@ export default class VideoAppScreen extends React.Component {
 
 	updateProgressBar() {
 		// don't know if this is any good (repeatedly calling setState...)
-		this.setState({progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100});
+		this.setState({ progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100 });
 		if (this.youtube.getPlayerState() === YT.PlayerState.PLAYING) {
 			setTimeout(::this.updateProgressBar, 250);
 		}
 	}
 
 	scaleVideo() {
-		this.setState({fill: !this.state.fill});
-	}
-
-	updateSessionStore() {
-		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
+		this.setState({ fill: !this.state.fill });
 	}
 
 	render() {
 		// set default values
-		let url = '';
+		let videoId = '';
 		let title = 'Add videos to the playlist to begin watching!';
 		let subtitle = 'Add videos remotely at ' + location.host + '/add/' + room;
 
 		// alter variables
 		if (this.state.playlist.length > 0) {
-			url = 'http://youtu.be/' + this.state.playlist[0].id;
+			videoId = this.state.playlist[0].id;
 			title = this.state.playlist[0].title;
 			if (this.state.playlist.length > 1) {
 				subtitle = this.state.playlist[1].title;
@@ -155,17 +158,17 @@ export default class VideoAppScreen extends React.Component {
 
 		return (
 			<div>
-				<div id="player" className={playerClass}>
-					<YouTube
-						url={url}
-						opts={opts}
-						onReady={::this.onReady}
-						onPlay={::this.onPlay}
-						onPause={::this.onPause}
-						onEnd={::this.onEnd}
-						onError={::this.onError}
-					/>
-				</div>
+				<YouTube
+					id="player"
+					className={playerClass}
+					videoId={videoId}
+					opts={opts}
+					onReady={::this.onReady}
+					onPlay={::this.onPlay}
+					onPause={::this.onPause}
+					onEnd={::this.onEnd}
+					onError={::this.onError}
+				/>
 				<ProgressBar id="progress-bar" now={this.state.progress} />
 
 				<div id="title-wrapper">
