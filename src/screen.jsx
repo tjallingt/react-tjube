@@ -187,7 +187,9 @@ export default class VideoAppScreen extends React.Component {
 					</div>
 				</div>
 
-				<VideoList id="playlist" list={this.state.playlist} onClickDelete={::this.deleteVideo} />
+				<VideoList id="playlist" list={this.state.playlist}>
+					<div className="delete-button" onClick={::this.deleteVideo}><i className="fa fa-times"></i></div>
+				</VideoList>
 				<Search id="search" onClickVideo={::this.addVideo} />
 
 				<div id="button-wrapper">

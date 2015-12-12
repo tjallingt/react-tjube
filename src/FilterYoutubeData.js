@@ -6,9 +6,8 @@ const YTTYPE = {
 };
 
 function filterYoutubeData(data) {
-	let newData;
 	if (data.kind === YTTYPE.VIDEO || (data.kind === YTTYPE.SEARCHRESULT && data.id.kind === YTTYPE.VIDEO)) {
-		newData = {
+		const newData = {
 			id: data.id,
 			title: data.snippet.title,
 			channelTitle: data.snippet.channelTitle,
@@ -17,8 +16,9 @@ function filterYoutubeData(data) {
 		if (data.kind === YTTYPE.SEARCHRESULT) {
 			newData.id = newData.id.videoId; // id for searchresult is wrapped in id object
 		}
+		return newData;
 	}
-	return newData;
+	return false;
 }
 
 if (typeof module !== 'undefined' && module.exports) {

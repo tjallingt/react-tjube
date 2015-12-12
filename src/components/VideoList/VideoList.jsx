@@ -7,9 +7,9 @@ export default class VideoList extends React.Component {
 		style: React.PropTypes.object,
 		list: React.PropTypes.array.isRequired,
 		onClickVideo: React.PropTypes.func,
-		onClickDelete: React.PropTypes.func,
 		showThumbnails: React.PropTypes.bool,
 		thumbnailQuality: React.PropTypes.string,
+		children: React.PropTypes.node,
 	};
 
 	static defaultProps = {
@@ -36,10 +36,10 @@ export default class VideoList extends React.Component {
 					key={item.id}
 					video={item}
 					onClickVideo={this.props.onClickVideo}
-					onClickDelete={this.props.onClickDelete}
 					showThumbnail={this.props.showThumbnails}
-					thumbnailQuality={this.props.thumbnailQuality}
-				/>
+					thumbnailQuality={this.props.thumbnailQuality}>
+					{this.props.children}
+				</VideoListItem>
 			);
 		});
 

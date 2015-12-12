@@ -7,7 +7,7 @@ export default class VideoListItem extends React.Component {
 		showThumbnail: React.PropTypes.bool,
 		thumbnailQuality: React.PropTypes.string,
 		onClickVideo: React.PropTypes.func,
-		onClickDelete: React.PropTypes.func,
+		children: React.PropTypes.node,
 	};
 
 	static defaultProps = {
@@ -25,16 +25,14 @@ export default class VideoListItem extends React.Component {
 		this.props.onClickVideo(this.props.video);
 	}
 
-	handleClickDelete() {
-		this.props.onClickDelete(this.props.video);
+	infectClick(element) {
+		if (element.props.onClick) {
+			return React.cloneElement(element, {onClick: () => element.props.onClick(this.props.video)});
+		}
+		return element;
 	}
 
 	render() {
-		let deleteButton;
-		if (this.props.onClickDelete) {
-			deleteButton = <div className="delete-button" onClick={::this.handleClickDelete}><i className="fa fa-times"></i></div>;
-		}
-
 		const styles = {
 			item: {
 				textOverflow: 'ellipsis',
@@ -54,11 +52,13 @@ export default class VideoListItem extends React.Component {
 
 		Object.assign(styles.item, this.props.style);
 
+		const children = React.Children.map(this.props.children, ::this.infectClick);
+
 		return (
 			<li className="video-list-item" style={styles.item} onClick={::this.handleClickVideo}>
 				{this.props.video.title}<br />
 				by {this.props.video.channelTitle}
-				{deleteButton}
+				{children}
 			</li>
 		);
 	}
