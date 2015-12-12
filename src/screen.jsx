@@ -71,33 +71,21 @@ export default class VideoAppScreen extends React.Component {
 		}
 	}
 
-	deleteVideo(video) {
+	deleteVideo(video, index) {
 		console.log('deleteVideo', video, this.state);
-		// check location of video in the playlist
-		const index = this.state.playlist.indexOf(video);
-		if (index !== -1) {
-			this.setState(
-				update(this.state, {
-					playlist: {
-						$splice: [[index, 1]],
-					},
-				}),
-				::this.updateSessionStore
-			);
-		}
-	}
-
-	// depricate in favour of using deleteVideo(this.state.playlist[0]) ?
-	nextVideo() {
-		console.log('nextVideo');
 		this.setState(
 			update(this.state, {
 				playlist: {
-					$splice: [[0, 1]],
+					$splice: [[index, 1]],
 				},
 			}),
 			::this.updateSessionStore
 		);
+	}
+
+	nextVideo() {
+		console.log('nextVideo');
+		this.deleteVideo({}, 0);
 	}
 
 	updateProgressBar() {

@@ -3,7 +3,8 @@ import React from 'react';
 export default class VideoListItem extends React.Component {
 	static propTypes = {
 		style: React.PropTypes.object,
-		video: React.PropTypes.object,
+		index: React.PropTypes.number.isRequired,
+		video: React.PropTypes.object.isRequired,
 		showThumbnail: React.PropTypes.bool,
 		thumbnailQuality: React.PropTypes.string,
 		onClickVideo: React.PropTypes.func,
@@ -11,7 +12,6 @@ export default class VideoListItem extends React.Component {
 	};
 
 	static defaultProps = {
-		videoId: {},
 		showThumbnail: true,
 		thumbnailQuality: 'medium',
 		onClickVideo: () => {},
@@ -21,13 +21,15 @@ export default class VideoListItem extends React.Component {
 		super(props);
 	}
 
-	handleClickVideo() {
-		this.props.onClickVideo(this.props.video);
+	handleClickVideo(event) {
+		this.props.onClickVideo(this.props.video, this.props.index, event);
 	}
 
 	infectClick(element) {
 		if (element.props.onClick) {
-			return React.cloneElement(element, {onClick: () => element.props.onClick(this.props.video)});
+			return React.cloneElement(element, {
+				onClick: (event) => element.props.onClick(this.props.video, this.props.index, event),
+			});
 		}
 		return element;
 	}
