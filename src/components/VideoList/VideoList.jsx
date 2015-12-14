@@ -21,7 +21,6 @@ export default class VideoList extends React.Component {
 	}
 
 	render() {
-		const list = [];
 		const styles = {
 			list: {
 				listStyleType: 'none',
@@ -30,12 +29,12 @@ export default class VideoList extends React.Component {
 
 		Object.assign(styles.list, this.props.style);
 
-		this.props.list.forEach((item, index) => {
-			list.push(
+		const list = this.props.list.map((video, index) => {
+			return (
 				<VideoListItem
-					key={item.id}
+					key={video.id}
 					index={index}
-					video={item}
+					video={video}
 					onClickVideo={this.props.onClickVideo}
 					showThumbnail={this.props.showThumbnails}
 					thumbnailQuality={this.props.thumbnailQuality}>

@@ -44,7 +44,7 @@ export default class VideoAppScreen extends React.Component {
 
 	onEnd(event) {
 		console.log('onEnd', event, this.state);
-		this.nextVideo();
+		this.playNextVideo();
 	}
 
 	onError(event) {
@@ -63,9 +63,22 @@ export default class VideoAppScreen extends React.Component {
 		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
 	}
 
+	setNextVideo(video, index) {
+		this.setState(
+			update(this.state, {
+				playlist: {
+					$splice: [
+						[index, 1],
+						[1, 0, video],
+					],
+				},
+			}),
+			::this.setSessionPlaylist
+		);
+	}
+
 	addVideo(video) {
-		console.log('addVideo', video, this.state);
-		// check if video is not already in the playlist (react doesn't like children with the same key)
+		// this check doesn't work when two videos get added very rapidly after eachother
 		if (this.state.playlist.indexOf(video) === -1) {
 			this.setState(
 				update(this.state, {
@@ -79,31 +92,31 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	deleteVideo(video, index) {
-		console.log('deleteVideo', video, this.state);
 		this.setState(
 			update(this.state, {
 				playlist: {
-					$splice: [[index, 1]],
+					$splice: [
+						[index, 1],
+					],
 				},
 			}),
 			::this.setSessionPlaylist
 		);
 	}
 
-	nextVideo() {
-		console.log('nextVideo');
-		this.deleteVideo({}, 0);
+	playNextVideo() {
+		this.deleteVideo(this.state.playlist[0], 0);
 	}
 
 	updateProgressBar() {
-		// don't know if this is any good (repeatedly calling setState...)
+		// don't think this is any good (calling setState repeatedly...)
 		this.setState({ progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100 });
 		if (this.youtube.getPlayerState() === YT.PlayerState.PLAYING) {
 			setTimeout(::this.updateProgressBar, 250);
 		}
 	}
 
-	scaleVideo() {
+	togglePlayerFill() {
 		this.setState({ fill: !this.state.fill });
 	}
 
@@ -142,7 +155,7 @@ export default class VideoAppScreen extends React.Component {
 		const playerClass = classNames({
 			fill: this.state.fill,
 		});
-		const scaleBtnClass = classNames({
+		const fillBtnClass = classNames({
 			'pointer': true,
 			'fa': true,
 			'fa-compress': this.state.fill,
@@ -170,12 +183,13 @@ export default class VideoAppScreen extends React.Component {
 				</div>
 
 				<VideoList id="playlist" list={this.state.playlist}>
-					<div className="delete-button" onClick={::this.deleteVideo}><i className="fa fa-times"></i></div>
+					<span className="play-next-button" onClick={::this.setNextVideo}><i className="fa fa-rotate-270 fa-step-forward"></i></span>
+					<span className="delete-button" onClick={::this.deleteVideo}><i className="fa fa-times"></i></span>
 				</VideoList>
 				<Search id="search" onClickVideo={::this.addVideo} />
 
-				<div id="button-wrapper">
-					<i className={scaleBtnClass} onClick={::this.scaleVideo}></i>
+				<div id="player-button-wrapper">
+					<i className={fillBtnClass} onClick={::this.togglePlayerFill}></i>
 					<span>/add/{room}</span>
 				</div>
 

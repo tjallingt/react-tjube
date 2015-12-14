@@ -75,11 +75,15 @@ body {
 	cursor: pointer;
 }
 
-.video-list-item .delete-button {
-	cursor: pointer;
+.video-list-item .button-wrapper {
 	float: right;
 	position: relative;
 	top: -10px;
+}
+
+.video-list-item .button-wrapper > span {
+	cursor: pointer;
+	margin-right: 10px;
 }
 
 #playlist {
@@ -89,8 +93,12 @@ body {
 	width: 300px;
 }
 
-#playlist>.video-list-item:first-child .delete-button .fa-times:before {
+#playlist>.video-list-item:nth-child(1) .delete-button .fa-times:before {
 	content: "\f051"; /* fa-step-forward */
+}
+
+#playlist>.video-list-item:nth-child(-n+2) .play-next-button {
+	display: none;
 }
 
 #progress-bar {
@@ -99,7 +107,7 @@ body {
 	width: 100vw;
 }
 
-#button-wrapper {
+#player-button-wrapper {
 	position: absolute;
 	left: 10px;
 	bottom: 20px;
