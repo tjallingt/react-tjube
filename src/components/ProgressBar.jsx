@@ -24,9 +24,9 @@ export default class ProgressBar extends React.Component {
 	}
 
 	handleClick(event) {
-		let position = event.clientX - this.wrapper.offsetLeft;
-		let percentage = position / this.wrapper.offsetWidth;
-		let time = this.props.youtube.getDuration() * percentage;
+		const position = event.clientX - this.wrapper.offsetLeft;
+		const percentage = position / this.wrapper.offsetWidth;
+		const time = this.props.youtube.getDuration() * percentage;
 		this.props.youtube.seekTo(time, true);
 	}
 
