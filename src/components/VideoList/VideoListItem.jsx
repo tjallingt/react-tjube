@@ -22,13 +22,13 @@ export default class VideoListItem extends React.Component {
 	}
 
 	handleClickVideo(event) {
-		this.props.onClickVideo(this.props.video, this.props.index, event);
+		this.props.onClickVideo({ ...this.props.video }, this.props.index, event);
 	}
 
 	infectClick(element) {
 		if (element.props.onClick) {
 			return React.cloneElement(element, {
-				onClick: (event) => element.props.onClick(this.props.video, this.props.index, event),
+				onClick: (event) => element.props.onClick({ ...this.props.video }, this.props.index, event),
 			});
 		}
 		return element;

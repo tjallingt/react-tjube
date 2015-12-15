@@ -78,17 +78,15 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	addVideo(video) {
-		// this check doesn't work when two videos get added very rapidly after eachother
-		if (this.state.playlist.indexOf(video) === -1) {
-			this.setState(
-				update(this.state, {
-					playlist: {
-						$push: [video],
-					},
-				}),
-				::this.setSessionPlaylist
-			);
-		}
+		video.key += Date.now(); // make key unique (unless added multiple times in 1 millisecond)
+		this.setState(
+			update(this.state, {
+				playlist: {
+					$push: [video],
+				},
+			}),
+			::this.setSessionPlaylist
+		);
 	}
 
 	deleteVideo(video, index) {

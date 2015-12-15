@@ -32,7 +32,7 @@ export default class VideoList extends React.Component {
 		const list = this.props.list.map((video, index) => {
 			return (
 				<VideoListItem
-					key={video.id}
+					key={video.key}
 					index={index}
 					video={video}
 					onClickVideo={this.props.onClickVideo}
