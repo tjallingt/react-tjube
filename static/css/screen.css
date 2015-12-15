@@ -101,9 +101,23 @@ body {
 }
 
 #progress-bar {
+	cursor: pointer;
 	position: fixed;
 	bottom: 0px;
 	width: 100vw;
+	height: 20px;
+}
+
+#progress-bar .progress {
+	position: absolute;
+	background: #F00;
+	bottom: 0px;
+	height: 25%;
+	transition: height 250ms;
+}
+
+#progress-bar:hover .progress {
+	height: 50%;
 }
 
 #player-button-wrapper {

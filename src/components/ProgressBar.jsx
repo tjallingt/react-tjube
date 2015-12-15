@@ -31,20 +31,9 @@ export default class ProgressBar extends React.Component {
 	}
 
 	render() {
-		const styles = {
-			wrapper: {},
-			progress: {
-				backgroundColor: '#F00',
-				width: '0%',
-				height: 5,
-			},
-		};
-
-		Object.assign(styles.wrapper, this.props.style);
-
 		return (
-			<div id={this.props.id} style={styles.wrapper} ref={(ref) => this.wrapper = ref} onClick={::this.handleClick}>
-				<div ref={(ref) => this.progress = ref} style={styles.progress}></div>
+			<div id={this.props.id} style={this.props.style} ref={(ref) => this.wrapper = ref} onClick={::this.handleClick}>
+				<div className="progress" ref={(ref) => this.progress = ref}></div>
 			</div>
 		);
 	}
