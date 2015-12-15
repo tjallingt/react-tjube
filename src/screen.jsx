@@ -23,6 +23,7 @@ export default class VideoAppScreen extends React.Component {
 	}
 
 	state = {
+		youtube: {},
 		playlist: [],
 		fill: false,
 		progress: 0,
@@ -30,12 +31,11 @@ export default class VideoAppScreen extends React.Component {
 
 	onReady(event) {
 		console.log('onReady', event, this.state);
-		this.youtube = event.target;
+		this.setState({ youtube: event.target });
 	}
 
 	onPlay(event) {
 		console.log('onPlay', event, this.state);
-		this.updateProgressBar();
 	}
 
 	onPause(event) {
@@ -106,14 +106,6 @@ export default class VideoAppScreen extends React.Component {
 		this.deleteVideo(this.state.playlist[0], 0);
 	}
 
-	updateProgressBar() {
-		// don't think this is any good (calling setState repeatedly...)
-		this.setState({ progress: (this.youtube.getCurrentTime() / this.youtube.getDuration()) * 100 });
-		if (this.youtube.getPlayerState() === YT.PlayerState.PLAYING) {
-			setTimeout(::this.updateProgressBar, 250);
-		}
-	}
-
 	togglePlayerFill() {
 		this.setState({ fill: !this.state.fill });
 	}
@@ -173,7 +165,7 @@ export default class VideoAppScreen extends React.Component {
 					onEnd={::this.onEnd}
 					onError={::this.onError}
 				/>
-				<ProgressBar id="progress-bar" now={this.state.progress} />
+				<ProgressBar id="progress-bar" youtube={this.state.youtube} />
 
 				<div id="title-wrapper">
 					<div id="title">{title}</div>
