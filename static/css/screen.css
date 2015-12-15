@@ -57,7 +57,7 @@ body {
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	width: 300px;
+	width: 20%;
 }
 
 #search-bar {
@@ -89,7 +89,23 @@ body {
 	position: absolute;
 	top: 20px;
 	right: 0px;
-	width: 300px;
+	width: 5%;
+	opacity: .25;
+	transition: width 250ms, opacity 250ms;
+}
+
+
+#playlist:hover {
+	width: 20%;
+	opacity: 1;
+}
+
+#playlist>.video-list-item>* {
+	opacity: 0;
+}
+
+#playlist:hover>.video-list-item>*  {
+	opacity: 1;
 }
 
 #playlist>.video-list-item:nth-child(1) .delete-button .fa-times:before {
