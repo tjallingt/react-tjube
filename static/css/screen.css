@@ -80,11 +80,6 @@ body {
 	right: 0px;
 }
 
-.video-list-item .button-wrapper > span {
-	cursor: pointer;
-	margin-right: 10px;
-}
-
 #playlist {
 	position: absolute;
 	top: 20px;

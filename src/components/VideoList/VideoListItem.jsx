@@ -25,9 +25,13 @@ export default class VideoListItem extends React.Component {
 		this.props.onClickVideo({ ...this.props.video }, this.props.index, event);
 	}
 
-	infectClick(element) {
+	cloneButton(element) {
 		if (element.props.onClick) {
 			return React.cloneElement(element, {
+				style: {
+					cursor: 'pointer',
+					marginRight: '10px',
+				},
 				onClick: (event) => element.props.onClick({ ...this.props.video }, this.props.index, event),
 			});
 		}
@@ -42,9 +46,9 @@ export default class VideoListItem extends React.Component {
 				whiteSpace: 'nowrap',
 				overflow: 'hidden',
 			},
-			buttons: {
+			buttonWrapper: {
 				position: 'absolute',
-			},
+			}
 		};
 
 		if (this.props.showThumbnail === true) {
@@ -60,7 +64,7 @@ export default class VideoListItem extends React.Component {
 
 		let children;
 		if (React.Children.count(this.props.children) > 0) {
-			children = <div className="button-wrapper" style={styles.buttons}>{React.Children.map(this.props.children, ::this.infectClick)}</div>;
+			children = <div className="button-wrapper" style={styles.buttonWrapper}>{React.Children.map(this.props.children, ::this.cloneButton)}</div>;
 		}
 
 		return (
