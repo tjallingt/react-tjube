@@ -65,7 +65,6 @@ body {
 }
 
 .video-list-item {
-	position: relative;
 	padding: 5px;
 	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 	background-color: #000;
@@ -77,7 +76,6 @@ body {
 }
 
 .video-list-item .button-wrapper {
-	position: absolute;
 	top: 15px;
 	right: 0px;
 }

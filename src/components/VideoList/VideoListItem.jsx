@@ -37,9 +37,13 @@ export default class VideoListItem extends React.Component {
 	render() {
 		const styles = {
 			item: {
+				position: 'relative',
 				textOverflow: 'ellipsis',
 				whiteSpace: 'nowrap',
 				overflow: 'hidden',
+			},
+			buttons: {
+				position: 'absolute',
 			},
 		};
 
@@ -54,15 +58,16 @@ export default class VideoListItem extends React.Component {
 
 		Object.assign(styles.item, this.props.style);
 
-		const children = React.Children.map(this.props.children, ::this.infectClick);
+		let children;
+		if (React.Children.count(this.props.children) > 0) {
+			children = <div className="button-wrapper" style={styles.buttons}>{React.Children.map(this.props.children, ::this.infectClick)}</div>;
+		}
 
 		return (
 			<li className="video-list-item" style={styles.item} onClick={::this.handleClickVideo}>
 				{this.props.video.title}<br />
 				by {this.props.video.channelTitle}
-				<div className="button-wrapper">
-					{children}
-				</div>
+				{children}
 			</li>
 		);
 	}
