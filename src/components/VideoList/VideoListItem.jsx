@@ -48,7 +48,7 @@ export default class VideoListItem extends React.Component {
 			},
 			buttonWrapper: {
 				position: 'absolute',
-			}
+			},
 		};
 
 		if (this.props.showThumbnail === true) {
