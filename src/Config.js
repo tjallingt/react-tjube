@@ -3,7 +3,7 @@
 const Config = {
 	youtubeApi: {
 		url: 'https://www.googleapis.com/youtube/v3/',
-		key: 'AIzaSyC-lsLJ5p1Iegs3xOtY1C-N5-qB6mlaKEI',
+		key: 'AIzaSyCIPY7lwNyrTFIQmvMPsFHWh54IA2gMvHY',
 	},
 };
 
