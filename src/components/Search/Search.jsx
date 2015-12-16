@@ -1,6 +1,7 @@
 /* global $ */
 import React from 'react';
 
+import config from '../../Config.js';
 import filterYoutubeData from '../../FilterYoutubeData.js';
 
 import SearchBar from './SearchBar';
@@ -18,8 +19,6 @@ export default class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.apiKey = 'AIzaSyC-lsLJ5p1Iegs3xOtY1C-N5-qB6mlaKEI';
-		this.apiUrl = 'https://www.googleapis.com/youtube/v3/';
 		this.searchTimeout = null;
 	}
 
@@ -50,7 +49,7 @@ export default class Search extends React.Component {
 	}
 
 	search() {
-		$.getJSON(this.apiUrl + 'search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=' + this.apiKey + '&q=' + this.state.searchText, (json) => {
+		$.getJSON(config.youtubeApi.url + 'search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=' + config.youtubeApi.key + '&q=' + this.state.searchText, (json) => {
 			const videos = json.items.map((item) => {
 				return filterYoutubeData(item);
 			});
