@@ -1,7 +1,7 @@
 /* global $ */
 import React from 'react';
 
-import filterYoutubeData from '../../filterYoutubeData.js';
+import filterYoutubeData from '../../FilterYoutubeData.js';
 
 import SearchBar from './SearchBar';
 import VideoList from '../VideoList/VideoList';
