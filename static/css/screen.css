@@ -15,6 +15,10 @@ body {
 	color: #FFF;
 }
 
+a {
+	color: white;
+}
+
 .pointer {
 	cursor: pointer;
 }

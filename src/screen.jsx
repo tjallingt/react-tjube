@@ -183,9 +183,11 @@ export default class VideoAppScreen extends React.Component {
 
 				<div id="player-button-wrapper">
 					<i className={fillBtnClass} onClick={::this.togglePlayerFill}></i>
+					<a href="/about" target="_blank">
+						<i className="fa fa-question-circle"></i>
+					</a>
 					<span>{room}</span>
 				</div>
-
 			</div>
 		);
 	}
