@@ -153,7 +153,7 @@ export default class VideoAppScreen extends React.Component {
 		});
 		const subtitleClass = classNames({
 			'skip-video': (this.state.playlist.length > 0),
-		})
+		});
 
 		return (
 			<div>
