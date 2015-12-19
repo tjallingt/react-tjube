@@ -114,7 +114,7 @@ export default class VideoAppScreen extends React.Component {
 		// set default values
 		let videoId = '';
 		let title = 'Add videos to the playlist to begin watching!';
-		let subtitle = 'Add videos remotely at ' + location.host + '/add/' + room;
+		let subtitle = 'Add videos remotely at ' + location.host + '/' + room;
 
 		// alter variables
 		if (this.state.playlist.length > 0) {
@@ -183,7 +183,7 @@ export default class VideoAppScreen extends React.Component {
 
 				<div id="player-button-wrapper">
 					<i className={fillBtnClass} onClick={::this.togglePlayerFill}></i>
-					<span>/add/{room}</span>
+					<span>{room}</span>
 				</div>
 
 			</div>

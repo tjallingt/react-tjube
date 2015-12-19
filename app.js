@@ -54,6 +54,11 @@ app.get('/about', (req, res) => {
 	res.send('about');
 });
 
+// Redirect to remote
+app.get(`/:room(${roomIdRegex})`, (req, res) => {
+	res.redirect('/add/' + req.params.room);
+});
+
 // Show public screen
 app.get(`/room/:room(${roomIdRegex})`, (req, res) => {
 	res.render('template.mustache', { view: 'screen', room: req.params.room });
