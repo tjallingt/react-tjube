@@ -2,3 +2,4 @@ node_modules
 .sublime-gulp.cache
 static/js/remote.js
 static/js/screen.js
+src/Config.js
