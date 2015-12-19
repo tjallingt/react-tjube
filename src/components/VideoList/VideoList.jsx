@@ -37,7 +37,8 @@ export default class VideoList extends React.Component {
 					video={video}
 					onClickVideo={this.props.onClickVideo}
 					showThumbnail={this.props.showThumbnails}
-					thumbnailQuality={this.props.thumbnailQuality}>
+					thumbnailQuality={this.props.thumbnailQuality}
+				>
 					{this.props.children}
 				</VideoListItem>
 			);
