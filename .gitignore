@@ -1,4 +1,5 @@
 node_modules
+npm-debug.log
 .sublime-gulp.cache
 static/js/remote.js
 static/js/screen.js
