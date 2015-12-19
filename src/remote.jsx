@@ -9,12 +9,19 @@ import Search from './components/Search/Search';
 export default class VideoAppRemote extends React.Component {
 	constructor(props) {
 		super(props);
-		this.socket = io.connect(window.location.origin);
-		this.socket.emit('registerRoom', room);
+		this.socket = io();
+		this.socket.on('connect', () => {
+			this.socket.emit('registerRoom', room);
+		});
+		this.socket.on('disconnect', () => {
+			if (confirm('You got disconnected!\nReload the page?')) {
+				location.reload();
+			}
+		});
 	}
 
 	addVideo(video) {
-		if (confirm(`Do you want to add "${video.title}" by "${video.channelTitle}" to the playlist?`)) {
+		if (confirm(`Do you want to add\n"${video.title}" by "${video.channelTitle}"\nto the playlist?`)) {
 			this.socket.emit('cueVideo', video);
 		}
 	}
