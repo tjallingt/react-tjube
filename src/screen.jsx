@@ -151,6 +151,9 @@ export default class VideoAppScreen extends React.Component {
 			'fa-compress': this.state.fill,
 			'fa-expand': !this.state.fill,
 		});
+		const subtitleClass = classNames({
+			'skip-video': (this.state.playlist.length > 0),
+		})
 
 		return (
 			<div>
@@ -169,7 +172,7 @@ export default class VideoAppScreen extends React.Component {
 
 				<div id="title-wrapper">
 					<div id="title">{title}</div>
-					<div id="subtitle">{subtitle}</div>
+					<div id="subtitle" className={subtitleClass} onClick={::this.playNextVideo}>{subtitle}</div>
 				</div>
 
 				<VideoList id="playlist" list={this.state.playlist}>

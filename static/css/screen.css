@@ -53,6 +53,20 @@ body {
 	opacity: 0.75;
 }
 
+#subtitle.skip-video {
+	cursor: pointer;
+}
+
+#subtitle.skip-video::before {
+	font: normal normal normal 14px/1 FontAwesome;
+	content: "\f051";
+	margin-right: 10px;
+}
+
+#subtitle.skip-video:hover {
+	opacity: 1;
+}
+
 #search {
 	position: absolute;
 	top: 0px;
