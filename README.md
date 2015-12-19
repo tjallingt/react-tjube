@@ -1,16 +1,19 @@
 # React-Tjube
-ReactJS port of the tjube.ninja party video player
+ReactJS port of the tjube.ninja party video player.
+Tjube.ninja is a party video-player that allows people to add videos to one or more screens using remotes.
+The screens and remotes can all be accessed through the tjube.ninja webapp on any device.
 
-#ToDo
-- do css styling
-  - move style to stylesheet
-  - add font-awesome (?)
-- modularize Playlist component
-  - make sortable
-  - add remove from playlist button
-- add title of current video
-  - upcomming video title/skip like in tjube.ninja (?)
-- more...?
+Demo: http://tjube.ninja
+Inspired by http://protu.be/
 
-#Licence
+## todo
+* Add a new about page that explains how to use it
+* Replace the `confirm()`s in the remote with custom popups
+* Try adding enter and exit animations to the VideoList
+* Add an introduction page on route `/`
+* Add route `/:room` that redirects to `/add/:room`
+* Clean searchbar style
+
+
+##Licence
 MIT
