@@ -41,6 +41,7 @@
     "gulp-if": "^2.0.0",
     "mustache-express": "^1.2.2",
     "react": "^0.14.3",
+    "react-addons-css-transition-group": "^0.14.3",
     "react-addons-update": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-youtube": "^5.0.0",

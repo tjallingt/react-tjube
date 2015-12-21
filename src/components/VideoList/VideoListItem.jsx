@@ -5,15 +5,12 @@ export default class VideoListItem extends React.Component {
 		style: React.PropTypes.object,
 		index: React.PropTypes.number.isRequired,
 		video: React.PropTypes.object.isRequired,
-		showThumbnail: React.PropTypes.bool,
 		thumbnailQuality: React.PropTypes.string,
 		onClickVideo: React.PropTypes.func,
 		children: React.PropTypes.node,
 	};
 
 	static defaultProps = {
-		showThumbnail: true,
-		thumbnailQuality: 'medium',
 		onClickVideo: () => {},
 	};
 
@@ -51,7 +48,7 @@ export default class VideoListItem extends React.Component {
 			},
 		};
 
-		if (this.props.showThumbnail === true) {
+		if (this.props.thumbnailQuality) {
 			Object.assign(styles.item, {
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',

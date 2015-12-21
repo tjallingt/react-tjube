@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import VideoListItem from './VideoListItem';
 
 export default class VideoList extends React.Component {
@@ -7,13 +9,14 @@ export default class VideoList extends React.Component {
 		style: React.PropTypes.object,
 		list: React.PropTypes.array.isRequired,
 		onClickVideo: React.PropTypes.func,
-		showThumbnails: React.PropTypes.bool,
 		thumbnailQuality: React.PropTypes.string,
+		animate: React.PropTypes.bool,
 		children: React.PropTypes.node,
 	};
 
 	static defaultProps = {
 		onClickVideo: () => {},
+		animate: false,
 	};
 
 	constructor(props) {
@@ -29,7 +32,7 @@ export default class VideoList extends React.Component {
 
 		Object.assign(styles.list, this.props.style);
 
-		const list = this.props.list.map((video, index) => {
+		let list = this.props.list.map((video, index) => {
 			return (
 				<VideoListItem
 					key={video.key}
@@ -43,6 +46,18 @@ export default class VideoList extends React.Component {
 				</VideoListItem>
 			);
 		});
+
+		if (this.props.animate) {
+			list = <ReactCSSTransitionGroup
+					transitionName="fade"
+					transitionAppear={true}
+					transitionAppearTimeout={500}
+					transitionEnterTimeout={500}
+					transitionLeaveTimeout={500}
+					>
+						{list}
+					</ReactCSSTransitionGroup>;
+		}
 
 		return (
 			<ul id={this.props.id} style={styles.list}>

@@ -175,7 +175,7 @@ export default class VideoAppScreen extends React.Component {
 					<div id="subtitle" className={subtitleClass} onClick={::this.playNextVideo}>{subtitle}</div>
 				</div>
 
-				<VideoList id="playlist" list={this.state.playlist}>
+				<VideoList id="playlist" list={this.state.playlist} thumbnailQuality="medium" animate={true}>
 					<span className="play-next-button" onClick={::this.setNextVideo}><i className="fa fa-rotate-270 fa-step-forward"></i></span>
 					<span className="delete-button" onClick={::this.deleteVideo}><i className="fa fa-times"></i></span>
 				</VideoList>
