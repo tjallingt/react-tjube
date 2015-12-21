@@ -10,13 +10,12 @@ export default class VideoList extends React.Component {
 		list: React.PropTypes.array.isRequired,
 		onClickVideo: React.PropTypes.func,
 		thumbnailQuality: React.PropTypes.string,
-		animate: React.PropTypes.bool,
+		transitionName: React.PropTypes.string,
 		children: React.PropTypes.node,
 	};
 
 	static defaultProps = {
 		onClickVideo: () => {},
-		animate: false,
 	};
 
 	constructor(props) {
@@ -39,7 +38,6 @@ export default class VideoList extends React.Component {
 					index={index}
 					video={video}
 					onClickVideo={this.props.onClickVideo}
-					showThumbnail={this.props.showThumbnails}
 					thumbnailQuality={this.props.thumbnailQuality}
 				>
 					{this.props.children}
@@ -47,16 +45,18 @@ export default class VideoList extends React.Component {
 			);
 		});
 
-		if (this.props.animate) {
-			list = <ReactCSSTransitionGroup
-					transitionName="fade"
-					transitionAppear={true}
+		if (this.props.transitionName) {
+			list = (
+				<ReactCSSTransitionGroup
+					transitionName={this.props.transitionName}
+					transitionAppear
 					transitionAppearTimeout={500}
 					transitionEnterTimeout={500}
 					transitionLeaveTimeout={500}
-					>
-						{list}
-					</ReactCSSTransitionGroup>;
+				>
+					{list}
+				</ReactCSSTransitionGroup>
+			);
 		}
 
 		return (
