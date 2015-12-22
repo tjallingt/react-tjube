@@ -1,7 +1,7 @@
-/* global $ */
 import React from 'react';
 
 import config from '../../Config.js';
+import Http from '../../Http.js';
 import filterYoutubeData from '../../FilterYoutubeData.js';
 
 import SearchBar from './SearchBar';
@@ -49,14 +49,24 @@ export default class Search extends React.Component {
 	}
 
 	search() {
-		$.getJSON(config.youtubeApi.url + 'search?videoEmbeddable=true&part=snippet&type=video&maxResults=20&key=' + config.youtubeApi.key + '&q=' + this.state.searchText, (json) => {
-			const videos = json.items.map((item) => {
-				return filterYoutubeData(item);
+		new Http(config.youtubeApi.url + '/search')
+			.get({
+				videoEmbeddable: true,
+				part: 'snippet',
+				type: 'video',
+				maxResults: 20,
+				key: config.youtubeApi.key,
+				q: this.state.searchText,
+			})
+			.then((response) => {
+				const json = JSON.parse(response);
+				const videos = json.items.map((item) => {
+					return filterYoutubeData(item);
+				});
+				this.setState({
+					searchResults: videos,
+				});
 			});
-			this.setState({
-				searchResults: videos,
-			});
-		});
 	}
 
 	render() {
