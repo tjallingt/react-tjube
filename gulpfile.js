@@ -19,7 +19,9 @@ var buffer 		= require('vinyl-buffer');
 var del 		= require('del');
 
 // exports whole application to dist folder
-gulp.task('default', ['set-production', 'build-screen', 'build-remote']);
+gulp.task('default', ['set-production', 'build-debug']);
+
+gulp.task('build-debug', ['build-screen', 'build-remote']);
 
 gulp.task('set-production', function() {
     process.env.NODE_ENV = 'production';
