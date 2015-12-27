@@ -50,8 +50,7 @@ app.get('/', (req, res) => {
 
 // Show about page
 app.get('/about', (req, res) => {
-	// res.sendFile( __dirname + '/about.html' );
-	res.send('about');
+	res.sendFile(__dirname + '/views/about.html');
 });
 
 // Redirect to remote

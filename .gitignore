@@ -3,4 +3,5 @@ npm-debug.log
 .sublime-gulp.cache
 static/js/remote.js
 static/js/screen.js
+static/webm/
 src/Config.js
