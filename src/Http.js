@@ -47,7 +47,7 @@ export default class http {
 	}
 
 	serialize(obj) {
-		let params;
+		let params = '';
 		let count = 0;
 		for (const key in obj) {
 			if (obj.hasOwnProperty(key)) {

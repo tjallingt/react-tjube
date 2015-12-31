@@ -66,6 +66,9 @@ export default class Search extends React.Component {
 				this.setState({
 					searchResults: videos,
 				});
+			})
+			.catch((response) => {
+				console.log(response);
 			});
 	}
 
