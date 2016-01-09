@@ -46,9 +46,9 @@ function bundle(entry) {
 	return browserify({ 
 		entries: entry,
 		extensions: ['.jsx'],
-		basedir: './src',
-		debug: true
+		basedir: './src'
 	})
+	.exclude('ws')
 	.transform(babelify.configure({ presets: ["es2015", "react", "stage-0"] }))
 	.bundle()
 	.on('error', gutil.log)
