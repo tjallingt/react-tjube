@@ -2,7 +2,8 @@
 'use strict';
 /*
 	Node server for Tjube.Ninja.
-	The server generates a unique room id when a user connects and allows the remotes to send data to the screen(s).
+	The server generates a unique room id when a user connects.
+	This id allows the remotes to send data to the screen(s).
 */
 
 const express = require('express');
@@ -21,13 +22,17 @@ const roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
 server.listen(port);
 console.log(`server started on port ${port}`);
 
-// Tries 10 times to generate a unique (not currently in use) room id of a length specified by roomIdLength
-function generateUniqueRoomId() {
+// Tries 10 times to generate a unique room id of a specified length
+function generateUniqueRoomId(length) {
 	let id = '';
 	for (let i = 0; i < 10; i++) {
 		const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
-		for (let j = 0; j < roomIdLength; j++) id += possible.charAt(Math.floor(Math.random() * possible.length));
-		if (!io.sockets.adapter.rooms.hasOwnProperty(id)) return id;
+		for (let j = 0; j < length; j++) {
+			id += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		if (!io.sockets.adapter.rooms.hasOwnProperty(id)) {
+			return id;
+		}
 	}
 	return false;
 }
@@ -43,7 +48,7 @@ app.engine('mustache', mustache());
 
 // Show room select/create screen
 app.get('/', (req, res) => {
-	const roomId = generateUniqueRoomId();
+	const roomId = generateUniqueRoomId(roomIdLength);
 	if (roomId) res.redirect('/room/' + roomId);
 	else res.status(503).send('Server is crowded, please try again later :)');
 });
@@ -80,7 +85,7 @@ app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 });
 
 // Communicate with clients
-io.on('connection', (socket) => {
+io.on('connect', (socket) => {
 	socket.on('registerRoom', (room) => {
 		socket.room = room;
 		socket.join(socket.room);

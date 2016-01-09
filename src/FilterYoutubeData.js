@@ -6,7 +6,9 @@ const YTTYPE = {
 };
 
 function filterYoutubeData(data) {
-	if (data.kind === YTTYPE.VIDEO || (data.kind === YTTYPE.SEARCHRESULT && data.id.kind === YTTYPE.VIDEO)) {
+	if (data.kind === YTTYPE.VIDEO ||
+		(data.kind === YTTYPE.SEARCHRESULT && data.id.kind === YTTYPE.VIDEO)
+	) {
 		const newData = {
 			key: data.id,
 			id: data.id,

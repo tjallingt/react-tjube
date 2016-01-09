@@ -61,7 +61,14 @@ export default class VideoListItem extends React.Component {
 
 		let children;
 		if (React.Children.count(this.props.children) > 0) {
-			children = <div className="button-wrapper" style={styles.buttonWrapper}>{React.Children.map(this.props.children, ::this.cloneButton)}</div>;
+			children = (
+				<div
+					className="button-wrapper"
+					style={styles.buttonWrapper}
+				>
+					{React.Children.map(this.props.children, ::this.cloneButton)}
+				</div>
+			);
 		}
 
 		return (

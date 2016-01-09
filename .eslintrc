@@ -4,6 +4,8 @@
 	"rules": {
 		"indent": [2, "tab"],
 		"react/jsx-indent-props": [2, "tab"],
-		"strict": [0],
+		"react/jsx-no-bind": 1,
+		"no-param-reassign": 1,
+		"strict": 0,
 	}
 }

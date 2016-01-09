@@ -66,14 +66,30 @@ export default class SearchBar extends React.Component {
 		let button;
 
 		if (this.props.searchText !== '') {
-			button = <button type="button" style={styles.button} onClick={::this.clearSearch}><i className="fa fa-times"></i></button>;
+			button = (
+				<button
+					type="button"
+					style={styles.button}
+					onClick={::this.clearSearch}
+				>
+					<i className="fa fa-times"></i>
+				</button>
+			);
 		}
 
 		Object.assign(styles.searchbar, this.props.style);
 
 		return (
 			<div id={this.props.id} style={styles.searchbar}>
-				<input style={styles.input} type="text" ref={(ref) => this.searchInput = ref} onChange={::this.handleChange} onKeyPress={::this.handleKeyPress} value={this.props.searchText} placeholder="Search for videos" />
+				<input
+					style={styles.input}
+					type="text"
+					ref={(ref) => this.searchInput = ref}
+					onChange={::this.handleChange}
+					onKeyPress={::this.handleKeyPress}
+					value={this.props.searchText}
+					placeholder="Search for videos"
+				/>
 				{button}
 			</div>
 		);

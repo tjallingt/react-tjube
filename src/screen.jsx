@@ -146,8 +146,8 @@ export default class VideoAppScreen extends React.Component {
 			fill: this.state.fill,
 		});
 		const fillBtnClass = classNames({
-			'pointer': true,
-			'fa': true,
+			pointer: true,
+			fa: true,
 			'fa-compress': this.state.fill,
 			'fa-expand': !this.state.fill,
 		});
@@ -168,25 +168,63 @@ export default class VideoAppScreen extends React.Component {
 					onEnd={::this.onEnd}
 					onError={::this.onError}
 				/>
-				<ProgressBar id="progress-bar" youtube={this.state.youtube} />
+				<ProgressBar
+					id="progress-bar"
+					youtube={this.state.youtube}
+				/>
 
 				<div id="title-wrapper">
-					<div id="title">{title}</div>
-					<div id="subtitle" className={subtitleClass} onClick={::this.playNextVideo}>{subtitle}</div>
+					<div id="title">
+						{title}
+					</div>
+					<div
+						id="subtitle"
+						className={subtitleClass}
+						onClick={::this.playNextVideo}
+					>
+						{subtitle}
+					</div>
 				</div>
 
-				<VideoList id="playlist" list={this.state.playlist} thumbnailQuality="medium" transitionName="fade">
-					<span className="play-next-button" onClick={::this.setNextVideo}><i className="fa fa-rotate-270 fa-step-forward"></i></span>
-					<span className="delete-button" onClick={::this.deleteVideo}><i className="fa fa-times"></i></span>
+				<VideoList
+					id="playlist"
+					list={this.state.playlist}
+					thumbnailQuality="medium"
+					transitionName="fade"
+				>
+					<span
+						className="play-next-button"
+						onClick={::this.setNextVideo}
+					>
+						<i className="fa fa-rotate-270 fa-step-forward"/>
+					</span>
+
+					<span
+						className="delete-button"
+						onClick={::this.deleteVideo}
+					>
+						<i className="fa fa-times"/>
+					</span>
 				</VideoList>
-				<Search id="search" onClickVideo={::this.addVideo} />
+
+				<Search
+					id="search"
+					onClickVideo={::this.addVideo}
+				/>
 
 				<div id="player-button-wrapper">
-					<i className={fillBtnClass} onClick={::this.togglePlayerFill}></i>
+					<i
+						className={fillBtnClass}
+						onClick={::this.togglePlayerFill}
+					/>
+
 					<a href="/about" target="_blank">
-						<i className="fa fa-question-circle"></i>
+						<i className="fa fa-question-circle"/>
 					</a>
-					<span>{room}</span>
+
+					<span>
+						{room}
+					</span>
 				</div>
 			</div>
 		);
