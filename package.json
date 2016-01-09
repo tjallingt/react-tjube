@@ -11,6 +11,8 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "gulp",
+    "build": "gulp",
+    "debug": "gulp build-debug",
     "lint": "eslint --ext .js --ext .jsx app.js src"
   },
   "author": "tjallingt",
