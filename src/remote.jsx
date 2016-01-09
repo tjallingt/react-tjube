@@ -33,7 +33,10 @@ export default class VideoAppRemote extends React.Component {
 	render() {
 		return (
 			<div>
-				<Search id="search" onClickVideo={::this.addVideo} />
+				<Search
+					id="search"
+					onClickVideo={::this.addVideo}
+				/>
 			</div>
 		);
 	}

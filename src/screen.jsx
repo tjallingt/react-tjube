@@ -168,6 +168,7 @@ export default class VideoAppScreen extends React.Component {
 					onEnd={::this.onEnd}
 					onError={::this.onError}
 				/>
+
 				<ProgressBar
 					id="progress-bar"
 					youtube={this.state.youtube}
@@ -177,6 +178,7 @@ export default class VideoAppScreen extends React.Component {
 					<div id="title">
 						{title}
 					</div>
+
 					<div
 						id="subtitle"
 						className={subtitleClass}
@@ -218,7 +220,10 @@ export default class VideoAppScreen extends React.Component {
 						onClick={::this.togglePlayerFill}
 					/>
 
-					<a href="/about" target="_blank">
+					<a
+						href="/about"
+						target="_blank"
+					>
 						<i className="fa fa-question-circle"/>
 					</a>
 

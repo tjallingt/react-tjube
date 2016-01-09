@@ -74,15 +74,14 @@ export default class Search extends React.Component {
 
 	render() {
 		return (
-			<div
-				id={this.props.id}
-			>
+			<div id={this.props.id}>
 				<SearchBar
 					id="search-bar"
 					onChange={::this.handleChange}
 					onEnter={::this.handleEnter}
 					searchText={this.state.searchText}
 				/>
+
 				<VideoList
 					id="search-results"
 					onClickVideo={this.props.onClickVideo}

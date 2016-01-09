@@ -72,7 +72,11 @@ export default class VideoListItem extends React.Component {
 		}
 
 		return (
-			<li className="video-list-item" style={styles.item} onClick={::this.handleClickVideo}>
+			<li
+				className="video-list-item"
+				style={styles.item}
+				onClick={::this.handleClickVideo}
+			>
 				{this.props.video.title}<br />
 				by {this.props.video.channelTitle}
 				{children}

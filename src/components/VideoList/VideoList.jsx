@@ -60,7 +60,10 @@ export default class VideoList extends React.Component {
 		}
 
 		return (
-			<ul id={this.props.id} style={styles.list}>
+			<ul
+				id={this.props.id}
+				style={styles.list}
+			>
 				{list}
 			</ul>
 		);
