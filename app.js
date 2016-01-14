@@ -13,7 +13,7 @@ const io = require('socket.io')(server);
 
 const bodyParser = require('body-parser');
 const mustache = require('mustache-express');
-const filterYoutubeData = require('./src/FilterYoutubeData.js');
+const filterYoutubeData = require('./src/FilterYoutubeData');
 
 const port = 1337;
 const roomIdLength = 3;
