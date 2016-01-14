@@ -1,4 +1,3 @@
-/* eslint no-console: 0 */ // while in dev mode...
 /* global room, YT */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -30,33 +29,15 @@ export default class VideoAppScreen extends React.Component {
 	};
 
 	onReady(event) {
-		console.log('onReady', event, this.state);
 		this.setState({ youtube: event.target });
 	}
 
-	onPlay(event) {
-		console.log('onPlay', event, this.state);
-	}
-
-	onPause(event) {
-		console.log('onPause', event, this.state);
-	}
-
 	onEnd(event) {
-		console.log('onEnd', event, this.state);
 		this.playNextVideo();
 	}
 
-	onError(event) {
-		console.log('onError', event, this.state);
-	}
-
 	getSessionPlaylist() {
-		const playlist = JSON.parse(sessionStorage.getItem(room));
-		if (playlist) {
-			return playlist;
-		}
-		return [];
+		return JSON.parse(sessionStorage.getItem(room)) || [];
 	}
 
 	setSessionPlaylist() {
@@ -163,10 +144,7 @@ export default class VideoAppScreen extends React.Component {
 					videoId={videoId}
 					opts={opts}
 					onReady={::this.onReady}
-					onPlay={::this.onPlay}
-					onPause={::this.onPause}
 					onEnd={::this.onEnd}
-					onError={::this.onError}
 				/>
 
 				<ProgressBar
