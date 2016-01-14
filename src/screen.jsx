@@ -32,7 +32,7 @@ export default class VideoAppScreen extends React.Component {
 		this.setState({ youtube: event.target });
 	}
 
-	onEnd(event) {
+	onEnd() {
 		this.playNextVideo();
 	}
 
