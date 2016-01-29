@@ -19,21 +19,21 @@ export default class SearchBar extends React.Component {
 		super(props);
 	}
 
-	handleChange(event) {
+	handleChange = (event) => {
 		this.props.onChange(event.target.value);
-	}
+	};
 
-	handleKeyPress(event) {
+	handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
 			this.searchInput.blur();
 			this.props.onEnter(event);
 		}
-	}
+	};
 
-	clearSearch() {
+	clearSearch = () => {
 		this.props.onChange('');
 		this.searchInput.focus();
-	}
+	};
 
 	render() {
 		const styles = {
@@ -70,7 +70,7 @@ export default class SearchBar extends React.Component {
 				<button
 					type="button"
 					style={styles.button}
-					onClick={::this.clearSearch}
+					onClick={this.clearSearch}
 				>
 					<i className="fa fa-times"></i>
 				</button>
@@ -85,8 +85,8 @@ export default class SearchBar extends React.Component {
 					style={styles.input}
 					type="text"
 					ref={(ref) => this.searchInput = ref}
-					onChange={::this.handleChange}
-					onKeyPress={::this.handleKeyPress}
+					onChange={this.handleChange}
+					onKeyPress={this.handleKeyPress}
 					value={this.props.searchText}
 					placeholder="Search for videos"
 				/>

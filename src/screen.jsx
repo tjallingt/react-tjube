@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import io from 'socket.io-client';
 
 import YouTube from 'react-youtube';
-import ProgressBar from './components/ProgressBar';
+import ProgressBar from './components/ProgressBar/ProgressBar';
 import VideoList from './components/VideoList/VideoList';
 import Search from './components/Search/Search';
 
@@ -16,8 +16,8 @@ export default class VideoAppScreen extends React.Component {
 		super(props);
 		this.socket = io.connect(window.location.origin);
 		this.socket.emit('registerRoom', room);
-		this.socket.on('cueVideo', ::this.addVideo);
-		this.youtube = {};
+		this.socket.on('cueVideo', this.addVideo);
+		// set initial state from sessionStorage
 		this.state.playlist = this.getSessionPlaylist();
 	}
 
@@ -28,23 +28,23 @@ export default class VideoAppScreen extends React.Component {
 		progress: 0,
 	};
 
-	onReady(event) {
+	onReady = (event) => {
 		this.setState({ youtube: event.target });
-	}
+	};
 
-	onEnd() {
+	onEnd = () => {
 		this.playNextVideo();
-	}
+	};
 
-	getSessionPlaylist() {
+	getSessionPlaylist = () => {
 		return JSON.parse(sessionStorage.getItem(room)) || [];
-	}
+	};
 
-	setSessionPlaylist() {
+	setSessionPlaylist = () => {
 		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
-	}
+	};
 
-	setNextVideo(video, index) {
+	setNextVideo = (video, index) => {
 		this.setState(
 			update(this.state, {
 				playlist: {
@@ -54,11 +54,11 @@ export default class VideoAppScreen extends React.Component {
 					],
 				},
 			}),
-			::this.setSessionPlaylist
+			this.setSessionPlaylist
 		);
-	}
+	};
 
-	addVideo(video) {
+	addVideo = (video) => {
 		video.key += Date.now(); // make key unique (unless added multiple times in 1 millisecond)
 		this.setState(
 			update(this.state, {
@@ -66,11 +66,11 @@ export default class VideoAppScreen extends React.Component {
 					$push: [video],
 				},
 			}),
-			::this.setSessionPlaylist
+			this.setSessionPlaylist
 		);
-	}
+	};
 
-	deleteVideo(video, index) {
+	deleteVideo = (video, index) => {
 		this.setState(
 			update(this.state, {
 				playlist: {
@@ -79,17 +79,17 @@ export default class VideoAppScreen extends React.Component {
 					],
 				},
 			}),
-			::this.setSessionPlaylist
+			this.setSessionPlaylist
 		);
-	}
+	};
 
-	playNextVideo() {
+	playNextVideo = () => {
 		this.deleteVideo(this.state.playlist[0], 0);
-	}
+	};
 
-	togglePlayerFill() {
+	togglePlayerFill = () => {
 		this.setState({ fill: !this.state.fill });
-	}
+	};
 
 	render() {
 		// set default values
@@ -143,8 +143,8 @@ export default class VideoAppScreen extends React.Component {
 					className={playerClass}
 					videoId={videoId}
 					opts={opts}
-					onReady={::this.onReady}
-					onEnd={::this.onEnd}
+					onReady={this.onReady}
+					onEnd={this.onEnd}
 				/>
 
 				<ProgressBar
@@ -160,7 +160,7 @@ export default class VideoAppScreen extends React.Component {
 					<div
 						id="subtitle"
 						className={subtitleClass}
-						onClick={::this.playNextVideo}
+						onClick={this.playNextVideo}
 					>
 						{subtitle}
 					</div>
@@ -174,14 +174,14 @@ export default class VideoAppScreen extends React.Component {
 				>
 					<span
 						className="play-next-button"
-						onClick={::this.setNextVideo}
+						onClick={this.setNextVideo}
 					>
 						<i className="fa fa-rotate-270 fa-step-forward"/>
 					</span>
 
 					<span
 						className="delete-button"
-						onClick={::this.deleteVideo}
+						onClick={this.deleteVideo}
 					>
 						<i className="fa fa-times"/>
 					</span>
@@ -189,13 +189,13 @@ export default class VideoAppScreen extends React.Component {
 
 				<Search
 					id="search"
-					onClickVideo={::this.addVideo}
+					onClickVideo={this.addVideo}
 				/>
 
 				<div id="player-button-wrapper">
 					<i
 						className={fillBtnClass}
-						onClick={::this.togglePlayerFill}
+						onClick={this.togglePlayerFill}
 					/>
 
 					<a

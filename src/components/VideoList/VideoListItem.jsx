@@ -18,11 +18,11 @@ export default class VideoListItem extends React.Component {
 		super(props);
 	}
 
-	handleClickVideo(event) {
+	handleClickVideo = (event) => {
 		this.props.onClickVideo({ ...this.props.video }, this.props.index, event);
-	}
+	};
 
-	cloneButton(element) {
+	cloneButton = (element) => {
 		if (element.props.onClick) {
 			return React.cloneElement(element, {
 				style: {
@@ -33,7 +33,7 @@ export default class VideoListItem extends React.Component {
 			});
 		}
 		return element;
-	}
+	};
 
 	render() {
 		const styles = {
@@ -66,7 +66,7 @@ export default class VideoListItem extends React.Component {
 					className="button-wrapper"
 					style={styles.buttonWrapper}
 				>
-					{React.Children.map(this.props.children, ::this.cloneButton)}
+					{React.Children.map(this.props.children, this.cloneButton)}
 				</div>
 			);
 		}
@@ -75,7 +75,7 @@ export default class VideoListItem extends React.Component {
 			<li
 				className="video-list-item"
 				style={styles.item}
-				onClick={::this.handleClickVideo}
+				onClick={this.handleClickVideo}
 			>
 				{this.props.video.title}<br />
 				by {this.props.video.channelTitle}

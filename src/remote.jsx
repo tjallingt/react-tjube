@@ -20,7 +20,7 @@ export default class VideoAppRemote extends React.Component {
 		});
 	}
 
-	addVideo(video) {
+	addVideo = (video) => {
 		const question =
 			'Do you want to add\n' +
 			`"${video.title}" by "${video.channelTitle}"\n` +
@@ -28,14 +28,14 @@ export default class VideoAppRemote extends React.Component {
 		if (confirm(question)) {
 			this.socket.emit('cueVideo', video);
 		}
-	}
+	};
 
 	render() {
 		return (
 			<div>
 				<Search
 					id="search"
-					onClickVideo={::this.addVideo}
+					onClickVideo={this.addVideo}
 				/>
 			</div>
 		);

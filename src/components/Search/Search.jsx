@@ -27,7 +27,7 @@ export default class Search extends React.Component {
 		searchResults: [],
 	};
 
-	handleChange(value) {
+	handleChange = (value) => {
 		clearTimeout(this.searchTimeout);
 
 		this.setState({
@@ -39,16 +39,16 @@ export default class Search extends React.Component {
 				searchResults: [],
 			});
 		} else if (value.length > 2) {
-			this.searchTimeout = setTimeout(::this.search, 500);
+			this.searchTimeout = setTimeout(this.search, 500);
 		}
-	}
+	};
 
-	handleEnter() {
+	handleEnter = () => {
 		clearTimeout(this.searchTimeout);
 		this.search();
-	}
+	};
 
-	search() {
+	search = () => {
 		new Http(config.youtubeApi.url + '/search')
 			.get({
 				videoEmbeddable: true,
@@ -70,15 +70,15 @@ export default class Search extends React.Component {
 			.catch((response) => {
 				console.log(response);
 			});
-	}
+	};
 
 	render() {
 		return (
 			<div id={this.props.id}>
 				<SearchBar
 					id="search-bar"
-					onChange={::this.handleChange}
-					onEnter={::this.handleEnter}
+					onChange={this.handleChange}
+					onEnter={this.handleEnter}
 					searchText={this.state.searchText}
 				/>
 
