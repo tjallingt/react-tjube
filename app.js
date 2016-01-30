@@ -1,4 +1,4 @@
-/* eslint no-console: 0 */
+/* eslint no-console: 0, strict: 0 */
 'use strict';
 /*
 	Node server for Tjube.Ninja.
