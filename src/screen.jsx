@@ -36,9 +36,7 @@ export default class VideoAppScreen extends React.Component {
 		this.playNextVideo();
 	};
 
-	getSessionPlaylist = () => {
-		return JSON.parse(sessionStorage.getItem(room)) || [];
-	};
+	getSessionPlaylist = () => JSON.parse(sessionStorage.getItem(room)) || [];
 
 	setSessionPlaylist = () => {
 		sessionStorage.setItem(room, JSON.stringify(this.state.playlist));
@@ -97,7 +95,7 @@ export default class VideoAppScreen extends React.Component {
 		// set default values
 		let videoId = '';
 		let title = 'Add videos to the playlist to begin watching!';
-		let subtitle = 'Add videos remotely at ' + location.host + '/' + room;
+		let subtitle = `Add videos remotely at ${location.host}/${room}`;
 
 		// alter variables
 		if (this.state.playlist.length > 0) {

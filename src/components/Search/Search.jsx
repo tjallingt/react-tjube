@@ -14,7 +14,7 @@ export default class Search extends React.Component {
 	};
 
 	static defaultProps = {
-		onClickVideo: () => {},
+		onClickVideo: () => null,
 	};
 
 	constructor(props) {
@@ -49,7 +49,7 @@ export default class Search extends React.Component {
 	};
 
 	search = () => {
-		new Http(config.youtubeApi.url + '/search')
+		new Http(`${config.youtubeApi.url}/search`)
 			.get({
 				videoEmbeddable: true,
 				part: 'snippet',
@@ -60,9 +60,7 @@ export default class Search extends React.Component {
 			})
 			.then((response) => {
 				const json = JSON.parse(response);
-				const videos = json.items.map((item) => {
-					return filterYoutubeData(item);
-				});
+				const videos = json.items.map((item) => filterYoutubeData(item));
 				this.setState({
 					searchResults: videos,
 				});

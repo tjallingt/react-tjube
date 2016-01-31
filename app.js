@@ -49,18 +49,18 @@ app.engine('mustache', mustache());
 // Show room select/create screen
 app.get('/', (req, res) => {
 	const roomId = generateUniqueRoomId(roomIdLength);
-	if (roomId) res.redirect('/room/' + roomId);
+	if (roomId) res.redirect(`/room/${roomId}`);
 	else res.status(503).send('Server is crowded, please try again later :)');
 });
 
 // Show about page
 app.get('/about', (req, res) => {
-	res.sendFile(__dirname + '/views/about.html');
+	res.sendFile(`${__dirname}/views/about.html`);
 });
 
 // Redirect to remote
 app.get(`/:room(${roomIdRegex})`, (req, res) => {
-	res.redirect('/add/' + req.params.room);
+	res.redirect(`/add/${req.params.room}`);
 });
 
 // Show public screen

@@ -15,7 +15,7 @@ export default class VideoList extends React.Component {
 	};
 
 	static defaultProps = {
-		onClickVideo: () => {},
+		onClickVideo: () => null,
 	};
 
 	constructor(props) {
@@ -31,19 +31,17 @@ export default class VideoList extends React.Component {
 
 		Object.assign(styles.list, this.props.style);
 
-		let list = this.props.list.map((video, index) => {
-			return (
-				<VideoListItem
-					key={video.key}
-					index={index}
-					video={video}
-					onClickVideo={this.props.onClickVideo}
-					thumbnailQuality={this.props.thumbnailQuality}
-				>
-					{this.props.children}
-				</VideoListItem>
-			);
-		});
+		let list = this.props.list.map((video, index) => (
+			<VideoListItem
+				key={video.key}
+				index={index}
+				video={video}
+				onClickVideo={this.props.onClickVideo}
+				thumbnailQuality={this.props.thumbnailQuality}
+			>
+				{this.props.children}
+			</VideoListItem>
+		));
 
 		if (this.props.transitionName) {
 			list = (

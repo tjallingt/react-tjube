@@ -10,7 +10,7 @@ export default class http {
 			let uri = url;
 
 			if (args) {
-				uri += '?' + this.serialize(args);
+				uri += `?${this.serialize(args)}`;
 			}
 
 			client.open(method, uri);
@@ -54,7 +54,7 @@ export default class http {
 				if (count++) {
 					params += '&';
 				}
-				params += encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+				params += `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
 			}
 		}
 		return params;

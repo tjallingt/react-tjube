@@ -11,7 +11,7 @@ export default class VideoListItem extends React.Component {
 	};
 
 	static defaultProps = {
-		onClickVideo: () => {},
+		onClickVideo: () => null,
 	};
 
 	constructor(props) {

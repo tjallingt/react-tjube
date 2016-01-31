@@ -11,8 +11,8 @@ export default class SearchBar extends React.Component {
 
 	static defaultProps = {
 		searchText: '',
-		onChange: () => {},
-		onEnter: () => {},
+		onChange: () => null,
+		onEnter: () => null,
 	};
 
 	constructor(props) {
