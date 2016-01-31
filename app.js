@@ -86,12 +86,13 @@ app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 
 // Communicate with clients
 io.on('connect', (socket) => {
+	let currentRoom = '';
 	socket.on('registerRoom', (room) => {
-		socket.room = room;
-		socket.join(socket.room);
+		currentRoom = room;
+		socket.join(currentRoom);
 	});
 
 	socket.on('cueVideo', (video) => {
-		socket.broadcast.to(socket.room).emit('cueVideo', video);
+		socket.broadcast.to(currentRoom).emit('cueVideo', video);
 	});
 });

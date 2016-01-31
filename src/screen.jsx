@@ -59,11 +59,13 @@ export default class VideoAppScreen extends React.Component {
 	};
 
 	addVideo = (video) => {
-		video.key += Date.now(); // make key unique (unless added multiple times in 1 millisecond)
+		const newVideo = { ...video };
+		// make key unique (unless added multiple times in 1 millisecond)
+		newVideo.key += Date.now();
 		this.setState(
 			update(this.state, {
 				playlist: {
-					$push: [video],
+					$push: [newVideo],
 				},
 			}),
 			this.setSessionPlaylist
