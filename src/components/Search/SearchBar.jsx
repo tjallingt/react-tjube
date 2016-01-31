@@ -19,6 +19,8 @@ export default class SearchBar extends React.Component {
 		super(props);
 	}
 
+	setSearchInputRef = (ref) => this.searchInput = ref;
+
 	handleChange = (event) => {
 		this.props.onChange(event.target.value);
 	};
@@ -84,7 +86,7 @@ export default class SearchBar extends React.Component {
 				<input
 					style={styles.input}
 					type="text"
-					ref={(ref) => this.searchInput = ref}
+					ref={this.setSearchInputRef}
 					onChange={this.handleChange}
 					onKeyPress={this.handleKeyPress}
 					value={this.props.searchText}
