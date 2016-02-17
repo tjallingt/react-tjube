@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from '../../Config';
-import Http from '../../Http';
-import filterYoutubeData from '../../FilterYoutubeData';
+import Http from '../../utils/Http';
+import filterYoutubeData from '../../utils/FilterYoutubeData';
 
 import SearchBar from './SearchBar';
 import VideoList from '../VideoList/VideoList';
