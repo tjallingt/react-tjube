@@ -11,29 +11,31 @@ export default class SearchBar extends React.Component {
 
 	static defaultProps = {
 		searchText: '',
-		onChange: () => {},
-		onEnter: () => {},
+		onChange: () => null,
+		onEnter: () => null,
 	};
 
 	constructor(props) {
 		super(props);
 	}
 
-	handleChange(event) {
-		this.props.onChange(event.target.value);
-	}
+	setSearchInputRef = (ref) => this.searchInput = ref;
 
-	handleKeyPress(event) {
+	handleChange = (event) => {
+		this.props.onChange(event.target.value);
+	};
+
+	handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
 			this.searchInput.blur();
 			this.props.onEnter(event);
 		}
-	}
+	};
 
-	clearSearch() {
+	clearSearch = () => {
 		this.props.onChange('');
 		this.searchInput.focus();
-	}
+	};
 
 	render() {
 		const styles = {
@@ -70,7 +72,7 @@ export default class SearchBar extends React.Component {
 				<button
 					type="button"
 					style={styles.button}
-					onClick={::this.clearSearch}
+					onClick={this.clearSearch}
 				>
 					<i className="fa fa-times"></i>
 				</button>
@@ -84,9 +86,9 @@ export default class SearchBar extends React.Component {
 				<input
 					style={styles.input}
 					type="text"
-					ref={(ref) => this.searchInput = ref}
-					onChange={::this.handleChange}
-					onKeyPress={::this.handleKeyPress}
+					ref={this.setSearchInputRef}
+					onChange={this.handleChange}
+					onKeyPress={this.handleKeyPress}
 					value={this.props.searchText}
 					placeholder="Search for videos"
 				/>

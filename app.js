@@ -1,4 +1,4 @@
-/* eslint no-console: 0 */
+/* eslint no-console: 0, strict: 0 */
 'use strict';
 /*
 	Node server for Tjube.Ninja.
@@ -49,18 +49,18 @@ app.engine('mustache', mustache());
 // Show room select/create screen
 app.get('/', (req, res) => {
 	const roomId = generateUniqueRoomId(roomIdLength);
-	if (roomId) res.redirect('/room/' + roomId);
+	if (roomId) res.redirect(`/room/${roomId}`);
 	else res.status(503).send('Server is crowded, please try again later :)');
 });
 
 // Show about page
 app.get('/about', (req, res) => {
-	res.sendFile(__dirname + '/views/about.html');
+	res.sendFile(`${__dirname}/views/about.html`);
 });
 
 // Redirect to remote
 app.get(`/:room(${roomIdRegex})`, (req, res) => {
-	res.redirect('/add/' + req.params.room);
+	res.redirect(`/add/${req.params.room}`);
 });
 
 // Show public screen
@@ -86,12 +86,13 @@ app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 
 // Communicate with clients
 io.on('connect', (socket) => {
+	let currentRoom = '';
 	socket.on('registerRoom', (room) => {
-		socket.room = room;
-		socket.join(socket.room);
+		currentRoom = room;
+		socket.join(currentRoom);
 	});
 
 	socket.on('cueVideo', (video) => {
-		socket.broadcast.to(socket.room).emit('cueVideo', video);
+		socket.broadcast.to(currentRoom).emit('cueVideo', video);
 	});
 });
