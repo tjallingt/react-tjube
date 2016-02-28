@@ -110,7 +110,7 @@ a {
 	top: 20px;
 	right: 0px;
 	width: 7%;
-	opacity: .25;
+	opacity: .5;
 	transition: width 250ms, opacity 250ms;
 }
 
