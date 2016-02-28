@@ -1,6 +1,5 @@
 import React from 'react';
 
-import config from '../../Config';
 import Http from '../../utils/Http';
 import filterYoutubeData from '../../utils/FilterYoutubeData';
 
@@ -10,6 +9,7 @@ import VideoList from '../VideoList/VideoList';
 export default class Search extends React.Component {
 	static propTypes = {
 		id: React.PropTypes.string,
+		youtubeApiKey: React.PropTypes.string.isRequired,
 		onClickVideo: React.PropTypes.func,
 	};
 
@@ -20,6 +20,7 @@ export default class Search extends React.Component {
 	constructor(props) {
 		super(props);
 		this.searchTimeout = null;
+		this.youtubeApiUrl = 'https://www.googleapis.com/youtube/v3/search';
 	}
 
 	state = {
@@ -49,13 +50,13 @@ export default class Search extends React.Component {
 	};
 
 	search = () => {
-		new Http(`${config.youtubeApi.url}/search`)
+		new Http(this.youtubeApiUrl)
 			.get({
 				videoEmbeddable: true,
 				part: 'snippet',
 				type: 'video',
 				maxResults: 20,
-				key: config.youtubeApi.key,
+				key: this.props.youtubeApiKey,
 				q: this.state.searchText,
 			})
 			.then((response) => {

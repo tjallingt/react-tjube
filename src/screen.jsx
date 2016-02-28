@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import io from 'socket.io-client';
 
 import YouTube from 'react-youtube';
+import config from './Config';
 import ProgressBar from './components/ProgressBar/ProgressBar';
 import VideoList from './components/VideoList/VideoList';
 import Search from './components/Search/Search';
@@ -189,6 +190,7 @@ export default class VideoAppScreen extends React.Component {
 
 				<Search
 					id="search"
+					youtubeApiKey={config.youtubeApiKey}
 					onClickVideo={this.addVideo}
 				/>
 

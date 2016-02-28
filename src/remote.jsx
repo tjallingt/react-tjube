@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import io from 'socket.io-client';
 
+import config from './Config';
 import Search from './components/Search/Search';
 
 export default class VideoAppRemote extends React.Component {
@@ -35,6 +36,7 @@ export default class VideoAppRemote extends React.Component {
 			<div>
 				<Search
 					id="search"
+					youtubeApiKey={config.youtubeApiKey}
 					onClickVideo={this.addVideo}
 				/>
 			</div>
