@@ -14,10 +14,6 @@ export default class VideoListItem extends React.Component {
 		onClickVideo: () => null,
 	};
 
-	constructor(props) {
-		super(props);
-	}
-
 	handleClickVideo = (event) => {
 		this.props.onClickVideo({ ...this.props.video }, this.props.index, event);
 	};

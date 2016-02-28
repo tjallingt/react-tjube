@@ -15,11 +15,7 @@ export default class SearchBar extends React.Component {
 		onEnter: () => null,
 	};
 
-	constructor(props) {
-		super(props);
-	}
-
-	setSearchInputRef = (ref) => this.searchInput = ref;
+	setSearchInputRef = (ref) => { this.searchInput = ref; };
 
 	handleChange = (event) => {
 		this.props.onChange(event.target.value);

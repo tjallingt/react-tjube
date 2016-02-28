@@ -18,10 +18,6 @@ export default class VideoList extends React.Component {
 		onClickVideo: () => null,
 	};
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const styles = {
 			list: {

@@ -7,17 +7,13 @@ export default class ProgressBar extends React.Component {
 		youtube: React.PropTypes.object.isRequired,
 	};
 
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidUpdate() {
 		// kick off the progressbar
 		requestAnimationFrame(this.updateProgressBar);
 	}
 
-	setWrapperRef = (ref) => this.wrapper = ref;
-	setProgressRef = (ref) => this.progress = ref;
+	setWrapperRef = (ref) => { this.wrapper = ref; };
+	setProgressRef = (ref) => { this.progress = ref; };
 
 	updateProgressBar = () => {
 		// calculate percentage width from youtube player progress and request next frame

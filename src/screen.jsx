@@ -176,14 +176,14 @@ export default class VideoAppScreen extends React.Component {
 						className="play-next-button"
 						onClick={this.setNextVideo}
 					>
-						<i className="fa fa-rotate-270 fa-step-forward"/>
+						<i className="fa fa-rotate-270 fa-step-forward" />
 					</span>
 
 					<span
 						className="delete-button"
 						onClick={this.deleteVideo}
 					>
-						<i className="fa fa-times"/>
+						<i className="fa fa-times" />
 					</span>
 				</VideoList>
 
@@ -202,7 +202,7 @@ export default class VideoAppScreen extends React.Component {
 						href="/about"
 						target="_blank"
 					>
-						<i className="fa fa-question-circle"/>
+						<i className="fa fa-question-circle" />
 					</a>
 
 					<span>
