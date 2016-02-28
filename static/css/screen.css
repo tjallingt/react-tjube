@@ -80,6 +80,8 @@ a {
 
 #search-bar {
 	height: 20px;
+	opacity: .75;
+	border-bottom-left-radius: 5px;
 }
 
 #playlist, #search-results {
