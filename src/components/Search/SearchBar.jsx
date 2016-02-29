@@ -43,7 +43,6 @@ export default class SearchBar extends React.Component {
 			input: {
 				width: '100%',
 				border: 'solid white',
-				borderRadius: 'inherit',
 				height: '100%',
 				fontSize: 'inherit',
 				padding: '5px',
