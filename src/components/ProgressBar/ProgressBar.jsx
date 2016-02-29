@@ -12,8 +12,13 @@ export default class ProgressBar extends React.Component {
 		requestAnimationFrame(this.updateProgressBar);
 	}
 
-	setWrapperRef = (ref) => { this.wrapper = ref; };
-	setProgressRef = (ref) => { this.progress = ref; };
+	setWrapperRef = (ref) => {
+		this.wrapper = ref;
+	};
+
+	setProgressRef = (ref) => {
+		this.progress = ref;
+	};
 
 	updateProgressBar = () => {
 		// calculate percentage width from youtube player progress and request next frame
