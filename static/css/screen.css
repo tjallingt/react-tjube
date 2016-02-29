@@ -80,6 +80,7 @@ a {
 
 #search-bar {
 	height: 20px;
+	opacity: .75;
 }
 
 #playlist, #search-results {
