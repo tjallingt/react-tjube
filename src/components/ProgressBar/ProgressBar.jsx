@@ -40,7 +40,7 @@ export default class ProgressBar extends React.Component {
 			<div
 				id={this.props.id}
 				style={this.props.style}
-				ref={this.setWrapper}
+				ref={this.setWrapperRef}
 				onClick={this.handleClick}
 			>
 				<div

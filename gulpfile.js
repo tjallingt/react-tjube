@@ -34,12 +34,12 @@ gulp.task('clean', function() {
 
 // calls browserify to compile jsx files for the screen
 gulp.task('build-screen', function() {
-	bundle('screen.jsx');	
+	bundle('screen.jsx');
 });
 
 // calls browserify to compile jsx files for the remote
 gulp.task('build-remote', function() {
-	bundle('remote.jsx');	
+	bundle('remote.jsx');
 });
 
 function bundle(entry) {
