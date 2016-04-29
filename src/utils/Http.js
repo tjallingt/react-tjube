@@ -1,4 +1,10 @@
-export default class http {
+function serialize(obj) {
+	return Object.keys(obj).map((key) =>
+		`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`
+	).join('&');
+}
+
+class http {
 	constructor(url) {
 		this.url = url;
 	}
@@ -10,7 +16,7 @@ export default class http {
 			let uri = url;
 
 			if (args) {
-				uri += `?${this.serialize(args)}`;
+				uri += `?${serialize(args)}`;
 			}
 
 			client.open(method, uri);
@@ -45,18 +51,6 @@ export default class http {
 	delete(args) {
 		return this.ajax('DELETE', this.url, args);
 	}
-
-	serialize(obj) {
-		let params = '';
-		let count = 0;
-		for (const key in obj) {
-			if (obj.hasOwnProperty(key)) {
-				if (count++) {
-					params += '&';
-				}
-				params += `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
-			}
-		}
-		return params;
-	}
 }
+
+export default http;
