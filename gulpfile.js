@@ -49,7 +49,7 @@ function bundle(entry) {
 		basedir: './src'
 	})
 	.exclude('ws')
-	.transform(babelify.configure({ presets: ["es2015", "react", "stage-0"] }))
+	.transform('babelify')
 	.bundle()
 	.on('error', gutil.log)
 	.pipe(source(entry))
