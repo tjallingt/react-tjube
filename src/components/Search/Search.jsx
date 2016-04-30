@@ -64,9 +64,8 @@ export default class Search extends React.Component {
 			.then(checkStatus)
 			.then(parseJSON)
 			.then((json) => {
-				const videos = json.items.map((item) => filterYoutubeData(item));
 				this.setState({
-					searchResults: videos,
+					searchResults: json.items.map(filterYoutubeData),
 				});
 			})
 			.catch((error) => {
