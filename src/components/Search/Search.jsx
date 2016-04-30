@@ -1,6 +1,7 @@
 import React from 'react';
+import 'whatwg-fetch'; // fetch API polyfill
 
-import Http from '../../utils/Http';
+import { serialize, checkStatus, parseJSON } from '../../utils/fetchUtils';
 import filterYoutubeData from '../../utils/FilterYoutubeData';
 
 import SearchBar from './SearchBar';
@@ -50,24 +51,26 @@ export default class Search extends React.Component {
 	};
 
 	search = () => {
-		new Http(this.youtubeApiUrl)
-			.get({
-				videoEmbeddable: true,
-				part: 'snippet',
-				type: 'video',
-				maxResults: 20,
-				key: this.props.youtubeApiKey,
-				q: this.state.searchText,
-			})
-			.then((response) => {
-				const json = JSON.parse(response);
+		const parameters = serialize({
+			videoEmbeddable: true,
+			part: 'snippet',
+			type: 'video',
+			maxResults: 20,
+			key: this.props.youtubeApiKey,
+			q: this.state.searchText,
+		});
+
+		fetch(`${this.youtubeApiUrl}?${parameters}`)
+			.then(checkStatus)
+			.then(parseJSON)
+			.then((json) => {
 				const videos = json.items.map((item) => filterYoutubeData(item));
 				this.setState({
 					searchResults: videos,
 				});
 			})
-			.catch((response) => {
-				console.log(response);
+			.catch((error) => {
+				console.log('request failed', error);
 			});
 	};
 
