@@ -11,20 +11,28 @@ var gulp 		= require('gulp');
 var rename 		= require('gulp-rename');
 var gulpif 		= require('gulp-if');
 var uglify 		= require('gulp-uglify');
-var gutil 		= require('gulp-util');
-var sourcemaps 	= require('gulp-sourcemaps');
 
 var source 		= require('vinyl-source-stream');
 var buffer 		= require('vinyl-buffer');
 var del 		= require('del');
+
+var debug = true;
+
+// helper function for logging errors
+function logError(error) {
+	console.log(error.toString());
+	if (error.codeFrame) console.log(error.codeFrame); // babelify emits a pretty codeFrame
+}
 
 // exports whole application to dist folder
 gulp.task('default', ['set-production', 'build-debug']);
 
 gulp.task('build-debug', ['build-screen', 'build-remote']);
 
-gulp.task('set-production', function() {
+gulp.task('set-production', function(callback) {
+    debug = false;
     process.env.NODE_ENV = 'production';
+    callback();
 });
 
 // removes dist folder
@@ -43,19 +51,18 @@ gulp.task('build-remote', function() {
 });
 
 function bundle(entry) {
-	return browserify({ 
+	browserify({ 
 		entries: entry,
 		extensions: ['.jsx'],
-		basedir: './src'
+		basedir: './src',
+		debug: debug
 	})
-	.exclude('ws')
 	.transform('babelify')
 	.bundle()
-	.on('error', gutil.log)
+	.on('error', logError)
 	.pipe(source(entry))
 	.pipe(buffer())
-		.pipe(gulpif((process.env.NODE_ENV === 'production'), uglify()))
-		.on('error', gutil.log)
-	.pipe(rename({ extname: '.js' }))
+		.pipe(gulpif(!debug, uglify()))
+		.pipe(rename({ extname: '.js' }))
 	.pipe(gulp.dest('./static/js'));
 }
