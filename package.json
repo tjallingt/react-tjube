@@ -2,18 +2,22 @@
   "name": "react.tjube.ninja",
   "version": "1.0.0",
   "description": "tjube.ninja rewrite using react",
-  "main": "app.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:tjallingt/react-tjube.git"
   },
   "scripts": {
-    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "gulp",
-    "build": "gulp",
-    "debug": "gulp build-debug",
-    "lint": "eslint --ext .js --ext .jsx app.js src"
+    "lint": "eslint --ext .js --ext .jsx app.js src",
+    "watch": "watch \"npm run build:debug\" src",
+    "build": "npm run build:production",
+    "build:production": "npm run build:production:screen && npm run build:production:remote",
+    "build:debug": "npm run build:debug:screen && npm run build:debug:remote",
+    "build:production:screen": "browserify src/screen.jsx -t babelify --extension=jsx | uglifyjs > static/js/screen.js",
+    "build:production:remote": "browserify src/remote.jsx -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
+    "build:debug:screen": "browserify src/screen.jsx -t babelify --extension=jsx -d > static/js/screen.js",
+    "build:debug:remote": "browserify src/remote.jsx -t babelify --extension=jsx -d > static/js/remote.js"
   },
   "author": "tjallingt",
   "license": "MIT",
@@ -24,18 +28,13 @@
     "babel-preset-stage-0": "^6.1.18",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "del": "^2.0.2",
     "eslint": "^2.0.0",
     "eslint-config-airbnb": "^8.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.0",
-    "gulp": "^3.9.0",
-    "gulp-if": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.2.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "uglify-js": "^2.6.2",
+    "watch": "^0.18.0"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
