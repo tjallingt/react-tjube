@@ -10,14 +10,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js --ext .jsx app.js src",
-    "watch": "watch \"npm run build:debug\" src",
-    "build": "npm run build:production",
-    "build:production": "npm run build:production:screen && npm run build:production:remote",
-    "build:debug": "npm run build:debug:screen && npm run build:debug:remote",
-    "build:production:screen": "browserify src/screen.jsx -t babelify --extension=jsx | uglifyjs > static/js/screen.js",
-    "build:production:remote": "browserify src/remote.jsx -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
-    "build:debug:screen": "browserify src/screen.jsx -t babelify --extension=jsx -d > static/js/screen.js",
-    "build:debug:remote": "browserify src/remote.jsx -t babelify --extension=jsx -d > static/js/remote.js"
+    "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:screen\" \"npm run watch:remote\"",
+    "build": "npm run build:production:screen && npm run build:production:remote",
+    "build:screen": "cross-env NODE_ENV=production browserify src/screen.jsx -t babelify --extension=jsx | uglifyjs > static/js/screen.js",
+    "build:remote": "cross-env NODE_ENV=production browserify src/remote.jsx -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
+    "watch:screen": "watchify src/screen.jsx -o static/js/screen.js -t babelify --extension=jsx -d -v",
+    "watch:remote": "watchify src/remote.jsx -o static/js/remote.js -t babelify --extension=jsx -d -v"
   },
   "author": "tjallingt",
   "license": "MIT",
@@ -28,13 +26,15 @@
     "babel-preset-stage-0": "^6.1.18",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "concurrently": "^2.1.0",
+    "cross-env": "^1.0.7",
     "eslint": "^2.0.0",
     "eslint-config-airbnb": "^8.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.0",
     "uglify-js": "^2.6.2",
-    "watch": "^0.18.0"
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
