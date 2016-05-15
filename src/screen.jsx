@@ -15,7 +15,7 @@ import Search from './components/Search/Search';
 export default class VideoAppScreen extends React.Component {
 	constructor(props) {
 		super(props);
-		this.socket = io.connect(window.location.origin);
+		this.socket = io();
 		this.socket.emit('registerRoom', room);
 		this.socket.on('cueVideo', this.addVideo);
 		// set initial state from sessionStorage
