@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 import YouTube from 'react-youtube';
 import config from './Config';
 import ProgressBar from './components/ProgressBar/ProgressBar';
-import VideoList from './components/VideoList/VideoList';
+import PlayList from './components/PlayList/PlayList';
 import Search from './components/Search/Search';
 
 export default class VideoAppScreen extends React.Component {
@@ -167,26 +167,12 @@ export default class VideoAppScreen extends React.Component {
 					</div>
 				</div>
 
-				<VideoList
+				<PlayList
 					id="playlist"
-					list={this.state.playlist}
-					thumbnailQuality="medium"
-					transitionName="fade"
-				>
-					<span
-						className="play-next-button"
-						onClick={this.setNextVideo}
-					>
-						<i className="fa fa-rotate-270 fa-step-forward" />
-					</span>
-
-					<span
-						className="delete-button"
-						onClick={this.deleteVideo}
-					>
-						<i className="fa fa-times" />
-					</span>
-				</VideoList>
+					playlist={this.state.playlist}
+					onClickDelete={this.deleteVideo}
+					onClickNext={this.setNextVideo}
+				/>
 
 				<Search
 					id="search"

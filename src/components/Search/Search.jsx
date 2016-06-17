@@ -5,7 +5,7 @@ import { serialize, checkStatus, parseJSON } from '../../utils/fetchUtils';
 import filterYoutubeData from '../../utils/FilterYoutubeData';
 
 import SearchBar from './SearchBar';
-import VideoList from '../VideoList/VideoList';
+import SearchResults from './SearchResults';
 
 export default class Search extends React.Component {
 	static propTypes = {
@@ -83,10 +83,10 @@ export default class Search extends React.Component {
 					searchText={this.state.searchText}
 				/>
 
-				<VideoList
+				<SearchResults
 					id="search-results"
-					onClickVideo={this.props.onClickVideo}
-					list={this.state.searchResults}
+					onClickItem={this.props.onClickVideo}
+					results={this.state.searchResults}
 				/>
 			</div>
 		);
