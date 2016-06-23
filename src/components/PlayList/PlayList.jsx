@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { moveVideo, deleteVideo } from '../../actions';
 import PlayListItem from './PlayListItem';
 
-function PlayList({ id, playlist, onClickDelete, onClickNext }) {
+function PlayList({ id, playlist, handleClickDelete, handleClickNext }) {
 	const styles = {
 		list: {
 			listStyleType: 'none',
@@ -28,8 +28,8 @@ function PlayList({ id, playlist, onClickDelete, onClickNext }) {
 						key={video.key}
 						index={index}
 						video={video}
-						onClickNext={() => onClickNext(video, index)}
-						onClickDelete={() => onClickDelete(index)}
+						onClickNext={() => handleClickNext(video, index)}
+						onClickDelete={() => handleClickDelete(index)}
 					/>
 				))}
 			</ReactCSSTransitionGroup>
@@ -40,14 +40,14 @@ function PlayList({ id, playlist, onClickDelete, onClickNext }) {
 PlayList.propTypes = {
 	id: React.PropTypes.string,
 	playlist: React.PropTypes.array.isRequired,
-	onClickNext: React.PropTypes.func,
-	onClickDelete: React.PropTypes.func,
+	handleClickNext: React.PropTypes.func,
+	handleClickDelete: React.PropTypes.func,
 };
 
 PlayList.defaultProps = {
 	playlist: [],
-	onClickNext: () => null,
-	onClickDelete: () => null,
+	handleClickNext: () => null,
+	handleClickDelete: () => null,
 };
 
 const mapStateToProps = (state) => ({
@@ -55,10 +55,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	onClickNext: (video, index) => {
+	handleClickNext: (video, index) => {
 		dispatch(moveVideo(video, index, 1));
 	},
-	onClickDelete: (index) => {
+	handleClickDelete: (index) => {
 		dispatch(deleteVideo(index));
 	},
 });
