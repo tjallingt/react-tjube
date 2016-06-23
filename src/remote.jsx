@@ -1,50 +1,24 @@
 /* global room */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import remote from './reducers/remote';
+import createLogger from 'redux-logger';
+import VideoAppWebsocket from './utils/VideoAppWebsocket';
+import VideoAppRemote from './components/VideoAppRemote';
 
-import io from 'socket.io-client';
+const socket = new VideoAppWebsocket();
+const logger = createLogger();
+let store = createStore(
+	remote,
+	applyMiddleware(socket.senderMiddleware, logger),
+);
+socket.setStore(store);
 
-import config from './Config';
-import Search from './components/Search/Search';
-
-export default class VideoAppRemote extends React.Component {
-	constructor(props) {
-		super(props);
-		this.socket = io();
-		this.socket.on('connect', () => {
-			this.socket.emit('registerRoom', room);
-		});
-		this.socket.on('disconnect', () => {
-			if (confirm('You got disconnected!\nReload the page?')) {
-				location.reload();
-			}
-		});
-	}
-
-	addVideo = (video) => {
-		const question =
-			'Do you want to add\n' +
-			`"${video.title}" by "${video.channelTitle}"\n` +
-			'to the playlist?';
-		if (confirm(question)) {
-			this.socket.emit('cueVideo', video);
-		}
-	};
-
-	render() {
-		return (
-			<div>
-				<Search
-					id="search"
-					youtubeApiKey={config.youtubeApiKey}
-					onClickVideo={this.addVideo}
-				/>
-			</div>
-		);
-	}
-}
-
-ReactDOM.render(
-	<VideoAppRemote />,
+render(
+	<Provider store={store}>
+		<VideoAppRemote />
+	</Provider>,
 	document.getElementById('app')
 );

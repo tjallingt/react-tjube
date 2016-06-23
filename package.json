@@ -10,11 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js --ext .jsx app.js src",
-    "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:screen\" \"npm run watch:remote\"",
-    "build": "npm run build:screen && npm run build:remote",
-    "build:screen": "cross-env NODE_ENV=production browserify src/screen.jsx -t babelify --extension=jsx | uglifyjs > static/js/screen.js",
+    "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:player\" \"npm run watch:remote\"",
+    "build": "npm run build:player && npm run build:remote",
+    "build:player": "cross-env NODE_ENV=production browserify src/player.jsx -t babelify --extension=jsx | uglifyjs > static/js/player.js",
     "build:remote": "cross-env NODE_ENV=production browserify src/remote.jsx -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
-    "watch:screen": "watchify src/screen.jsx -o static/js/screen.js -t babelify --extension=jsx -d -v",
+    "watch:player": "watchify src/player.jsx -o static/js/player.js -t babelify --extension=jsx -d -v",
     "watch:remote": "watchify src/remote.jsx -o static/js/remote.js -t babelify --extension=jsx -d -v"
   },
   "author": "tjallingt",
@@ -45,7 +45,11 @@
     "react-addons-css-transition-group": "^15.0.0",
     "react-addons-update": "^15.0.0",
     "react-dom": "^15.0.0",
+    "react-redux": "^4.4.5",
     "react-youtube": "^7.0.0",
+    "redux": "^3.5.2",
+    "redux-localstorage": "^0.4.1",
+    "redux-logger": "^2.6.1",
     "socket.io": "^1.3.7",
     "whatwg-fetch": "^1.0.0"
   }

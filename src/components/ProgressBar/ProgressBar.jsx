@@ -1,15 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class ProgressBar extends React.Component {
+class ProgressBar extends React.Component {
 	static propTypes = {
 		id: React.PropTypes.string,
-		style: React.PropTypes.object,
-		youtube: React.PropTypes.object.isRequired,
+		youtube: React.PropTypes.object,
 	};
 
 	componentDidUpdate() {
 		// kick off the progressbar
-		requestAnimationFrame(this.updateProgressBar);
+		cancelAnimationFrame(this.request);
+		if (this.props.youtube) {
+			this.request = requestAnimationFrame(this.updateProgressBar);
+		}
 	}
 
 	setWrapperRef = (ref) => {
@@ -21,10 +24,14 @@ export default class ProgressBar extends React.Component {
 	};
 
 	updateProgressBar = () => {
-		// calculate percentage width from youtube player progress and request next frame
-		const progress = (this.props.youtube.getCurrentTime() / this.props.youtube.getDuration()) * 100;
-		this.progress.style.width = `${progress}%`;
-		requestAnimationFrame(this.updateProgressBar);
+		if (this.props.youtube) {
+			// calculate percentage width from youtube player progress and request next frame
+			const currentTime = this.props.youtube.getCurrentTime();
+			const duration = this.props.youtube.getDuration();
+			const progress = (currentTime / duration) * 100;
+			this.progress.style.width = `${progress}%`;
+			this.request = requestAnimationFrame(this.updateProgressBar);
+		}
 	};
 
 	handleClick = (event) => {
@@ -34,12 +41,10 @@ export default class ProgressBar extends React.Component {
 		this.props.youtube.seekTo(time, true);
 	};
 
-
 	render() {
 		return (
 			<div
 				id={this.props.id}
-				style={this.props.style}
 				ref={this.setWrapperRef}
 				onClick={this.handleClick}
 			>
@@ -51,3 +56,9 @@ export default class ProgressBar extends React.Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	youtube: state.player.youtube,
+});
+
+export default connect(mapStateToProps)(ProgressBar);

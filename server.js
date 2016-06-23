@@ -49,7 +49,7 @@ app.engine('mustache', mustache());
 // Show room select/create screen
 app.get('/', (req, res) => {
 	const roomId = generateUniqueRoomId(roomIdLength);
-	if (roomId) res.redirect(`/room/${roomId}`);
+	if (roomId) res.redirect(`/player/${roomId}`);
 	else res.status(503).send('Server is crowded, please try again later :)');
 });
 
@@ -60,16 +60,16 @@ app.get('/about', (req, res) => {
 
 // Redirect to remote
 app.get(`/:room(${roomIdRegex})`, (req, res) => {
-	res.redirect(`/add/${req.params.room}`);
+	res.redirect(`/remote/${req.params.room}`);
 });
 
 // Show public screen
-app.get(`/room/:room(${roomIdRegex})`, (req, res) => {
-	res.render('template.mustache', { view: 'screen', room: req.params.room });
+app.get(`/player/:room(${roomIdRegex})`, (req, res) => {
+	res.render('template.mustache', { view: 'player', room: req.params.room });
 });
 
 // Show remote screen
-app.get(`/add/:room(${roomIdRegex})`, (req, res) => {
+app.get(`/remote/:room(${roomIdRegex})`, (req, res) => {
 	res.render('template.mustache', { view: 'remote', room: req.params.room });
 });
 
@@ -77,7 +77,7 @@ app.get(`/add/:room(${roomIdRegex})`, (req, res) => {
 app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 	const video = filterYoutubeData(req.body);
 	if (video) {
-		io.to(req.params.room).emit('cueVideo', video);
+		io.to(req.params.room).emit('addVideo', video);
 		res.json({ status: 'ok' });
 	} else {
 		res.status(422).json({ status: 'error' });
@@ -92,7 +92,7 @@ io.on('connect', (socket) => {
 		socket.join(currentRoom);
 	});
 
-	socket.on('cueVideo', (video) => {
-		socket.broadcast.to(currentRoom).emit('cueVideo', video);
+	socket.on('addVideo', (video) => {
+		socket.broadcast.to(currentRoom).emit('addVideo', video);
 	});
 });

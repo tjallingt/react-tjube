@@ -12,7 +12,7 @@ function SearchResultsItem({ video, onClick }) {
 
 	return (
 		<li
-			className="video-list-item"
+			className="search-results-item"
 			style={styles.item}
 			onClick={onClick}
 		>
@@ -25,10 +25,6 @@ function SearchResultsItem({ video, onClick }) {
 SearchResultsItem.propTypes = {
 	video: React.PropTypes.object.isRequired,
 	onClick: React.PropTypes.func,
-};
-
-SearchResultsItem.defaultProps = {
-	onClickVideo: () => null,
 };
 
 export default SearchResultsItem;

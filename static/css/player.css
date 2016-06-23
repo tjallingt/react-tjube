@@ -90,15 +90,16 @@ a {
 	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 }
 
-.video-list-item {
+.video-list-item,.search-results-item {
 	box-sizing: border-box;
 	height: 50px;
 	padding: 5px;
 	border-bottom: 1px dotted #FFF;
 }
 
-#search-results .video-list-item {
+.search-results-item:hover {
 	cursor: pointer;
+	background-color: rgba(255,255,255,.2);
 }
 
 .video-list-item .button-wrapper {

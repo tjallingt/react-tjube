@@ -59,9 +59,4 @@ PlayListItem.propTypes = {
 	onClickNext: React.PropTypes.func,
 };
 
-PlayListItem.defaultProps = {
-	onClickDelete: () => null,
-	onClickNext: () => null,
-};
-
 export default PlayListItem;

@@ -1,31 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addVideo } from '../../actions';
 import SearchResultsItem from './SearchResultsItem';
 
-function SearchResults({ id, results, onClickItem }) {
+function SearchResults({ id, results, onClickVideo }) {
 	const styles = {
 		list: {
 			listStyleType: 'none',
 		},
 	};
 
-	let list = results.map((video, index) => {
-		let boundOnClick = onClickItem.bind(this, video, index);
-		return (
-			<SearchResultsItem
-				key={video.key}
-				index={index}
-				video={video}
-				onClick={boundOnClick}
-			/>
-		);
-	});
-
 	return (
 		<ul
 			id={id}
 			style={styles.list}
 		>
-			{list}
+			{results.map((video, index) => (
+				<SearchResultsItem
+					key={video.key}
+					index={index}
+					video={video}
+					onClick={() => onClickVideo(video, index)}
+				/>
+			))}
 		</ul>
 	);
 }
@@ -33,11 +30,21 @@ function SearchResults({ id, results, onClickItem }) {
 SearchResults.propTypes = {
 	id: React.PropTypes.string,
 	results: React.PropTypes.array.isRequired,
-	onClickItem: React.PropTypes.func,
+	onClickVideo: React.PropTypes.func,
 };
 
 SearchResults.defaultProps = {
-	onClickItem: () => null,
+	onClickVideo: () => null,
 };
 
-export default SearchResults;
+const mapStateToProps = (state) => ({
+	results: state.search.results,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	onClickVideo: (video) => {
+		dispatch(addVideo(video));
+	},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
