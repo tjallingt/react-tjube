@@ -12,7 +12,7 @@ function PlayList({ id, playlist, handleClickDelete, handleClickNext }) {
 	};
 
 	return (
-		<ul
+		<div
 			id={id}
 			style={styles.list}
 		>
@@ -33,7 +33,7 @@ function PlayList({ id, playlist, handleClickDelete, handleClickNext }) {
 					/>
 				))}
 			</ReactCSSTransitionGroup>
-		</ul>
+		</div>
 	);
 }
 

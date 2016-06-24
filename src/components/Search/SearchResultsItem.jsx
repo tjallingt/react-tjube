@@ -4,6 +4,8 @@ function SearchResultsItem({ video, onClick }) {
 	const styles = {
 		item: {
 			position: 'relative',
+		},
+		text: {
 			textOverflow: 'ellipsis',
 			whiteSpace: 'nowrap',
 			overflow: 'hidden',
@@ -16,8 +18,8 @@ function SearchResultsItem({ video, onClick }) {
 			style={styles.item}
 			onClick={onClick}
 		>
-			{video.title}<br />
-			by {video.channelTitle}
+			<div style={styles.text}>{video.title}</div>
+			<small style={styles.text}>{video.channelTitle}</small>
 		</li>
 	);
 }
