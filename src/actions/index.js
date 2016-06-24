@@ -26,11 +26,11 @@ export const deleteVideo = (index) => ({
 	index,
 });
 
-export const moveVideo = (video, location, target) => ({
+export const moveVideo = (video, fromIndex, toIndex) => ({
 	type: MOVE_VIDEO,
 	video,
-	location,
-	target,
+	fromIndex,
+	toIndex,
 });
 
 export const sendVideo = (video) => ({

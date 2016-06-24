@@ -19,8 +19,8 @@ const playlist = (state = [], action) => {
 	case MOVE_VIDEO:
 		return update(state, {
 			$splice: [
-				[action.location, 1],
-				[action.target, 0, action.video],
+				[action.fromIndex, 1],
+				[action.toIndex, 0, action.video],
 			],
 		});
 	default:
