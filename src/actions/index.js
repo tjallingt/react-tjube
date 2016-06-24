@@ -5,7 +5,7 @@
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const DELETE_VIDEO = 'DELETE_VIDEO';
 export const MOVE_VIDEO = 'MOVE_VIDEO';
-export const TOGGLE_FILL = 'DELETE_VIDEO';
+export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
