@@ -122,11 +122,11 @@ a {
 }
 
 #playlist .play-list-item>* {
-	opacity: 0;
+	display: none;
 }
 
 #playlist:hover .play-list-item>*  {
-	opacity: 1;
+	display: block;
 }
 
 #progress-bar {
