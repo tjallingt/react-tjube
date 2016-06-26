@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { deleteVideo, sendVideo } from '../actions';
 
-import Search from './Search/YoutubeSearch';
+import Search from './Search/Search';
 import Alert from './Alert/Alert';
 import VideoCard from './VideoCard/VideoCard';
 

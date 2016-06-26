@@ -1,18 +1,18 @@
 import React from 'react';
-
-
+import { connect } from 'react-redux';
+import { fetchSearchResults, setSearchQuery, clearSearch } from '../../actions';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 
 
-function Search({ id, query, setQuery, clearSearch }) {
+function Search({ id, query, search, handleClear }) {
 	return (
 		<div id={id}>
 			<SearchBar
 				id="search-bar"
 				value={query}
-				onChange={setQuery}
-				onClear={clearSearch}
+				onChange={(event) => search(event.target.value)}
+				onClear={handleClear}
 			/>
 			<SearchResults
 				id="search-results"
@@ -24,13 +24,31 @@ function Search({ id, query, setQuery, clearSearch }) {
 Search.propTypes = {
 	id: React.PropTypes.string,
 	query: React.PropTypes.string,
-	setQuery: React.PropTypes.func,
-	clearSearch: React.PropTypes.func,
+	search: React.PropTypes.func,
+	handleClear: React.PropTypes.func,
 };
 
 Search.defaultProps = {
-	setQuery: () => null,
-	clearSearch: () => null,
+	search: () => null,
+	handleClear: () => null,
 };
 
-export default Search;
+const mapStateToProps = (state) => ({
+	query: state.search.query,
+});
+
+let searchTimeout;
+const mapDispatchToProps = (dispatch) => ({
+	search: (query) => {
+		dispatch(setSearchQuery(query));
+		clearTimeout(searchTimeout);
+		if (query.length > 3) {
+			searchTimeout = setTimeout(() => dispatch(fetchSearchResults(query)), 500);
+		}
+	},
+	handleClear: () => {
+		dispatch(clearSearch());
+	},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

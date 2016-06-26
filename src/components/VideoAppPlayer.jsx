@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import YouTube from 'react-youtube';
 import ProgressBar from './ProgressBar/ProgressBar';
 import PlayList from './PlayList/PlayList';
-import Search from './Search/YoutubeSearch';
+import Search from './Search/Search';
 
 function VideoAppPlayer({ fill, playlist, playNextVideo, togglePlayerFill, setYoutubePlayer }) {
 	// set default values
