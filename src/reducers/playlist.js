@@ -20,7 +20,7 @@ const playlist = (state = [], action) => {
 		return update(state, {
 			$splice: [
 				[action.fromIndex, 1],
-				[action.toIndex, 0, action.video],
+				[action.toIndex, 0, state[action.fromIndex]],
 			],
 		});
 	default:

@@ -32,9 +32,8 @@ export const deleteVideo = (index) => ({
 	index,
 });
 
-export const moveVideo = (video, fromIndex, toIndex) => ({
+export const moveVideo = (fromIndex, toIndex) => ({
 	type: MOVE_VIDEO,
-	video,
 	fromIndex,
 	toIndex,
 });

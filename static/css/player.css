@@ -163,22 +163,22 @@ a {
 
 .fade-enter, .fade-appear {
 	opacity: 0;
+	transition: opacity 500ms;
 }
 
 .fade-enter.fade-enter-active, .fade-appear.fade-appear-active {
 	opacity: 1;
-	transition: opacity 500ms;
 }
 
 .fade-leave {
 	opacity: 1;
 	padding: 5px;
 	height: 50px;
+	transition: opacity 250ms, height 250ms ease 250ms, padding 250ms ease 250ms;
 }
 
 .fade-leave.fade-leave-active {
 	opacity: 0;
 	padding: 0px;
 	height: 0px;
-	transition: opacity 250ms, height 200ms ease 300ms, padding 200ms ease 300ms;
 }
