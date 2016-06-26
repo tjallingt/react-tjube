@@ -8,20 +8,16 @@ import ProgressBar from './ProgressBar/ProgressBar';
 import PlayList from './PlayList/PlayList';
 import Search from './Search/Search';
 
-function VideoAppPlayer({ fill, playlist, playNextVideo, togglePlayerFill, setYoutubePlayer }) {
-	// set default values
-	let videoId;
-	let title = 'Add videos to the playlist to begin watching!';
-	let subtitle = `Add videos remotely at ${location.host}/${room}`;
-
-	// alter variables
-	if (playlist.length > 0) {
-		videoId = playlist[0].id;
-		title = playlist[0].title;
-		if (playlist.length > 1) {
-			subtitle = playlist[1].title;
-		}
-	}
+function VideoAppPlayer(props) {
+	const {
+		fill,
+		videoId,
+		title,
+		subtitle,
+		playNextVideo,
+		togglePlayerFill,
+		setYoutubePlayer,
+	} = props;
 
 	// youtube player options
 	const opts = {
@@ -50,7 +46,7 @@ function VideoAppPlayer({ fill, playlist, playNextVideo, togglePlayerFill, setYo
 		'fa-expand': !fill,
 	});
 	const subtitleClass = classNames({
-		'skip-video': (playlist.length > 0),
+		'skip-video': subtitle !== VideoAppPlayer.defaultProps.subtitle,
 	});
 
 	return (
@@ -113,7 +109,9 @@ function VideoAppPlayer({ fill, playlist, playNextVideo, togglePlayerFill, setYo
 
 VideoAppPlayer.propTypes = {
 	fill: React.PropTypes.bool,
-	playlist: React.PropTypes.array,
+	videoId: React.PropTypes.string,
+	title: React.PropTypes.string,
+	subtitle: React.PropTypes.string,
 	playNextVideo: React.PropTypes.func,
 	togglePlayerFill: React.PropTypes.func,
 	setYoutubePlayer: React.PropTypes.func,
@@ -121,7 +119,8 @@ VideoAppPlayer.propTypes = {
 
 VideoAppPlayer.defaultProps = {
 	fill: false,
-	playlist: [],
+	title: 'Add videos to the playlist to begin watching!',
+	subtitle: `Add videos remotely at ${location.host}/${room}`,
 	playNextVideo: () => null,
 	togglePlayerFill: () => null,
 	setYoutubePlayer: () => null,
@@ -129,7 +128,9 @@ VideoAppPlayer.defaultProps = {
 
 const mapStateToProps = (state) => ({
 	fill: state.player.fill,
-	playlist: state.playlist,
+	videoId: state.playlist[0] ? state.playlist[0].id : undefined,
+	title: state.playlist[0] ? state.playlist[0].title : undefined,
+	subtitle: state.playlist[1] ? state.playlist[1].title : undefined,
 });
 
 const mapDispatchToProps = (dispatch) => ({
