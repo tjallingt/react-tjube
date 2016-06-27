@@ -1,3 +1,4 @@
+/* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import PlayListItem from './PlayListItem';
 @DragDropContext(HTML5Backend)
 class PlayList extends React.Component {
 	render() {
-		const { id, playlist, handleClickDelete, handleMoveVideo } = this.props;
+		const { id, playlist } = this.props;
 		const styles = {
 			list: {
 				listStyleType: 'none',
@@ -33,8 +34,8 @@ class PlayList extends React.Component {
 							key={video.key}
 							index={index}
 							video={video}
-							moveVideo={handleMoveVideo}
-							onClickDelete={() => handleClickDelete(index)}
+							moveVideo={this.props.moveVideo}
+							onDelete={() => this.props.deleteVideo(index)}
 						/>
 					))}
 				</ReactCSSTransitionGroup>
@@ -46,27 +47,23 @@ class PlayList extends React.Component {
 PlayList.propTypes = {
 	id: React.PropTypes.string,
 	playlist: React.PropTypes.array.isRequired,
-	handleMoveVideo: React.PropTypes.func,
-	handleClickDelete: React.PropTypes.func,
+	moveVideo: React.PropTypes.func,
+	deleteVideo: React.PropTypes.func,
 };
 
 PlayList.defaultProps = {
 	playlist: [],
-	handleMoveVideo: () => null,
-	handleClickDelete: () => null,
+	moveVideo: () => null,
+	deleteVideo: () => null,
 };
 
 const mapStateToProps = (state) => ({
 	playlist: state.playlist,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	handleMoveVideo: (fromIndex, toIndex) => {
-		dispatch(moveVideo(fromIndex, toIndex));
-	},
-	handleClickDelete: (index) => {
-		dispatch(deleteVideo(index));
-	},
-});
+const mapDispatchToProps = {
+	moveVideo,
+	deleteVideo,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayList);

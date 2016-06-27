@@ -1,3 +1,4 @@
+/* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
@@ -64,7 +65,7 @@ class PlayListItem extends React.Component {
 		const {
 			video,
 			index,
-			onClickDelete,
+			onDelete,
 			connectDragSource,
 			connectDropTarget,
 			isDragging,
@@ -72,51 +73,37 @@ class PlayListItem extends React.Component {
 		const styles = {
 			item: {
 				position: 'relative',
+				backgroundColor: 'hsl(0, 0%, 90%)',
+				backgroundImage: `url( ${video.thumbnails.medium.url} )`,
+				backgroundBlendMode: 'multiply',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
 				backgroundSize: 'cover',
-				backgroundImage: `url( ${video.thumbnails.medium.url} )`,
 				opacity: isDragging ? 0.5 : null,
 			},
 			text: {
 				overflow: 'hidden',
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
-				paddingRight: '40px',
+				padding: '0px 30px',
 			},
 			buttonWrapper: {
 				position: 'absolute',
+				top: 15,
+				left: 0,
+				right: 0,
 			},
-			moveIcon: {
-				cursor: 'move',
-				marginRight: '10px',
+			icon: {
+				position: 'absolute',
+				left: 10,
+				cursor: index !== 0 ? 'move' : null,
 			},
 			deleteButton: {
+				position: 'absolute',
+				right: 10,
 				cursor: 'pointer',
-				marginRight: '10px',
 			},
 		};
-
-		let moveIcon;
-		if (index !== 0) {
-			moveIcon = (
-				<span
-					className="play-next-button"
-					style={styles.moveIcon}
-				>
-					<i className="fa fa-arrows" />
-				</span>
-			);
-		}
-		const deleteButton = (
-			<span
-				className="delete-button"
-				style={styles.deleteButton}
-				onClick={onClickDelete}
-			>
-				<i className={index === 0 ? 'fa fa-step-forward' : 'fa fa-times'} />
-			</span>
-		);
 
 		return connectDragSource(connectDropTarget(
 			<div
@@ -126,11 +113,19 @@ class PlayListItem extends React.Component {
 				<div style={styles.text}>{video.title}</div>
 				<small style={styles.text}>{video.channelTitle}</small>
 				<div
-					className="button-wrapper"
 					style={styles.buttonWrapper}
 				>
-					{moveIcon}
-					{deleteButton}
+					<span
+						style={styles.icon}
+					>
+						<i className={index === 0 ? 'fa fa-play' : 'fa fa-bars'} />
+					</span>
+					<span
+						style={styles.deleteButton}
+						onClick={onDelete}
+					>
+						<i className={index === 0 ? 'fa fa-step-forward' : 'fa fa-times'} />
+					</span>
 				</div>
 			</div>
 		));
@@ -140,7 +135,7 @@ class PlayListItem extends React.Component {
 PlayListItem.propTypes = {
 	video: React.PropTypes.object.isRequired,
 	index: React.PropTypes.number,
-	onClickDelete: React.PropTypes.func,
+	onDelete: React.PropTypes.func,
 	moveVideo: React.PropTypes.func,
 	connectDragSource: React.PropTypes.func,
 	connectDropTarget: React.PropTypes.func,
