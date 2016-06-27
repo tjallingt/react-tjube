@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_SEARCH_RESULTS, SET_SEARCH_QUERY, CLEAR_SEARCH } from '../actions';
+import { RECEIVE_RESULTS, SET_QUERY, CLEAR_SEARCH } from '../actions';
 
 const results = (state = [], action) => {
 	switch (action.type) {
-	case RECEIVE_SEARCH_RESULTS:
+	case RECEIVE_RESULTS:
 		return action.results;
 	case CLEAR_SEARCH:
 		return [];
@@ -14,7 +14,7 @@ const results = (state = [], action) => {
 
 const query = (state = '', action) => {
 	switch (action.type) {
-	case SET_SEARCH_QUERY:
+	case SET_QUERY:
 		return action.query;
 	case CLEAR_SEARCH:
 		return '';

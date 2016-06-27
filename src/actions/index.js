@@ -12,8 +12,8 @@ export const DELETE_VIDEO = 'DELETE_VIDEO';
 export const MOVE_VIDEO = 'MOVE_VIDEO';
 export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
-export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
-export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
+export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
+export const SET_QUERY = 'SET_QUERY';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SEND_VIDEO = 'SEND_VIDEO';
 export const DISCONNECT = 'DISCONNECT';
@@ -53,11 +53,11 @@ export const setYoutube = (youtube) => ({
 });
 
 export const receiveSearchResults = (json) => ({
-	type: RECEIVE_SEARCH_RESULTS,
+	type: RECEIVE_RESULTS,
 	results: json.items.map(filterYoutubeData),
 });
 
-export const fetchSearchResults = (query) => dispatch => {
+export const fetchSearchResults = (query) => (dispatch) => {
 	const parameters = serialize({
 		videoEmbeddable: true,
 		part: 'snippet',
@@ -78,7 +78,7 @@ export const fetchSearchResults = (query) => dispatch => {
 };
 
 export const setSearchQuery = (query) => ({
-	type: SET_SEARCH_QUERY,
+	type: SET_QUERY,
 	query,
 });
 
