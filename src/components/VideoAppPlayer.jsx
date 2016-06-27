@@ -18,7 +18,7 @@ function VideoAppPlayer(props) {
 		togglePlayerFill,
 		setYoutubePlayer,
 	} = props;
-
+	const hasNextVideo = subtitle !== VideoAppPlayer.defaultProps.subtitle;
 	// youtube player options
 	const opts = {
 		height: '100%',
@@ -46,7 +46,7 @@ function VideoAppPlayer(props) {
 		'fa-expand': !fill,
 	});
 	const subtitleClass = classNames({
-		'skip-video': subtitle !== VideoAppPlayer.defaultProps.subtitle,
+		'skip-video': hasNextVideo,
 	});
 
 	return (

@@ -7,15 +7,15 @@ import Search from './Search/Search';
 import Alert from './Alert/Alert';
 import VideoCard from './VideoCard/VideoCard';
 
-function VideoAppRemote({ acceptVideo, video, declineVideo, disconnected }) {
+function VideoAppRemote({ video, disconnected, ...props }) {
 	let alert;
 	if (video) {
 		alert = (
 			<Alert
 				id="alert"
 				key={video.id}
-				onConfirm={() => acceptVideo(video)}
-				onClose={declineVideo}
+				onConfirm={() => props.sendVideo(video)}
+				onClose={props.deleteVideo}
 			>
 				<b>Do you want to add this video to the playlist?</b>
 				<VideoCard video={video} />
@@ -50,10 +50,10 @@ function VideoAppRemote({ acceptVideo, video, declineVideo, disconnected }) {
 }
 
 VideoAppRemote.propTypes = {
-	acceptVideo: React.PropTypes.func,
 	video: React.PropTypes.object,
-	declineVideo: React.PropTypes.func,
 	disconnected: React.PropTypes.bool,
+	sendVideo: React.PropTypes.func,
+	deleteVideo: React.PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -61,9 +61,9 @@ const mapStateToProps = (state) => ({
 	disconnected: !state.connected,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	declineVideo: () => dispatch(deleteVideo()),
-	acceptVideo: (video) => dispatch(sendVideo(video)),
-});
+const mapDispatchToProps = {
+	deleteVideo,
+	sendVideo,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoAppRemote);

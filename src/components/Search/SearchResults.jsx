@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addVideo } from '../../actions';
 import SearchResultsItem from './SearchResultsItem';
 
-function SearchResults({ id, results, onClickVideo }) {
+function SearchResults({ id, results, ...props }) {
 	const styles = {
 		list: {
 			listStyleType: 'none',
@@ -20,7 +20,7 @@ function SearchResults({ id, results, onClickVideo }) {
 					key={video.key}
 					index={index}
 					video={video}
-					onClick={() => onClickVideo(video, index)}
+					onClick={() => props.addVideo(video)}
 				/>
 			))}
 		</ul>
@@ -30,21 +30,19 @@ function SearchResults({ id, results, onClickVideo }) {
 SearchResults.propTypes = {
 	id: React.PropTypes.string,
 	results: React.PropTypes.array.isRequired,
-	onClickVideo: React.PropTypes.func,
+	addVideo: React.PropTypes.func,
 };
 
 SearchResults.defaultProps = {
-	onClickVideo: () => null,
+	addVideo: () => null,
 };
 
 const mapStateToProps = (state) => ({
 	results: state.search.results,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	onClickVideo: (video) => {
-		dispatch(addVideo(video));
-	},
-});
+const mapDispatchToProps = {
+	addVideo,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
