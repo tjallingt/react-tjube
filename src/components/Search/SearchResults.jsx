@@ -38,7 +38,7 @@ SearchResults.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-	results: state.search.results,
+	results: state.results,
 });
 
 const mapDispatchToProps = {

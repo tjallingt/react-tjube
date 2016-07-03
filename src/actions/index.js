@@ -13,7 +13,6 @@ export const MOVE_VIDEO = 'MOVE_VIDEO';
 export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
 export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
-export const SET_QUERY = 'SET_QUERY';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SEND_VIDEO = 'SEND_VIDEO';
 export const DISCONNECT = 'DISCONNECT';
@@ -76,11 +75,6 @@ export const fetchSearchResults = (query) => (dispatch) => {
 			console.log('request failed', error);
 		});
 };
-
-export const setSearchQuery = (query) => ({
-	type: SET_QUERY,
-	query,
-});
 
 export const clearSearch = () => ({
 	type: CLEAR_SEARCH,

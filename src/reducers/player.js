@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import playlist from './playlist';
-import search from './search';
+import results from './results';
 import { SET_YOUTUBE, TOGGLE_FILL } from '../actions';
 
 const player = (state = { fill: false }, action) => {
@@ -23,5 +23,5 @@ const player = (state = { fill: false }, action) => {
 export default combineReducers({
 	player,
 	playlist,
-	search,
+	results,
 });

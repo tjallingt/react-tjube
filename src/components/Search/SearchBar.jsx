@@ -1,51 +1,71 @@
 import React from 'react';
 
-function SearchBar({ id, value, onChange, onClear }) {
-	const styles = {
-		searchbar: {
-			position: 'relative',
-		},
-		input: {
-			width: '100%',
-			border: 'solid white',
-			height: '100%',
-			fontSize: 'inherit',
-			padding: '5px',
-			boxSizing: 'border-box',
-		},
-		button: {
-			position: 'absolute',
-			top: '0px',
-			bottom: '0px',
-			right: '0px',
-			width: '5%',
-			minWidth: '20px',
-			height: '100%',
-			background: 'white',
-			color: 'black',
-			fontSize: 'inherit',
-			border: 'none',
-			cursor: 'pointer',
-		},
+class SearchBar extends React.Component {
+	state = {
+		text: '',
 	};
-	return (
-		<div id={id} style={styles.searchbar}>
-			<input
-				style={styles.input}
-				type="text"
-				onChange={onChange}
-				value={value}
-				placeholder="Search for videos"
-			/>
-			<button
-				type="button"
-				style={styles.button}
-				onClick={onClear}
-			>
-				<i className="fa fa-times"></i>
-			</button>
-		</div>
-	);
+
+	handleChange = (event) => {
+		this.setState({
+			text: event.target.value,
+		});
+		this.props.onChange(event);
+	};
+
+	handleClear = () => {
+		this.setState({
+			text: '',
+		});
+		this.props.onClear();
+	}
+
+	render() {
+		const styles = {
+			searchbar: {
+				position: 'relative',
+			},
+			input: {
+				width: '100%',
+				border: 'solid white',
+				height: '100%',
+				fontSize: 'inherit',
+				padding: '5px',
+				boxSizing: 'border-box',
+			},
+			button: {
+				position: 'absolute',
+				top: '0px',
+				bottom: '0px',
+				right: '0px',
+				width: '5%',
+				minWidth: '20px',
+				height: '100%',
+				background: 'white',
+				color: 'black',
+				fontSize: 'inherit',
+				border: 'none',
+				cursor: 'pointer',
+			},
+		};
+		return (
+			<div id={this.props.id} style={styles.searchbar}>
+				<input
+					style={styles.input}
+					type="text"
+					onChange={this.handleChange}
+					value={this.state.text}
+					placeholder="Search for videos"
+				/>
+				<button
+					type="button"
+					style={styles.button}
+					onClick={this.handleClear}
+				>
+					<i className="fa fa-times"></i>
+				</button>
+			</div>
+		);
+	}
 }
 
 SearchBar.propTypes = {
