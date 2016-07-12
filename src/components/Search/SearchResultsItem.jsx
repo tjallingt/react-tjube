@@ -1,26 +1,15 @@
 import React from 'react';
+import styles from './SearchResultsItem.css';
 
 function SearchResultsItem({ video, onClick }) {
-	const styles = {
-		item: {
-			position: 'relative',
-		},
-		text: {
-			textOverflow: 'ellipsis',
-			whiteSpace: 'nowrap',
-			overflow: 'hidden',
-		},
-	};
-
 	return (
-		<li
-			className="search-results-item"
-			style={styles.item}
+		<div
+			className={styles.item}
 			onClick={onClick}
 		>
-			<div style={styles.text}>{video.title}</div>
-			<small style={styles.text}>{video.channelTitle}</small>
-		</li>
+			<div className={styles.text}>{video.title}</div>
+			<small className={styles.text}>{video.channelTitle}</small>
+		</div>
 	);
 }
 

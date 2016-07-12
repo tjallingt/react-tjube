@@ -1,47 +1,20 @@
 import React from 'react';
+import styles from './Alert.css';
 
 function Alert({ id, onConfirm, onClose, children }) {
-	const styles = {
-		alert: {
-			position: 'fixed',
-			bottom: 0,
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'space-between',
-			boxSizing: 'border-box',
-			padding: 10,
-			border: '1px solid grey',
-			borderRadius: 3,
-			background: 'white',
-			color: 'black',
-		},
-		options: {
-			textAlign: 'right',
-			marginTop: 10,
-		},
-		button: {
-			marginLeft: 5,
-			width: 75,
-			height: 30,
-			background: 'white',
-			border: '1px solid grey',
-			borderRadius: 1,
-		},
-	};
-
 	let confirm;
-	let close = <button onClick={onClose} style={styles.button}>OK</button>;
+	let close = <button onClick={onClose} className={styles.button}>OK</button>;
 	if (onConfirm) {
-		confirm = <button onClick={onConfirm} style={styles.button}>OK</button>;
-		close = <button onClick={onClose} style={styles.button}>Cancel</button>;
+		confirm = <button onClick={onConfirm} className={styles.button}>OK</button>;
+		close = <button onClick={onClose} className={styles.button}>Cancel</button>;
 	}
 
 	return (
-		<div id={id} style={styles.alert}>
-			<div style={styles.children}>
+		<div id={id} className={styles.alert}>
+			<div>
 				{children}
 			</div>
-			<div style={styles.options}>
+			<div className={styles.options}>
 				{confirm}
 				{close}
 			</div>

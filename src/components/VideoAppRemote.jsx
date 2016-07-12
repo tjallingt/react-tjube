@@ -6,6 +6,7 @@ import { deleteVideo, sendVideo } from '../actions';
 import Search from './Search/Search';
 import Alert from './Alert/Alert';
 import VideoCard from './VideoCard/VideoCard';
+import './VideoAppRemote.css';
 
 function VideoAppRemote({ video, disconnected, ...props }) {
 	let alert;

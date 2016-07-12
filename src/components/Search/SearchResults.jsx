@@ -4,16 +4,9 @@ import { addVideo } from '../../actions';
 import SearchResultsItem from './SearchResultsItem';
 
 function SearchResults({ id, results, ...props }) {
-	const styles = {
-		list: {
-			listStyleType: 'none',
-		},
-	};
-
 	return (
-		<ul
+		<div
 			id={id}
-			style={styles.list}
 		>
 			{results.map((video, index) => (
 				<SearchResultsItem
@@ -23,7 +16,7 @@ function SearchResults({ id, results, ...props }) {
 					onClick={() => props.addVideo(video)}
 				/>
 			))}
-		</ul>
+		</div>
 	);
 }
 

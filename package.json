@@ -12,10 +12,10 @@
     "lint": "eslint --ext .js --ext .jsx app.js src",
     "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:player\" \"npm run watch:remote\"",
     "build": "npm run build:player && npm run build:remote",
-    "build:player": "cross-env NODE_ENV=production browserify src/player.jsx -t babelify --extension=jsx | uglifyjs > static/js/player.js",
-    "build:remote": "cross-env NODE_ENV=production browserify src/remote.jsx -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
-    "watch:player": "watchify src/player.jsx -o static/js/player.js -t babelify --extension=jsx -d -v",
-    "watch:remote": "watchify src/remote.jsx -o static/js/remote.js -t babelify --extension=jsx -d -v"
+    "build:player": "cross-env NODE_ENV=production browserify src/player.jsx -p [ css-modulesify --before postcss-nested -o static/css/player.css ] -t babelify --extension=jsx | uglifyjs > static/js/player.js",
+    "build:remote": "cross-env NODE_ENV=production browserify src/remote.jsx -p [ css-modulesify --before postcss-nested -o static/css/remote.css ] -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
+    "watch:player": "watchify src/player.jsx -o static/js/player.js -p [ css-modulesify --before postcss-nested -o static/css/player.css ] -t babelify --extension=jsx -d -v",
+    "watch:remote": "watchify src/remote.jsx -o static/js/remote.js -p [ css-modulesify --before postcss-nested -o static/css/remote.css ] -t babelify --extension=jsx -d -v"
   },
   "author": "tjallingt",
   "license": "MIT",
@@ -29,11 +29,13 @@
     "browserify": "^13.0.0",
     "concurrently": "^2.1.0",
     "cross-env": "^1.0.7",
+    "css-modulesify": "^0.25.1",
     "eslint": "^2.0.0",
     "eslint-config-airbnb": "^9.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.0",
+    "postcss-nested": "^1.0.0",
     "uglify-js": "^2.6.2",
     "watchify": "^3.7.0"
   },

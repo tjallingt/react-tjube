@@ -1,0 +1,27 @@
+.searchbar {
+	position: relative;
+}
+
+.input {
+	width: 100%;
+	border: solid white;
+	height: 100%;
+	font-size: inherit;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.button {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	width: 5%;
+	min-width: 20px;
+	height: 100%;
+	background: white;
+	color: black;
+	font-size: inherit;
+	border: none;
+	cursor: pointer;
+}

@@ -1,0 +1,152 @@
+.player {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100vh;
+	width: 100vw;
+}
+
+.player.fill {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100vw;
+	height: 56.25vw;
+	min-height: 100vh;
+	min-width: 177.78vh;
+}
+
+.titleWrapper {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+}
+
+.title {
+	font-size: 1.2rem;
+}
+
+.subtitle {
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 1rem;
+	opacity: 0.75;
+}
+
+.subtitle.skipVideo {
+	cursor: pointer;
+}
+
+.subtitle.skipVideo::before {
+	font: normal normal normal 14px/1 FontAwesome;
+	content: "\f051";
+	margin-right: 10px;
+}
+
+.subtitle.skipVideo:hover {
+	opacity: 1;
+}
+
+.buttonWrapper {
+	position: absolute;
+	left: 10px;
+	bottom: 20px;
+	opacity: 0.75;
+	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+}
+
+.buttonWrapper > * {
+	margin-right: 10px;
+}
+
+.fillButton {
+	cursor: pointer;
+}
+
+:global {
+	#search {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		width: 25%;
+	}
+
+	#search-bar {
+		height: 20px;
+		opacity: .75;
+	}
+
+	#playlist, #search-results {
+		max-height: calc(100vh - 20px);
+		overflow: auto;
+		background-color: rgba(0,0,0,.25);
+		text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+	}
+
+	#playlist {
+		position: absolute;
+		top: 20px;
+		right: 0px;
+		width: 7%;
+		opacity: .5;
+		transition: width 250ms, opacity 250ms;
+	}
+
+	#playlist:hover {
+		width: 25%;
+		opacity: 1;
+	}
+
+	#playlist .play-list-item>* {
+		display: none;
+	}
+
+	#playlist:hover .play-list-item>*  {
+		display: block;
+	}
+
+	#progress-bar {
+		cursor: pointer;
+		position: fixed;
+		bottom: 0px;
+		width: 100vw;
+		height: 20px;
+	}
+
+	#progress-bar .progress {
+		position: absolute;
+		background: #F00;
+		bottom: 0px;
+		height: 25%;
+		transition: height 250ms;
+	}
+
+	#progress-bar:hover .progress {
+		height: 50%;
+	}
+
+	.fade {
+		&-enter, &-appear {
+			opacity: 0;
+			transition: opacity 500ms;
+		}
+
+		&-enter-active, &-appear-active {
+			opacity: 1;
+		}
+
+		&-leave {
+			opacity: 1;
+			padding: 5px;
+			height: 50px;
+			transition: opacity 250ms, height 250ms ease 250ms, padding 250ms ease 250ms;
+		}
+
+		&-leave-active {
+			opacity: 0;
+			padding: 0px;
+			height: 0px;
+		}
+	}
+}

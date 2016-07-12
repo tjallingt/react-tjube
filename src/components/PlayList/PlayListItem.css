@@ -1,0 +1,48 @@
+.item {
+	box-sizing: border-box;
+	height: 50px;
+	padding: 5px;
+	border-bottom: 1px solid #FFF;
+	position: relative;
+	background-color: hsl(0, 0%, 90%);
+	background-blendMode: multiply;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.item.isDragging {
+	opacity: 0.5;
+}
+
+.text {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0px 30px;
+}
+
+.buttonWrapper {
+	position: absolute;
+	top: 15px;
+	left: 0px;
+	right: 0px;
+}
+
+.icon {
+	position: absolute;
+	left: 10px;
+}
+
+.icon.canMove {
+	cursor: move;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	cursor: grab;
+}
+
+.button {
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+}

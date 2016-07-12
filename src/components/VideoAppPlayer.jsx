@@ -7,18 +7,18 @@ import YouTube from 'react-youtube';
 import ProgressBar from './ProgressBar/ProgressBar';
 import PlayList from './PlayList/PlayList';
 import Search from './Search/Search';
+import styles from './VideoAppPlayer.css';
 
-function VideoAppPlayer(props) {
-	const {
-		fill,
-		videoId,
-		title,
-		subtitle,
-		playNextVideo,
-		togglePlayerFill,
-		setYoutubePlayer,
-	} = props;
-	const hasNextVideo = subtitle !== VideoAppPlayer.defaultProps.subtitle;
+function VideoAppPlayer({
+	fill,
+	videoId,
+	title,
+	subtitle,
+	canSkip,
+	playNextVideo,
+	togglePlayerFill,
+	setYoutubePlayer,
+}) {
 	// youtube player options
 	const opts = {
 		height: '100%',
@@ -36,24 +36,21 @@ function VideoAppPlayer(props) {
 	};
 
 	// calculate component classes
-	const playerClass = classNames({
-		fill,
+	const playerStyle = classNames(styles.player, {
+		[styles.fill]: fill,
 	});
-	const fillBtnClass = classNames({
-		pointer: true,
-		fa: true,
+	const fillBtnStyle = classNames(styles.fillButton, 'fa', {
 		'fa-compress': fill,
 		'fa-expand': !fill,
 	});
-	const subtitleClass = classNames({
-		'skip-video': hasNextVideo,
+	const subtitleStyle = classNames(styles.subtitle, {
+		[styles.skipVideo]: canSkip,
 	});
 
 	return (
 		<div>
 			<YouTube
-				id="player"
-				className={playerClass}
+				className={playerStyle}
 				videoId={videoId}
 				opts={opts}
 				onReady={setYoutubePlayer}
@@ -64,14 +61,13 @@ function VideoAppPlayer(props) {
 				id="progress-bar"
 			/>
 
-			<div id="title-wrapper">
-				<div id="title">
+			<div className={styles.titleWrapper}>
+				<div className={styles.title}>
 					{title}
 				</div>
 
 				<div
-					id="subtitle"
-					className={subtitleClass}
+					className={subtitleStyle}
 					onClick={playNextVideo}
 				>
 					{subtitle}
@@ -86,9 +82,9 @@ function VideoAppPlayer(props) {
 				id="search"
 			/>
 
-			<div id="player-button-wrapper">
+			<div className={styles.buttonWrapper}>
 				<i
-					className={fillBtnClass}
+					className={fillBtnStyle}
 					onClick={togglePlayerFill}
 				/>
 
@@ -112,6 +108,7 @@ VideoAppPlayer.propTypes = {
 	videoId: React.PropTypes.string,
 	title: React.PropTypes.string,
 	subtitle: React.PropTypes.string,
+	canSkip: React.PropTypes.bool,
 	playNextVideo: React.PropTypes.func,
 	togglePlayerFill: React.PropTypes.func,
 	setYoutubePlayer: React.PropTypes.func,
@@ -131,6 +128,7 @@ const mapStateToProps = (state) => ({
 	videoId: state.playlist[0] ? state.playlist[0].id : undefined,
 	title: state.playlist[0] ? state.playlist[0].title : undefined,
 	subtitle: state.playlist[1] ? state.playlist[1].title : undefined,
+	canSkip: !!state.playlist[1],
 });
 
 const mapDispatchToProps = (dispatch) => ({

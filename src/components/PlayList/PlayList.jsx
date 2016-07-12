@@ -11,16 +11,10 @@ import PlayListItem from './PlayListItem';
 class PlayList extends React.Component {
 	render() {
 		const { id, playlist } = this.props;
-		const styles = {
-			list: {
-				listStyleType: 'none',
-			},
-		};
 
 		return (
 			<div
 				id={id}
-				style={styles.list}
 			>
 				<ReactCSSTransitionGroup
 					transitionName="fade"

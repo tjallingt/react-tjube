@@ -2,6 +2,8 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import classNames from 'classnames';
+import styles from './PlayListItem.css';
 
 const videoSource = {
 	canDrag: (props) => props.index !== 0,
@@ -70,58 +72,32 @@ class PlayListItem extends React.Component {
 			connectDropTarget,
 			isDragging,
 		} = this.props;
-		const styles = {
-			item: {
-				position: 'relative',
-				backgroundColor: 'hsl(0, 0%, 90%)',
-				backgroundImage: `url( ${video.thumbnails.medium.url} )`,
-				backgroundBlendMode: 'multiply',
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-				opacity: isDragging ? 0.5 : null,
-			},
-			text: {
-				overflow: 'hidden',
-				whiteSpace: 'nowrap',
-				textOverflow: 'ellipsis',
-				padding: '0px 30px',
-			},
-			buttonWrapper: {
-				position: 'absolute',
-				top: 15,
-				left: 0,
-				right: 0,
-			},
-			icon: {
-				position: 'absolute',
-				left: 10,
-				cursor: index !== 0 ? 'move' : null,
-			},
-			deleteButton: {
-				position: 'absolute',
-				right: 10,
-				cursor: 'pointer',
-			},
-		};
+
+		const itemStyle = classNames('play-list-item', styles.item, {
+			[styles.isDragging]: isDragging,
+		});
+
+		const iconStyle = classNames(styles.icon, {
+			[styles.canMove]: index !== 0,
+		});
 
 		return connectDragSource(connectDropTarget(
 			<div
-				className="play-list-item"
-				style={styles.item}
+				className={itemStyle}
+				style={{ backgroundImage: `url( ${video.thumbnails.medium.url} )` }}
 			>
-				<div style={styles.text}>{video.title}</div>
-				<small style={styles.text}>{video.channelTitle}</small>
+				<div className={styles.text}>{video.title}</div>
+				<small className={styles.text}>{video.channelTitle}</small>
 				<div
-					style={styles.buttonWrapper}
+					className={styles.buttonWrapper}
 				>
 					<span
-						style={styles.icon}
+						className={iconStyle}
 					>
 						<i className={index === 0 ? 'fa fa-play' : 'fa fa-bars'} />
 					</span>
 					<span
-						style={styles.deleteButton}
+						className={styles.button}
 						onClick={onDelete}
 					>
 						<i className={index === 0 ? 'fa fa-step-forward' : 'fa fa-times'} />

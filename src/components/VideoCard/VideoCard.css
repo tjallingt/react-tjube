@@ -1,0 +1,12 @@
+.card {
+	display: flex;
+	padding: 5px;
+}
+
+.thumbnail {
+	height: 75px;
+}
+
+.wrapper {
+	margin-left: 10px;
+}

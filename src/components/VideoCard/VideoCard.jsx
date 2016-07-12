@@ -1,23 +1,11 @@
 import React from 'react';
+import styles from './VideoCard.css';
 
-function Alert({ id, video }) {
-	const styles = {
-		card: {
-			display: 'flex',
-			padding: 5,
-		},
-		thumbnail: {
-			height: 75,
-		},
-		wrapper: {
-			marginLeft: 10,
-		},
-	};
-
+function VideoCard({ id, video }) {
 	return (
-		<div id={id} style={styles.card}>
-			<img style={styles.thumbnail} src={video.thumbnails.medium.url} alt="thumbnail" />
-			<div style={styles.wrapper}>
+		<div id={id} className={styles.card}>
+			<img className={styles.thumbnail} src={video.thumbnails.medium.url} alt="thumbnail" />
+			<div className={styles.wrapper}>
 				<div>{video.title}</div>
 				<small>{video.channelTitle}</small>
 			</div>
@@ -25,9 +13,9 @@ function Alert({ id, video }) {
 	);
 }
 
-Alert.propTypes = {
+VideoCard.propTypes = {
 	id: React.PropTypes.string,
 	video: React.PropTypes.object,
 };
 
-export default Alert;
+export default VideoCard;

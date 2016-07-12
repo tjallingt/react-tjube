@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './SearchBar.css';
 
 class SearchBar extends React.Component {
 	state = {
@@ -20,37 +21,10 @@ class SearchBar extends React.Component {
 	}
 
 	render() {
-		const styles = {
-			searchbar: {
-				position: 'relative',
-			},
-			input: {
-				width: '100%',
-				border: 'solid white',
-				height: '100%',
-				fontSize: 'inherit',
-				padding: '5px',
-				boxSizing: 'border-box',
-			},
-			button: {
-				position: 'absolute',
-				top: '0px',
-				bottom: '0px',
-				right: '0px',
-				width: '5%',
-				minWidth: '20px',
-				height: '100%',
-				background: 'white',
-				color: 'black',
-				fontSize: 'inherit',
-				border: 'none',
-				cursor: 'pointer',
-			},
-		};
 		return (
-			<div id={this.props.id} style={styles.searchbar}>
+			<div id={this.props.id} className={styles.searchbar}>
 				<input
-					style={styles.input}
+					className={styles.input}
 					type="text"
 					onChange={this.handleChange}
 					value={this.state.text}
@@ -58,7 +32,7 @@ class SearchBar extends React.Component {
 				/>
 				<button
 					type="button"
-					style={styles.button}
+					className={styles.button}
 					onClick={this.handleClear}
 				>
 					<i className="fa fa-times"></i>
