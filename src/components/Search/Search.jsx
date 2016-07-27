@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
-import { fetchSearchResults, clearSearch } from '../../actions';
-import SearchBar from './SearchBar';
+import { addVideo, fetchSearchResults, clearSearch } from '../../actions';
+import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from './SearchResults';
 
 
-function Search({ id, search, handleClear }) {
+function Search({ id, results, search, handleClear, handleAddVideo }) {
 	return (
 		<div id={id}>
 			<SearchBar
@@ -16,6 +16,8 @@ function Search({ id, search, handleClear }) {
 			/>
 			<SearchResults
 				id="search-results"
+				results={results}
+				addVideo={handleAddVideo}
 			/>
 		</div>
 	);
@@ -23,8 +25,10 @@ function Search({ id, search, handleClear }) {
 
 Search.propTypes = {
 	id: React.PropTypes.string,
+	results: React.PropTypes.array,
 	search: React.PropTypes.func,
 	handleClear: React.PropTypes.func,
+	handleAddVideo: React.PropTypes.func,
 };
 
 Search.defaultProps = {
@@ -32,9 +36,14 @@ Search.defaultProps = {
 	handleClear: () => null,
 };
 
+const mapStateToProps = (state) => ({
+	results: state.results,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	search: debounce((query) => dispatch(fetchSearchResults(query)), 500),
 	handleClear: () => dispatch(clearSearch()),
+	handleAddVideo: (video) => dispatch(addVideo(video)),
 });
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

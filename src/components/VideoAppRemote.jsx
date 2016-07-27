@@ -19,7 +19,10 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 				onClose={props.deleteVideo}
 			>
 				<b>Do you want to add this video to the playlist?</b>
-				<VideoCard video={video} />
+				<VideoCard
+					video={video}
+					thumbnail="medium"
+				/>
 			</Alert>
 		);
 	}

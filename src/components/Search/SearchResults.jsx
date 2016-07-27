@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addVideo } from '../../actions';
 import SearchResultsItem from './SearchResultsItem';
 
 function SearchResults({ id, results, ...props }) {
@@ -30,12 +28,4 @@ SearchResults.defaultProps = {
 	addVideo: () => null,
 };
 
-const mapStateToProps = (state) => ({
-	results: state.results,
-});
-
-const mapDispatchToProps = {
-	addVideo,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
+export default SearchResults;

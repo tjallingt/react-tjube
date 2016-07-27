@@ -1,10 +1,21 @@
 import React from 'react';
 import styles from './VideoCard.css';
 
-function VideoCard({ id, video }) {
+function VideoCard({ id, video, thumbnail }) {
+	let image;
+	if (thumbnail) {
+		image = (
+			<img
+				className={styles.thumbnail}
+				src={video.thumbnails[thumbnail].url}
+				alt="thumbnail"
+			/>
+		);
+	}
+
 	return (
 		<div id={id} className={styles.card}>
-			<img className={styles.thumbnail} src={video.thumbnails.medium.url} alt="thumbnail" />
+			{image}
 			<div className={styles.wrapper}>
 				<div>{video.title}</div>
 				<small>{video.channelTitle}</small>
@@ -16,6 +27,7 @@ function VideoCard({ id, video }) {
 VideoCard.propTypes = {
 	id: React.PropTypes.string,
 	video: React.PropTypes.object,
+	thumbnail: React.PropTypes.string,
 };
 
 export default VideoCard;
