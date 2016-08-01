@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Alert.css';
+import styles from './Dialog.css';
 
-function Alert({ id, onConfirm, onClose, children }) {
+function Dialog({ id, onConfirm, onClose, children }) {
 	let confirm;
 	let close = <button onClick={onClose} className={styles.button}>OK</button>;
 	if (onConfirm) {
@@ -10,7 +10,7 @@ function Alert({ id, onConfirm, onClose, children }) {
 	}
 
 	return (
-		<div id={id} className={styles.alert}>
+		<div id={id} className={styles.dialog}>
 			<div>
 				{children}
 			</div>
@@ -22,11 +22,11 @@ function Alert({ id, onConfirm, onClose, children }) {
 	);
 }
 
-Alert.propTypes = {
+Dialog.propTypes = {
 	id: React.PropTypes.string,
 	onConfirm: React.PropTypes.func,
 	onClose: React.PropTypes.func,
 	children: React.PropTypes.node,
 };
 
-export default Alert;
+export default Dialog;

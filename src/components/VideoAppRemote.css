@@ -7,7 +7,7 @@
 		overflow-y: auto;
 	}
 
-	#alert {
+	#dialog {
 		width: 50%;
 	}
 
@@ -41,7 +41,7 @@
 			width: 100%;
 		}
 
-		#alert {
+		#dialog {
 			width: 100%;
 		}
 

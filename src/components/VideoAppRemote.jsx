@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { deleteVideo, sendVideo } from '../actions';
 
 import Search from './Search/Search';
-import Alert from './Alert/Alert';
+import Dialog from './Dialog/Dialog';
 import VideoCard from './VideoCard/VideoCard';
 import './VideoAppRemote.css';
 
 function VideoAppRemote({ video, disconnected, ...props }) {
-	let alert;
+	let dialog;
 	if (video) {
-		alert = (
-			<Alert
-				id="alert"
+		dialog = (
+			<Dialog
+				id="dialog"
 				key={video.id}
 				onConfirm={() => props.sendVideo(video)}
 				onClose={props.deleteVideo}
@@ -23,18 +23,18 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 					video={video}
 					thumbnail="medium"
 				/>
-			</Alert>
+			</Dialog>
 		);
 	}
 	if (disconnected) {
-		alert = (
-			<Alert
-				id="alert"
+		dialog = (
+			<Dialog
+				id="dialog"
 				key="disconnected"
 				onClose={() => location.reload()}
 			>
 				<h3>You are disconnected, please reload the page.</h3>
-			</Alert>
+			</Dialog>
 		);
 	}
 	return (
@@ -47,7 +47,7 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 				transitionEnterTimeout={250}
 				transitionLeaveTimeout={250}
 			>
-				{alert}
+				{dialog}
 			</ReactCSSTransitionGroup>
 		</div>
 	);
