@@ -4,24 +4,24 @@
 
 .input {
 	width: 100%;
-	border: solid white;
+	box-sizing: border-box;
+	border: 2px solid white;
 	height: 100%;
 	font-size: inherit;
-	padding: 5px;
-	box-sizing: border-box;
 }
 
 .button {
 	position: absolute;
-	top: 0px;
 	bottom: 0px;
 	right: 0px;
 	width: 5%;
 	min-width: 20px;
 	height: 100%;
-	background: white;
-	color: black;
 	font-size: inherit;
+	box-sizing: border-box;
 	border: none;
+	padding: 0px;
 	cursor: pointer;
+	color: black;
+	background: white;
 }

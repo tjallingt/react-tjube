@@ -15,11 +15,15 @@
 	opacity: 0.5;
 }
 
-.text {
+.title, .channelTitle {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	padding: 0px 30px;
+}
+
+.channelTitle {
+	font-size: smaller;
 }
 
 .buttonWrapper {

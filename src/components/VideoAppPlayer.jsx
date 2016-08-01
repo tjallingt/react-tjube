@@ -62,16 +62,18 @@ function VideoAppPlayer({
 			/>
 
 			<div className={styles.titleWrapper}>
-				<div className={styles.title}>
+				<h1
+					className={styles.title}
+				>
 					{title}
-				</div>
+				</h1>
 
-				<div
+				<h2
 					className={subtitleStyle}
 					onClick={playNextVideo}
 				>
 					{subtitle}
-				</div>
+				</h2>
 			</div>
 
 			<PlayList

@@ -21,16 +21,17 @@
 	top: 10px;
 	left: 10px;
 	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+	max-width: 70%;
+	white-space: nowrap;
 }
 
-.title {
-	font-size: 1.2rem;
+.title, .subtitle {
+	overflow: hidden;
+	text-overflow: ellipsis;	
 }
 
 .subtitle {
-	margin-top: 10px;
 	margin-left: 10px;
-	font-size: 1rem;
 	opacity: 0.75;
 }
 

@@ -18,7 +18,7 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 				onConfirm={() => props.sendVideo(video)}
 				onClose={props.deleteVideo}
 			>
-				<b>Do you want to add this video to the playlist?</b>
+				<h3>Do you want to add this video to the playlist?</h3>
 				<VideoCard
 					video={video}
 					thumbnail="medium"
@@ -33,7 +33,7 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 				key="disconnected"
 				onClose={() => location.reload()}
 			>
-				<b>You are disconnected, please reload the page.</b>
+				<h3>You are disconnected, please reload the page.</h3>
 			</Alert>
 		);
 	}

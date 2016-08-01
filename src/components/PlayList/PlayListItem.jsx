@@ -86,8 +86,8 @@ class PlayListItem extends React.Component {
 				className={itemStyle}
 				style={{ backgroundImage: `url( ${video.thumbnails.medium.url} )` }}
 			>
-				<div className={styles.text}>{video.title}</div>
-				<small className={styles.text}>{video.channelTitle}</small>
+				<div className={styles.title}>{video.title}</div>
+				<div className={styles.channelTitle}>{video.channelTitle}</div>
 				<div
 					className={styles.buttonWrapper}
 				>
