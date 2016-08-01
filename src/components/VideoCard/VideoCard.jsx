@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './VideoCard.css';
 
-function VideoCard({ id, video, thumbnail }) {
+function VideoCard({ video, thumbnail, className, ...other }) {
 	let image;
 	if (thumbnail) {
 		image = (
@@ -14,20 +14,20 @@ function VideoCard({ id, video, thumbnail }) {
 	}
 
 	return (
-		<div id={id} className={styles.card}>
+		<div {...other} className={`${styles.card} ${className}`}>
 			{image}
 			<div className={styles.wrapper}>
-				<div>{video.title}</div>
-				<small>{video.channelTitle}</small>
+				<div className={styles.title}>{video.title}</div>
+				<div className={styles.channelTitle}>{video.channelTitle}</div>
 			</div>
 		</div>
 	);
 }
 
 VideoCard.propTypes = {
-	id: React.PropTypes.string,
 	video: React.PropTypes.object,
 	thumbnail: React.PropTypes.string,
+	className: React.PropTypes.string,
 };
 
 export default VideoCard;

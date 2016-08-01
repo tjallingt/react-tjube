@@ -9,5 +9,16 @@
 }
 
 .wrapper {
-	
+	/* min-width is necessairy for overflow to work with flexbox */
+	min-width: 0;
+}
+
+.title, .channelTitle {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.channelTitle {
+	font-size: smaller;
 }

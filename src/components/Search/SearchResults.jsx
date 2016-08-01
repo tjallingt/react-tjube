@@ -1,5 +1,6 @@
 import React from 'react';
-import SearchResultsItem from './SearchResultsItem';
+import VideoCard from '../VideoCard/VideoCard';
+import styles from './SearchResults.css';
 
 function SearchResults({ id, results, ...props }) {
 	return (
@@ -7,8 +8,9 @@ function SearchResults({ id, results, ...props }) {
 			id={id}
 		>
 			{results.map((video, index) => (
-				<SearchResultsItem
+				<VideoCard
 					key={video.key}
+					className={styles.item}
 					index={index}
 					video={video}
 					onClick={() => props.addVideo(video)}
