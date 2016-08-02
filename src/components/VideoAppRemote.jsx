@@ -5,10 +5,12 @@ import { deleteVideo, sendVideo } from '../actions';
 
 import Search from './Search/Search';
 import Dialog from './Dialog/Dialog';
+import Toast from './Toast/Toast';
 import VideoCard from './VideoCard/VideoCard';
-import './VideoAppRemote.css';
 
-function VideoAppRemote({ video, disconnected, ...props }) {
+import styles from './VideoAppRemote.css';
+
+function VideoAppRemote({ video, disconnected, toasts, ...props }) {
 	let dialog;
 	if (video) {
 		dialog = (
@@ -41,7 +43,21 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 		<div>
 			<Search
 				id="search"
+				withToast={false}
 			/>
+			<div className={styles.toastWrapper}>
+				<ReactCSSTransitionGroup
+					transitionName="fade"
+					transitionEnterTimeout={500}
+					transitionLeaveTimeout={500}
+				>
+					{toasts.map((toast) => (
+						<Toast key={toast.key}>
+							{toast.message}
+						</Toast>
+					))}
+				</ReactCSSTransitionGroup>
+			</div>
 			<ReactCSSTransitionGroup
 				transitionName="scale"
 				transitionEnterTimeout={250}
@@ -55,6 +71,7 @@ function VideoAppRemote({ video, disconnected, ...props }) {
 
 VideoAppRemote.propTypes = {
 	video: React.PropTypes.object,
+	toasts: React.PropTypes.array,
 	disconnected: React.PropTypes.bool,
 	sendVideo: React.PropTypes.func,
 	deleteVideo: React.PropTypes.func,
@@ -62,6 +79,7 @@ VideoAppRemote.propTypes = {
 
 const mapStateToProps = (state) => ({
 	video: state.video,
+	toasts: state.toasts,
 	disconnected: !state.connected,
 });
 

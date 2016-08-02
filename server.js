@@ -92,7 +92,8 @@ io.on('connect', (socket) => {
 		socket.join(currentRoom);
 	});
 
-	socket.on('addVideo', (video) => {
+	socket.on('addVideo', (video, success) => {
 		socket.broadcast.to(currentRoom).emit('addVideo', video);
+		success();
 	});
 });

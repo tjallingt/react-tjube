@@ -17,7 +17,7 @@ class PlayList extends React.Component {
 				id={id}
 			>
 				<ReactCSSTransitionGroup
-					transitionName="fade"
+					transitionName="fade-slide"
 					transitionAppear
 					transitionAppearTimeout={500}
 					transitionEnterTimeout={500}

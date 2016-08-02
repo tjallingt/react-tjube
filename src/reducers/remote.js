@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import results from './results';
+import toasts from './toasts';
 import { ADD_VIDEO, DELETE_VIDEO, SEND_VIDEO, DISCONNECT } from '../actions';
 
 const video = (state = null, action) => {
@@ -27,4 +28,5 @@ export default combineReducers({
 	video,
 	connected,
 	results,
+	toasts,
 });

@@ -3,13 +3,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { deleteVideo, toggleFill, setYoutube } from '../actions';
 import classNames from 'classnames';
+
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import YouTube from 'react-youtube';
 import ProgressBar from './ProgressBar/ProgressBar';
 import PlayList from './PlayList/PlayList';
 import Search from './Search/Search';
+import Toast from './Toast/Toast';
+
 import styles from './VideoAppPlayer.css';
 
 function VideoAppPlayer({
+	toasts,
 	fill,
 	videoId,
 	title,
@@ -57,14 +62,8 @@ function VideoAppPlayer({
 				onEnd={playNextVideo}
 			/>
 
-			<ProgressBar
-				id="progress-bar"
-			/>
-
 			<div className={styles.titleWrapper}>
-				<h1
-					className={styles.title}
-				>
+				<h1 className={styles.title}>
 					{title}
 				</h1>
 
@@ -76,13 +75,9 @@ function VideoAppPlayer({
 				</h2>
 			</div>
 
-			<PlayList
-				id="playlist"
-			/>
+			<PlayList id="playlist" />
 
-			<Search
-				id="search"
-			/>
+			<Search id="search" />
 
 			<div className={styles.buttonWrapper}>
 				<i
@@ -101,11 +96,28 @@ function VideoAppPlayer({
 					{room}
 				</span>
 			</div>
+
+			<div className={styles.toastWrapper}>
+				<ReactCSSTransitionGroup
+					transitionName="fade"
+					transitionEnterTimeout={500}
+					transitionLeaveTimeout={500}
+				>
+					{toasts.map((toast) => (
+						<Toast key={toast.key}>
+							{toast.message}
+						</Toast>
+					))}
+				</ReactCSSTransitionGroup>
+			</div>
+
+			<ProgressBar id="progress-bar" />
 		</div>
 	);
 }
 
 VideoAppPlayer.propTypes = {
+	toasts: React.PropTypes.array,
 	fill: React.PropTypes.bool,
 	videoId: React.PropTypes.string,
 	title: React.PropTypes.string,
@@ -117,6 +129,7 @@ VideoAppPlayer.propTypes = {
 };
 
 VideoAppPlayer.defaultProps = {
+	toasts: [],
 	fill: false,
 	title: 'Add videos to the playlist to begin watching!',
 	subtitle: `Add videos remotely at ${location.host}/${room}`,
@@ -126,6 +139,7 @@ VideoAppPlayer.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
+	toasts: state.toasts,
 	fill: state.player.fill,
 	videoId: state.playlist[0] ? state.playlist[0].id : undefined,
 	title: state.playlist[0] ? state.playlist[0].title : undefined,

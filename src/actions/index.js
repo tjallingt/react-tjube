@@ -16,6 +16,8 @@ export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SEND_VIDEO = 'SEND_VIDEO';
 export const DISCONNECT = 'DISCONNECT';
+export const PUSH_TOAST = 'PUSH_TOAST';
+export const POP_TOAST = 'POP_TOAST';
 
 /*
  * action creators
@@ -83,3 +85,22 @@ export const clearSearch = () => ({
 export const disconnect = () => ({
 	type: DISCONNECT,
 });
+
+export const pushToast = (message) => ({
+	type: PUSH_TOAST,
+	message,
+});
+
+export const popToast = () => ({
+	type: POP_TOAST,
+});
+
+export const showToast = (message) => (dispatch) => {
+	dispatch(pushToast(message));
+	setTimeout(() => dispatch(popToast()), 3000);
+};
+
+export const addVideoWithToast = (video) => (dispatch) => {
+	dispatch(addVideo(video));
+	dispatch(showToast(`${video.title} was added to the playlist`));
+};

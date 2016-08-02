@@ -7,11 +7,10 @@ function SearchResults({ id, results, ...props }) {
 		<div
 			id={id}
 		>
-			{results.map((video, index) => (
+			{results.map((video) => (
 				<VideoCard
 					key={video.key}
 					className={styles.item}
-					index={index}
 					video={video}
 					onClick={() => props.addVideo(video)}
 				/>

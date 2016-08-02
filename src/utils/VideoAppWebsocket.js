@@ -1,6 +1,6 @@
 /* global room */
 import io from 'socket.io-client';
-import { addVideo, disconnect, SEND_VIDEO } from '../actions';
+import { addVideoWithToast, showToast, disconnect, SEND_VIDEO } from '../actions';
 
 class VideoAppWebsocket {
 	constructor(opts = { isReceiver: false }) {
@@ -17,7 +17,7 @@ class VideoAppWebsocket {
 
 		if (opts.isReceiver) {
 			this.socket.on('addVideo', (video) => {
-				this.store.dispatch(addVideo(video));
+				this.store.dispatch(addVideoWithToast(video));
 			});
 		}
 	}
@@ -28,7 +28,9 @@ class VideoAppWebsocket {
 
 	senderMiddleware = () => next => action => {
 		if (action.type === SEND_VIDEO) {
-			this.socket.emit('addVideo', action.video);
+			this.socket.emit('addVideo', action.video, () => {
+				this.store.dispatch(showToast(`${action.video.title} was added to the playlist`));
+			});
 		}
 		return next(action);
 	};
