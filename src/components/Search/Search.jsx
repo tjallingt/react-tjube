@@ -11,6 +11,7 @@ function Search({ id, results, search, handleClear, handleAddVideo, withToast })
 		<div id={id}>
 			<SearchBar
 				id="search-bar"
+				placeholder="Search YouTube"
 				onChange={(event) => search(event.target.value)}
 				onClear={handleClear}
 			/>

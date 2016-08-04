@@ -1,27 +1,30 @@
 .searchbar {
 	position: relative;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	color: black;
+	background: white;
+	padding: 5px;
+	margin: 2px;
+    border-radius: 2px;
+}
+
+.label, .button {
+	align-self: center;
+	cursor: pointer;
+	padding: 0px 5px;
 }
 
 .input {
+	align-self: center;
+    height: 100%;
 	width: 100%;
-	box-sizing: border-box;
-	border: 2px solid white;
-	height: 100%;
+	margin: 0px 5px;
 	font-size: inherit;
-}
-
-.button {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	width: 5%;
-	min-width: 20px;
-	height: 100%;
-	font-size: inherit;
-	box-sizing: border-box;
 	border: none;
-	padding: 0px;
-	cursor: pointer;
-	color: black;
-	background: white;
+
+	&:focus {
+		outline: none;
+	}
 }

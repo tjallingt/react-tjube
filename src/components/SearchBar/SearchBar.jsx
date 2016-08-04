@@ -23,20 +23,27 @@ class SearchBar extends React.Component {
 	render() {
 		return (
 			<div id={this.props.id} className={styles.searchbar}>
+				<label
+					htmlFor="search-input"
+					className={styles.label}
+				>
+					<i className="fa fa-search"></i>
+				</label>
 				<input
-					className={styles.input}
+					id="search-input"
 					type="text"
+					className={styles.input}
 					onChange={this.handleChange}
 					value={this.state.text}
-					placeholder="Search for videos"
+					placeholder={this.props.placeholder}
 				/>
-				<button
+				<div
 					type="button"
 					className={styles.button}
 					onClick={this.handleClear}
 				>
-					<i className="fa fa-times"></i>
-				</button>
+					<i className="fa fa-times-circle"></i>
+				</div>
 			</div>
 		);
 	}
@@ -47,6 +54,7 @@ SearchBar.propTypes = {
 	value: React.PropTypes.string,
 	onChange: React.PropTypes.func,
 	onClear: React.PropTypes.func,
+	placeholder: React.PropTypes.string,
 };
 
 export default SearchBar;
