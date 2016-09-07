@@ -1,6 +1,6 @@
 {
 	"parser": "babel-eslint",
-	"extends": "eslint-config-airbnb",
+	"extends": "airbnb",
 	"rules": {
 		"indent": [2, "tab"],
 		"react/jsx-indent": [2, "tab"],

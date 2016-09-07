@@ -1,27 +1,37 @@
 .dialog {
-	position: fixed;
-	bottom: 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	box-sizing: border-box;
-	padding: 10px;
-	border: 1px solid grey;
+	padding: 8px;
 	border-radius: 3px;
 	background: white;
 	color: black;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .options {
-	text-align: right;
+	align-self: flex-end;
 	margin-top: 10px;
 }
 
 .button {
-	margin-left: 5px;
-	width: 75px;
-	height: 30px;
+	margin-left: 8px;
+	min-width: 64px;
+	height: 36px;
 	background: white;
-	border: 1px solid grey;
-	border-radius: 1px;
+	border: none;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #009688;
+	cursor: pointer;
+}
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
 }

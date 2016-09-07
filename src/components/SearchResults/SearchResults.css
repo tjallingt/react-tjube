@@ -1,0 +1,12 @@
+.item {
+	cursor: pointer;
+	padding: 5px;
+	background: white;
+	color: black;
+	border-radius: 3px;
+	margin: 5px;
+}
+
+.item:hover {
+	background: #eee;
+}

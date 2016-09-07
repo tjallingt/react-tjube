@@ -1,156 +1,47 @@
-/* global room, YT */
 import React from 'react';
-import { connect } from 'react-redux';
-import { deleteVideo, toggleFill, setYoutube } from '../actions';
-import classNames from 'classnames';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import YouTube from 'react-youtube';
-import ProgressBar from './ProgressBar/ProgressBar';
-import PlayList from './PlayList/PlayList';
-import Search from './Search/Search';
-import Toast from './Toast/Toast';
+import Player from '../containers/Player';
+import ProgressBar from '../containers/ProgressBar';
+import PlayList from '../containers/PlayList';
+import SearchBar from '../containers/SearchBar';
+import SearchResults from '../containers/SearchResults';
+import Toaster from '../containers/Toaster';
+import Controls from '../containers/Controls';
+import Headline from '../containers/Headline';
+import Dialogs from '../containers/PlayerDialogs';
 
 import styles from './VideoAppPlayer.css';
+import './animations.css';
 
-function VideoAppPlayer({
-	toasts,
-	fill,
-	videoId,
-	title,
-	subtitle,
-	canSkip,
-	playNextVideo,
-	togglePlayerFill,
-	setYoutubePlayer,
-}) {
-	// youtube player options
-	const opts = {
-		height: '100%',
-		width: '100%',
-		playerVars: {
-			autoplay: 1,
-			controls: 0,
-			cc_load_policy: 0,
-			iv_load_policy: 3,
-			modestbranding: 1,
-			rel: 0,
-			showinfo: 0,
-			fs: 0,
-		},
-	};
-
-	// calculate component classes
-	const playerStyle = classNames(styles.player, {
-		[styles.fill]: fill,
-	});
-	const fillBtnStyle = classNames(styles.fillButton, 'fa', {
-		'fa-compress': fill,
-		'fa-expand': !fill,
-	});
-	const subtitleStyle = classNames(styles.subtitle, {
-		[styles.skipVideo]: canSkip,
-	});
-
+function VideoAppPlayer() {
 	return (
 		<div>
-			<YouTube
-				className={playerStyle}
-				videoId={videoId}
-				opts={opts}
-				onReady={setYoutubePlayer}
-				onEnd={playNextVideo}
+			<Player
+				className={styles.player}
+				fillStyle={styles.fill}
 			/>
 
-			<div className={styles.titleWrapper}>
-				<h1 className={styles.title}>
-					{title}
-				</h1>
-
-				<h2
-					className={subtitleStyle}
-					onClick={playNextVideo}
-				>
-					{subtitle}
-				</h2>
-			</div>
+			<Headline className={styles.headline} />
 
 			<PlayList id="playlist" />
 
-			<Search id="search" />
-
-			<div className={styles.buttonWrapper}>
-				<i
-					className={fillBtnStyle}
-					onClick={togglePlayerFill}
+			<div id="search">
+				<SearchBar
+					id="search-bar"
+					placeholder="Search YouTube"
 				/>
-
-				<a
-					href="/about"
-					target="_blank"
-				>
-					<i className="fa fa-question-circle" />
-				</a>
-
-				<span>
-					{room}
-				</span>
+				<SearchResults id="search-results" />
 			</div>
 
-			<div className={styles.toastWrapper}>
-				<ReactCSSTransitionGroup
-					transitionName="fade"
-					transitionEnterTimeout={500}
-					transitionLeaveTimeout={500}
-				>
-					{toasts.map((toast) => (
-						<Toast key={toast.key}>
-							{toast.message}
-						</Toast>
-					))}
-				</ReactCSSTransitionGroup>
-			</div>
+			<Controls className={styles.controls} />
+
+			<Toaster className={styles.toaster} />
 
 			<ProgressBar id="progress-bar" />
+
+			<Dialogs className={styles.dialogs} />
 		</div>
 	);
 }
 
-VideoAppPlayer.propTypes = {
-	toasts: React.PropTypes.array,
-	fill: React.PropTypes.bool,
-	videoId: React.PropTypes.string,
-	title: React.PropTypes.string,
-	subtitle: React.PropTypes.string,
-	canSkip: React.PropTypes.bool,
-	playNextVideo: React.PropTypes.func,
-	togglePlayerFill: React.PropTypes.func,
-	setYoutubePlayer: React.PropTypes.func,
-};
-
-VideoAppPlayer.defaultProps = {
-	toasts: [],
-	fill: false,
-	title: 'Add videos to the playlist to begin watching!',
-	subtitle: `Add videos remotely at ${location.host}/${room}`,
-	playNextVideo: () => null,
-	togglePlayerFill: () => null,
-	setYoutubePlayer: () => null,
-};
-
-const mapStateToProps = (state) => ({
-	toasts: state.toasts,
-	fill: state.player.fill,
-	videoId: state.playlist[0] ? state.playlist[0].id : undefined,
-	title: state.playlist[0] ? state.playlist[0].title : undefined,
-	subtitle: state.playlist[1] ? state.playlist[1].title : undefined,
-	canSkip: !!state.playlist[1],
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	playNextVideo: () => dispatch(deleteVideo(0)),
-	togglePlayerFill: () => dispatch(toggleFill()),
-	setYoutubePlayer: (event) => dispatch(setYoutube(event.target)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoAppPlayer);
+export default VideoAppPlayer;

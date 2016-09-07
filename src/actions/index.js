@@ -15,7 +15,10 @@ export const SET_YOUTUBE = 'SET_YOUTUBE';
 export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SEND_VIDEO = 'SEND_VIDEO';
+export const CONNECT = 'CONNECT';
 export const DISCONNECT = 'DISCONNECT';
+export const RECONNECT = 'RECONNECT';
+export const RECONNECT_FAILED = 'RECONNECT_FAILED';
 export const PUSH_TOAST = 'PUSH_TOAST';
 export const POP_TOAST = 'POP_TOAST';
 
@@ -82,8 +85,21 @@ export const clearSearch = () => ({
 	type: CLEAR_SEARCH,
 });
 
+export const connect = () => ({
+	type: CONNECT,
+});
+
 export const disconnect = () => ({
 	type: DISCONNECT,
+});
+
+export const reconnect = (attempt) => ({
+	type: RECONNECT,
+	attempt,
+});
+
+export const reconnectFailed = () => ({
+	type: RECONNECT_FAILED,
 });
 
 export const pushToast = (message) => ({
@@ -97,7 +113,7 @@ export const popToast = () => ({
 
 export const showToast = (message) => (dispatch) => {
 	dispatch(pushToast(message));
-	setTimeout(() => dispatch(popToast()), 3000);
+	setTimeout(() => dispatch(popToast()), 2500);
 };
 
 export const addVideoWithToast = (video) => (dispatch) => {

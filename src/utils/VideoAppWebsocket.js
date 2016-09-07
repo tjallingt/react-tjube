@@ -1,18 +1,36 @@
 /* global room */
 import io from 'socket.io-client';
-import { addVideoWithToast, showToast, disconnect, SEND_VIDEO } from '../actions';
+import {
+	addVideoWithToast,
+	showToast,
+	connect,
+	disconnect,
+	reconnect,
+	reconnectFailed,
+	SEND_VIDEO,
+} from '../actions';
+import config from '../Config';
 
 class VideoAppWebsocket {
 	constructor(opts = { isReceiver: false }) {
 		this.store = { dispatch: () => null };
-		this.socket = io();
+		this.socket = io({ reconnectionAttempts: config.reconnectionAttempts });
 
 		this.socket.on('connect', () => {
 			this.socket.emit('registerRoom', room);
+			this.store.dispatch(connect());
 		});
 
 		this.socket.on('disconnect', () => {
 			this.store.dispatch(disconnect());
+		});
+
+		this.socket.on('reconnecting', (attempt) => {
+			this.store.dispatch(reconnect(attempt));
+		});
+
+		this.socket.on('reconnect_failed', () => {
+			this.store.dispatch(reconnectFailed());
 		});
 
 		if (opts.isReceiver) {

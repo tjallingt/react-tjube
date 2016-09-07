@@ -2,17 +2,18 @@ import React from 'react';
 import VideoCard from '../VideoCard/VideoCard';
 import styles from './SearchResults.css';
 
-function SearchResults({ id, results, ...props }) {
+function SearchResults({ id, className, results, addVideo }) {
 	return (
-		<div
-			id={id}
-		>
+		<div id={id} className={className}>
 			{results.map((video) => (
 				<VideoCard
 					key={video.key}
 					className={styles.item}
 					video={video}
-					onClick={() => props.addVideo(video)}
+					onClick={() => addVideo(video)}
+					thumbnailQuality="default"
+					thumbnailWidth={80}
+					noWrap
 				/>
 			))}
 		</div>
@@ -21,6 +22,7 @@ function SearchResults({ id, results, ...props }) {
 
 SearchResults.propTypes = {
 	id: React.PropTypes.string,
+	className: React.PropTypes.string,
 	results: React.PropTypes.array.isRequired,
 	addVideo: React.PropTypes.func,
 };

@@ -1,9 +1,32 @@
-.toastWrapper {
+.toaster {
 	position: absolute;
 	bottom: 10px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100%;
+}
+
+.dialogs {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90%;
+}
+
+.searchResults {
+	max-height: calc(100vh - 35px);
+	overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+	.searchBar {
+		height: 40px;
+	}
+
+	.searchResults {
+		max-height: calc(100vh - 45px);
+	}
 }
 
 :global {
@@ -14,71 +37,10 @@
 		height: 100%;
 	}
 
-	#search-results {
-		max-height: calc(100vh - 30px);
-		overflow-y: auto;
-	}
-
-	#dialog {
-		width: 50%;
-	}
-
-	.scale {
-		&-enter {
-			opacity: 0;
-			transform: scale(.95);
-			transition: opacity 250ms, transform 250ms ease-out;
-		}
-
-		&-enter-active {
-			opacity: 1;
-			transform: scale(1);
-		}
-
-		&-leave {
-			opacity: 1;
-			transform: scale(1);
-			transition: opacity 250ms, transform 250ms ease-in;
-		}
-
-		&-leave-active {
-			opacity: 0;
-			transform: scale(.95);
-		}
-	}
-
-	.fade {
-		&-enter {
-			opacity: 0;
-			transition: opacity 500ms;
-		}
-
-		&-enter-active {
-			opacity: 1;
-		}
-
-		&-leave {
-			transition: opacity 500ms;
-		}
-
-		/* using !important to prevent specificity issues */
-		&-leave-active {
-			opacity: 0;
-		}
-	}
-
 	@media (max-width: 900px) {
 		#app {
 			left: 0px;
 			width: 100%;
-		}
-
-		#dialog {
-			width: 100%;
-		}
-
-		#search-bar {
-			font-size: 1.2rem;
 		}
 	}
 }

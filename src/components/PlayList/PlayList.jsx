@@ -1,23 +1,20 @@
 /* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { moveVideo, deleteVideo } from '../../actions';
+
 import PlayListItem from './PlayListItem';
 
 @DragDropContext(HTML5Backend)
 class PlayList extends React.Component {
 	render() {
-		const { id, playlist } = this.props;
+		const { id, className, playlist, ...props } = this.props;
 
 		return (
-			<div
-				id={id}
-			>
+			<div id={id} className={className}>
 				<ReactCSSTransitionGroup
-					transitionName="fade-slide"
+					transitionName="playlist"
 					transitionAppear
 					transitionAppearTimeout={500}
 					transitionEnterTimeout={500}
@@ -28,8 +25,8 @@ class PlayList extends React.Component {
 							key={video.key}
 							index={index}
 							video={video}
-							moveVideo={this.props.moveVideo}
-							onDelete={() => this.props.deleteVideo(index)}
+							moveVideo={props.moveVideo}
+							onDelete={() => props.deleteVideo(index)}
 						/>
 					))}
 				</ReactCSSTransitionGroup>
@@ -40,6 +37,7 @@ class PlayList extends React.Component {
 
 PlayList.propTypes = {
 	id: React.PropTypes.string,
+	className: React.PropTypes.string,
 	playlist: React.PropTypes.array.isRequired,
 	moveVideo: React.PropTypes.func,
 	deleteVideo: React.PropTypes.func,
@@ -51,13 +49,4 @@ PlayList.defaultProps = {
 	deleteVideo: () => null,
 };
 
-const mapStateToProps = (state) => ({
-	playlist: state.playlist,
-});
-
-const mapDispatchToProps = {
-	moveVideo,
-	deleteVideo,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayList);
+export default PlayList;

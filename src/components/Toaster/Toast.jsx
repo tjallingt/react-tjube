@@ -1,16 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import styles from './Toast.css';
 
-function Toast({ id, children }) {
+function Toast({ className, children }) {
 	return (
-		<div id={id} className={styles.toast}>
+		<div className={classNames(styles.toast, className)}>
 			{children}
 		</div>
 	);
 }
 
 Toast.propTypes = {
-	id: React.PropTypes.string,
+	className: React.PropTypes.string,
 	children: React.PropTypes.node,
 };
 

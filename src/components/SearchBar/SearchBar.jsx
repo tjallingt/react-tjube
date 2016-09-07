@@ -1,4 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
+import debounce from 'lodash.debounce';
+
 import styles from './SearchBar.css';
 
 class SearchBar extends React.Component {
@@ -6,11 +9,16 @@ class SearchBar extends React.Component {
 		text: '',
 	};
 
+	componentWillMount() {
+		this.handleSearch = debounce(this.handleSearch, 500);
+	}
+
 	handleChange = (event) => {
+		this.props.onChange(event);
 		this.setState({
 			text: event.target.value,
 		});
-		this.props.onChange(event);
+		this.handleSearch();
 	};
 
 	handleClear = () => {
@@ -18,11 +26,15 @@ class SearchBar extends React.Component {
 			text: '',
 		});
 		this.props.onClear();
-	}
+	};
+
+	handleSearch = () => {
+		this.props.onSearch(this.state.text);
+	};
 
 	render() {
 		return (
-			<div id={this.props.id} className={styles.searchbar}>
+			<div id={this.props.id} className={classNames(styles.searchbar, this.props.className)}>
 				<label
 					htmlFor="search-input"
 					className={styles.label}
@@ -51,10 +63,18 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
 	id: React.PropTypes.string,
+	className: React.PropTypes.string,
 	value: React.PropTypes.string,
 	onChange: React.PropTypes.func,
 	onClear: React.PropTypes.func,
+	onSearch: React.PropTypes.func,
 	placeholder: React.PropTypes.string,
+};
+
+SearchBar.defaultProps = {
+	onChange: () => null,
+	onClear: () => null,
+	onSearch: () => null,
 };
 
 export default SearchBar;

@@ -4,7 +4,7 @@
 }
 
 .thumbnail {
-	height: 75px;
+	background-color: lightgrey;
 	margin-right: 10px;
 }
 
@@ -13,7 +13,7 @@
 	min-width: 0;
 }
 
-.title, .channelTitle {
+.wrapper.noWrap > .title, .wrapper.noWrap > .channelTitle {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -21,4 +21,5 @@
 
 .channelTitle {
 	font-size: smaller;
+	padding: 5px;
 }

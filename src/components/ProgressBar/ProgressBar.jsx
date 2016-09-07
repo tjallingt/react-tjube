@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 class ProgressBar extends React.Component {
 	static propTypes = {
 		id: React.PropTypes.string,
+		className: React.PropTypes.string,
 		youtube: React.PropTypes.object,
 	};
 
@@ -45,6 +45,7 @@ class ProgressBar extends React.Component {
 		return (
 			<div
 				id={this.props.id}
+				className={this.props.className}
 				ref={this.setWrapperRef}
 				onClick={this.handleClick}
 			>
@@ -57,8 +58,4 @@ class ProgressBar extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	youtube: state.player.youtube,
-});
-
-export default connect(mapStateToProps)(ProgressBar);
+export default ProgressBar;

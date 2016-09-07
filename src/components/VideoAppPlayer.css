@@ -1,76 +1,45 @@
 .player {
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	height: 100vh;
 	width: 100vw;
 }
 
 .player.fill {
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	width: 100vw;
 	height: 56.25vw;
 	min-height: 100vh;
 	min-width: 177.78vh;
 }
 
-.titleWrapper {
+.headline {
 	position: absolute;
 	top: 10px;
 	left: 10px;
-	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 	max-width: 70%;
-	white-space: nowrap;
 }
 
-.title, .subtitle {
-	overflow: hidden;
-	text-overflow: ellipsis;	
-}
-
-.subtitle {
-	margin-left: 10px;
-	opacity: 0.75;
-}
-
-.subtitle.skipVideo {
-	cursor: pointer;
-}
-
-.subtitle.skipVideo::before {
-	font: normal normal normal 14px/1 FontAwesome;
-	content: "\f051";
-	margin-right: 10px;
-}
-
-.subtitle.skipVideo:hover {
-	opacity: 1;
-}
-
-.buttonWrapper {
+.controls {
 	position: absolute;
 	left: 10px;
 	bottom: 20px;
-	opacity: 0.75;
-	text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
 }
 
-.buttonWrapper > * {
-	margin-right: 10px;
-}
-
-.fillButton {
-	cursor: pointer;
-}
-
-.toastWrapper {
+.toaster {
 	position: absolute;
 	bottom: 10px;
 	left: 50%;
 	transform: translateX(-50%);
 	max-width: 60%;
+}
+
+.dialogs {
+	position: absolute;
+	bottom: 0;
+	left: 30%;
+	width: 40%;
 }
 
 :global {
@@ -79,18 +48,28 @@
 		top: 0px;
 		right: 0px;
 		width: 25%;
+		opacity: .75;
+		transition: width 250ms, opacity 250ms;
+	}
+
+	#search:hover {
+		width: 30%;
+		opacity: 1;
 	}
 
 	#search-bar {
 		height: 25px;
-		opacity: .75;
 	}
 
-	#playlist, #search-results {
+	#search-results {
 		max-height: calc(100vh - 30px);
-		overflow: auto;
-		background-color: rgba(0,0,0,.25);
-		text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+		overflow-y: auto;
+		opacity: .5;
+		transition: opacity 250ms;
+	}
+
+	#search:hover #search-results {
+		opacity: 1;
 	}
 
 	#playlist {
@@ -98,8 +77,12 @@
 		top: 30px;
 		right: 0px;
 		width: 7%;
-		opacity: .5;
+		height: calc(100vh - 30px);
+		overflow-y: auto;
+		opacity: .75;
 		transition: width 250ms, opacity 250ms;
+		text-shadow: 0px 0px 5px #000, 0px 0px 10px #000;
+		background: rgba(255,255,255,0.2);
 	}
 
 	#playlist:hover {
@@ -133,47 +116,5 @@
 
 	#progress-bar:hover .progress {
 		height: 50%;
-	}
-
-	.fade-slide {
-		&-enter, &-appear {
-			opacity: 0;
-			transition: opacity 500ms;
-		}
-
-		&-enter-active, &-appear-active {
-			opacity: 1;
-		}
-
-		&-leave {
-			transition: opacity 250ms, height 250ms ease 250ms, padding 250ms ease 250ms;
-		}
-
-		/* using !important to prevent specificity issues */
-		&-leave-active {
-			opacity: 0;
-			padding: 0px !important;
-			height: 0px !important;
-		}
-	}
-
-	.fade {
-		&-enter {
-			opacity: 0;
-			transition: opacity 500ms;
-		}
-
-		&-enter-active {
-			opacity: 1;
-		}
-
-		&-leave {
-			transition: opacity 500ms;
-		}
-
-		/* using !important to prevent specificity issues */
-		&-leave-active {
-			opacity: 0;
-		}
 	}
 }
