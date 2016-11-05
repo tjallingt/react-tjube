@@ -4,9 +4,9 @@ export const URIEncodeValues = (strings, ...values) => (
 	)
 );
 
-export const serialize = (obj) => (
+export const serialize = obj => (
 	Object.keys(obj)
-		.map((key) => URIEncodeValues`${key}=${obj[key]}`)
+		.map(key => URIEncodeValues`${key}=${obj[key]}`)
 		.join('&')
 );
 
@@ -19,4 +19,4 @@ export const checkStatus = (response) => {
 	throw error;
 };
 
-export const parseJSON = (response) => response.json();
+export const parseJSON = response => response.json();

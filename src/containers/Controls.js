@@ -3,7 +3,7 @@ import { toggleFill } from '../actions';
 
 import Controls from '../components/Player/Controls';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	fill: state.player.fill,
 });
 

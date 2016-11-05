@@ -3,13 +3,13 @@ import { deleteVideo } from '../actions';
 
 import Headline from '../components/Player/Headline';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	canSkip: !!state.playlist[1],
 	subtitle: state.playlist[1] ? state.playlist[1].title : undefined,
 	title: state.playlist[0] ? state.playlist[0].title : undefined,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
 	onSkip: () => dispatch(deleteVideo(0)),
 });
 

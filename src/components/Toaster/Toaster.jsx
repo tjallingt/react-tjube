@@ -11,7 +11,7 @@ function Toaster({ id, className, toasts }) {
 				transitionEnterTimeout={500}
 				transitionLeaveTimeout={500}
 			>
-				{toasts.map((toast) => (
+				{toasts.map(toast => (
 					<Toast key={toast.key}>
 						{toast.message}
 					</Toast>

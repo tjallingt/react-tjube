@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ProgressBar from '../components/ProgressBar/ProgressBar';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	youtube: state.player.youtube,
 });
 

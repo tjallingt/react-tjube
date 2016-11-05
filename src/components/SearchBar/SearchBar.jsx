@@ -39,7 +39,7 @@ class SearchBar extends React.Component {
 					htmlFor="search-input"
 					className={styles.label}
 				>
-					<i className="fa fa-search"></i>
+					<i className="fa fa-search" />
 				</label>
 				<input
 					id="search-input"
@@ -54,7 +54,7 @@ class SearchBar extends React.Component {
 					className={styles.button}
 					onClick={this.handleClear}
 				>
-					<i className="fa fa-times-circle"></i>
+					<i className="fa fa-times-circle" />
 				</div>
 			</div>
 		);
@@ -64,7 +64,6 @@ class SearchBar extends React.Component {
 SearchBar.propTypes = {
 	id: React.PropTypes.string,
 	className: React.PropTypes.string,
-	value: React.PropTypes.string,
 	onChange: React.PropTypes.func,
 	onClear: React.PropTypes.func,
 	onSearch: React.PropTypes.func,

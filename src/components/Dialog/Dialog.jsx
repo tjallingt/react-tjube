@@ -13,7 +13,7 @@ function Dialog({ className, onConfirm, onClose, children }) {
 
 	return (
 		<div>
-			<div className={styles.backdrop}></div>
+			<div className={styles.backdrop} />
 			<div className={classNames(styles.dialog, className)}>
 				<div>
 					{children}

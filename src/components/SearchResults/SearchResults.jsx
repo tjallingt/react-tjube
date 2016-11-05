@@ -5,7 +5,7 @@ import styles from './SearchResults.css';
 function SearchResults({ id, className, results, addVideo }) {
 	return (
 		<div id={id} className={className}>
-			{results.map((video) => (
+			{results.map(video => (
 				<VideoCard
 					key={video.key}
 					className={styles.item}

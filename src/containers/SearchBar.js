@@ -3,8 +3,8 @@ import { fetchSearchResults, clearSearch } from '../actions';
 
 import SearchBar from '../components/SearchBar/SearchBar';
 
-const mapDispatchToProps = (dispatch) => ({
-	onSearch: (query) => dispatch(fetchSearchResults(query)),
+const mapDispatchToProps = dispatch => ({
+	onSearch: query => dispatch(fetchSearchResults(query)),
 	onClear: () => dispatch(clearSearch()),
 });
 

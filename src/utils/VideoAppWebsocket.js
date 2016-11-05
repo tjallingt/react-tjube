@@ -44,7 +44,7 @@ class VideoAppWebsocket {
 		this.store = store;
 	}
 
-	senderMiddleware = () => next => action => {
+	senderMiddleware = () => next => (action) => {
 		if (action.type === SEND_VIDEO) {
 			this.socket.emit('addVideo', action.video, () => {
 				this.store.dispatch(showToast(`${action.video.title} was added to the playlist`));

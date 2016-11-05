@@ -26,12 +26,12 @@ export const POP_TOAST = 'POP_TOAST';
  * action creators
  */
 
-export const addVideo = (video) => ({
+export const addVideo = video => ({
 	type: ADD_VIDEO,
 	video,
 });
 
-export const deleteVideo = (index) => ({
+export const deleteVideo = index => ({
 	type: DELETE_VIDEO,
 	index,
 });
@@ -42,7 +42,7 @@ export const moveVideo = (fromIndex, toIndex) => ({
 	toIndex,
 });
 
-export const sendVideo = (video) => ({
+export const sendVideo = video => ({
 	type: SEND_VIDEO,
 	video,
 });
@@ -51,17 +51,17 @@ export const toggleFill = () => ({
 	type: TOGGLE_FILL,
 });
 
-export const setYoutube = (youtube) => ({
+export const setYoutube = youtube => ({
 	type: SET_YOUTUBE,
 	youtube,
 });
 
-export const receiveSearchResults = (json) => ({
+export const receiveSearchResults = json => ({
 	type: RECEIVE_RESULTS,
 	results: json.items.map(filterYoutubeData),
 });
 
-export const fetchSearchResults = (query) => (dispatch) => {
+export const fetchSearchResults = query => (dispatch) => {
 	const parameters = serialize({
 		videoEmbeddable: true,
 		part: 'snippet',
@@ -74,7 +74,7 @@ export const fetchSearchResults = (query) => (dispatch) => {
 	return fetch(`https://www.googleapis.com/youtube/v3/search?${parameters}`)
 		.then(checkStatus)
 		.then(parseJSON)
-		.then((json) => dispatch(receiveSearchResults(json)))
+		.then(json => dispatch(receiveSearchResults(json)))
 		.catch((error) => {
 			// dispatch error
 			console.log('request failed', error);
@@ -93,7 +93,7 @@ export const disconnect = () => ({
 	type: DISCONNECT,
 });
 
-export const reconnect = (attempt) => ({
+export const reconnect = attempt => ({
 	type: RECONNECT,
 	attempt,
 });
@@ -102,7 +102,7 @@ export const reconnectFailed = () => ({
 	type: RECONNECT_FAILED,
 });
 
-export const pushToast = (message) => ({
+export const pushToast = message => ({
 	type: PUSH_TOAST,
 	message,
 });
@@ -111,12 +111,12 @@ export const popToast = () => ({
 	type: POP_TOAST,
 });
 
-export const showToast = (message) => (dispatch) => {
+export const showToast = message => (dispatch) => {
 	dispatch(pushToast(message));
 	setTimeout(() => dispatch(popToast()), 2500);
 };
 
-export const addVideoWithToast = (video) => (dispatch) => {
+export const addVideoWithToast = video => (dispatch) => {
 	dispatch(addVideo(video));
 	dispatch(showToast(`${video.title} was added to the playlist`));
 };

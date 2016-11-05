@@ -3,7 +3,7 @@ import { moveVideo, deleteVideo } from '../actions';
 
 import PlayList from '../components/PlayList/PlayList';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	playlist: state.playlist,
 });
 

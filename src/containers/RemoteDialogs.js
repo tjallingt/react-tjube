@@ -3,7 +3,7 @@ import { deleteVideo, sendVideo } from '../actions';
 
 import Dialogs from '../components/Remote/Dialogs';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	video: state.video,
 	socket: state.socket,
 });

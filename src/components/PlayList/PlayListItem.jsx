@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import styles from './PlayListItem.css';
 
 const videoSource = {
-	canDrag: (props) => props.index !== 0,
-	beginDrag: (props) => ({ index: props.index }),
+	canDrag: props => props.index !== 0,
+	beginDrag: props => ({ index: props.index }),
 };
 
 const videoTarget = {
@@ -112,7 +112,7 @@ PlayListItem.propTypes = {
 	video: React.PropTypes.object.isRequired,
 	index: React.PropTypes.number,
 	onDelete: React.PropTypes.func,
-	moveVideo: React.PropTypes.func,
+	moveVideo: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
 	connectDragSource: React.PropTypes.func,
 	connectDropTarget: React.PropTypes.func,
 	isDragging: React.PropTypes.bool,
