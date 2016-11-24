@@ -4,7 +4,8 @@ import { addVideo, addVideoWithToast } from '../actions';
 import SearchResults from '../components/SearchResults/SearchResults';
 
 const mapStateToProps = state => ({
-	results: state.results,
+	isFetching: state.search.isFetching,
+	results: state.search.results,
 });
 
 const mapDispatchToProps = dispatch => ({

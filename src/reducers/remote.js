@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import results from './results';
+import search from './search';
 import toasts from './toasts';
 import socket from './socket';
 import { ADD_VIDEO, DELETE_VIDEO, SEND_VIDEO } from '../actions';
@@ -18,7 +18,7 @@ const video = (state = null, action) => {
 
 export default combineReducers({
 	video,
-	results,
+	search,
 	toasts,
 	socket,
 });

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ext .js --ext .jsx app.js src",
+    "lint": "eslint --ext .js --ext .jsx server.js src",
     "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:player\" \"npm run watch:remote\"",
     "build": "npm run build:player && npm run build:remote",
     "build:player": "cross-env NODE_ENV=production browserify src/player.jsx -p [ css-modulesify --before postcss-nested -o static/css/player.css ] -t babelify --extension=jsx | uglifyjs > static/js/player.js",

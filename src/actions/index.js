@@ -12,8 +12,9 @@ export const DELETE_VIDEO = 'DELETE_VIDEO';
 export const MOVE_VIDEO = 'MOVE_VIDEO';
 export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
-export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
-export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+export const FETCH_SEARCH_RESULTS = 'FETCH_SEARCH_RESULTS';
+export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
+export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 export const SEND_VIDEO = 'SEND_VIDEO';
 export const CONNECT = 'CONNECT';
 export const DISCONNECT = 'DISCONNECT';
@@ -57,11 +58,13 @@ export const setYoutube = youtube => ({
 });
 
 export const receiveSearchResults = json => ({
-	type: RECEIVE_RESULTS,
+	type: RECEIVE_SEARCH_RESULTS,
 	results: json.items.map(filterYoutubeData),
 });
 
 export const fetchSearchResults = query => (dispatch) => {
+	if (query.length < 3) return null;
+	dispatch({ type: FETCH_SEARCH_RESULTS });
 	const parameters = serialize({
 		videoEmbeddable: true,
 		part: 'snippet',
@@ -70,7 +73,6 @@ export const fetchSearchResults = query => (dispatch) => {
 		key: config.youtubeApiKey,
 		q: query,
 	});
-
 	return fetch(`https://www.googleapis.com/youtube/v3/search?${parameters}`)
 		.then(checkStatus)
 		.then(parseJSON)
@@ -82,7 +84,7 @@ export const fetchSearchResults = query => (dispatch) => {
 };
 
 export const clearSearch = () => ({
-	type: CLEAR_SEARCH,
+	type: CLEAR_SEARCH_RESULTS,
 });
 
 export const connect = () => ({

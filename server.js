@@ -1,5 +1,7 @@
 /* eslint no-console: 0, strict: 0 */
+
 'use strict';
+
 /*
 	Node server for Tjube.Ninja.
 	The server generates a unique room id when a user connects.
@@ -7,6 +9,7 @@
 */
 
 const express = require('express');
+
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -17,20 +20,29 @@ const filterYoutubeData = require('./src/utils/FilterYoutubeData');
 
 const port = 1337;
 const roomIdLength = 3;
-const roomIdRegex = `[a-z0-9]{${roomIdLength}}`;
+const roomIdChars = 'abcdefghijklmnopqrstuvwxyz';
+const roomIdRegex = `[${roomIdChars}]{${roomIdLength}}`;
 
 server.listen(port);
 console.log(`server started on port ${port}`);
 
-// Tries 10 times to generate a unique room id of a specified length
-function generateUniqueRoomId(length) {
+function generateRoomId() {
 	let id = '';
-	for (let i = 0; i < 10; i++) {
-		const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
-		for (let j = 0; j < length; j++) {
-			id += possible.charAt(Math.floor(Math.random() * possible.length));
-		}
-		if (!io.sockets.adapter.rooms.hasOwnProperty(id)) {
+	for (let j = 0; j < roomIdLength; j += 1) {
+		id += roomIdChars.charAt(Math.floor(Math.random() * roomIdChars.length));
+	}
+	return id;
+}
+
+function roomExists(id) {
+	return Object.hasOwnProperty.call(io.sockets.adapter.rooms, id);
+}
+
+// Tries 10 times to generate a unique room id
+function generateUniqueRoomId() {
+	for (let i = 0; i < 10; i += 1) {
+		const id = generateRoomId();
+		if (!roomExists(id)) {
 			return id;
 		}
 	}
@@ -48,9 +60,12 @@ app.engine('mustache', mustache());
 
 // Show room select/create screen
 app.get('/', (req, res) => {
-	const roomId = generateUniqueRoomId(roomIdLength);
-	if (roomId) res.redirect(`/player/${roomId}`);
-	else res.status(503).send('Server is crowded, please try again later :)');
+	const roomId = generateUniqueRoomId();
+	if (roomId) {
+		res.redirect(`/player/${roomId}`);
+	} else {
+		res.status(503).send('Server is crowded, please try again later :)');
+	}
 });
 
 // Show about page
@@ -76,12 +91,12 @@ app.get(`/remote/:room(${roomIdRegex})`, (req, res) => {
 // add video with post request
 app.post(`/add/:room(${roomIdRegex})`, (req, res) => {
 	const video = filterYoutubeData(req.body);
-	if (video) {
+	if (video && roomExists(req.params.room)) {
 		io.to(req.params.room).emit('addVideo', video);
 		res.json({ status: 'ok' });
-	} else {
-		res.status(422).json({ status: 'error' });
+		return;
 	}
+	res.status(422).json({ status: 'error' });
 });
 
 // Communicate with clients
