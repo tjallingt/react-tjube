@@ -25,12 +25,12 @@ function VideoAppPlayer() {
 
 			<PlayList id="playlist" />
 
-			<div id="search">
+			<div className={styles.search}>
 				<SearchBar
-					id="search-bar"
+					className={styles.searchBar}
 					placeholder="Search YouTube"
 				/>
-				<SearchResults id="search-results" />
+				<SearchResults className={styles.searchResults} />
 			</div>
 
 			<Controls className={styles.controls} />

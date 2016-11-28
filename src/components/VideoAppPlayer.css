@@ -42,36 +42,36 @@
 	width: 40%;
 }
 
+.search {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 25%;
+	opacity: .75;
+	transition: width 250ms, opacity 250ms;
+}
+
+.search:hover {
+	width: 30%;
+	opacity: 1;
+}
+
+.searchBar {
+	height: 25px;
+}
+
+.searchResults {
+	max-height: calc(100vh - 30px);
+	overflow-y: auto;
+	opacity: .5;
+	transition: opacity 250ms;
+}
+
+.search:hover .searchResults {
+	opacity: 1;
+}
+
 :global {
-	#search {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		width: 25%;
-		opacity: .75;
-		transition: width 250ms, opacity 250ms;
-	}
-
-	#search:hover {
-		width: 30%;
-		opacity: 1;
-	}
-
-	#search-bar {
-		height: 25px;
-	}
-
-	#search-results {
-		max-height: calc(100vh - 30px);
-		overflow-y: auto;
-		opacity: .5;
-		transition: opacity 250ms;
-	}
-
-	#search:hover #search-results {
-		opacity: 1;
-	}
-
 	#playlist {
 		position: absolute;
 		top: 30px;
