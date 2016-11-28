@@ -1,10 +1,5 @@
 node_modules
 npm-debug.log
-sublime-gulp.log
-.sublime-gulp.cache
-static/js/remote.js
-static/js/player.js
-static/css/remote.css
-static/css/player.css
-static/webm/
+yarn-error.log
+build
 src/Config.js

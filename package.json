@@ -10,34 +10,30 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js --ext .jsx server.js src",
-    "watch": "concurrently -k -t HH:mm -p \"[{index} - {time}]\" \"npm run watch:player\" \"npm run watch:remote\"",
-    "build": "npm run build:player && npm run build:remote",
-    "build:player": "cross-env NODE_ENV=production browserify src/player.jsx -p [ css-modulesify --before postcss-nested -o static/css/player.css ] -t babelify --extension=jsx | uglifyjs > static/js/player.js",
-    "build:remote": "cross-env NODE_ENV=production browserify src/remote.jsx -p [ css-modulesify --before postcss-nested -o static/css/remote.css ] -t babelify --extension=jsx | uglifyjs > static/js/remote.js",
-    "watch:player": "watchify src/player.jsx -o static/js/player.js -p [ css-modulesify --before postcss-nested -o static/css/player.css ] -t babelify --extension=jsx -d -v",
-    "watch:remote": "watchify src/remote.jsx -o static/js/remote.js -p [ css-modulesify --before postcss-nested -o static/css/remote.css ] -t babelify --extension=jsx -d -v"
+    "build": "webpack"
   },
   "author": "tjallingt",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.8",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-0": "^6.1.18",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
-    "concurrently": "^3.1.0",
     "cross-env": "^3.1.3",
-    "css-modulesify": "^0.25.1",
+    "css-loader": "^0.26.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "postcss-loader": "^1.1.1",
     "postcss-nested": "^1.0.0",
-    "uglify-js": "^2.6.2",
-    "watchify": "^3.7.0"
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
