@@ -1,4 +1,4 @@
-/* eslint no-console: 0, strict: 0 */
+/* eslint no-console: 0, strict: 0, global-require: 0, import/no-extraneous-dependencies: 0 */
 
 'use strict';
 
@@ -8,23 +8,22 @@
 	This id allows the remotes to send data to the screen(s).
 */
 
+const http = require('http');
 const express = require('express');
 
 const app = express();
-const server = require('http').createServer(app);
+const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 const bodyParser = require('body-parser');
 const mustache = require('mustache-express');
 const filterYoutubeData = require('./src/utils/FilterYoutubeData');
 
-const port = 1337;
 const roomIdLength = 3;
 const roomIdChars = 'abcdefghijklmnopqrstuvwxyz';
 const roomIdRegex = `[${roomIdChars}]{${roomIdLength}}`;
 
-server.listen(port);
-console.log(`server started on port ${port}`);
+server.listen(process.env.PORT || 1337, () => console.log('opened server on', server.address()));
 
 function generateRoomId() {
 	let id = '';
@@ -48,6 +47,29 @@ function generateUniqueRoomId() {
 	}
 	return false;
 }
+
+if (process.env.NODE_ENV !== 'production') {
+	console.log('running in dev mode!');
+
+	const webpack = require('webpack');
+	const devMiddleware = require('webpack-dev-middleware');
+	const hotMiddleware = require('webpack-hot-middleware');
+	const webpackConfig = require('./webpack.config.dev');
+
+	const compiler = webpack(webpackConfig);
+
+	// Step 2: Attach the dev middleware to the compiler & the server
+	app.use(devMiddleware(compiler, {
+		noInfo: true, publicPath: webpackConfig.output.publicPath,
+	}));
+
+	app.use(hotMiddleware(compiler, {
+		log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
+	}));
+}
+
+// Serve build files
+app.use(express.static('./build'));
 
 // Serve static files
 app.use(express.static('./static'));
