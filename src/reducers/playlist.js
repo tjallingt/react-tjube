@@ -7,7 +7,7 @@ const playlist = (state = [], action) => {
 		return update(state, {
 			$push: [{
 				...action.video,
-				key: action.video.key + Date.now(), // make key unique
+				key: action.video.key + action.date, // make key unique
 			}],
 		});
 	case DELETE_VIDEO:

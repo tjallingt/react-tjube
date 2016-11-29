@@ -30,6 +30,7 @@ export const POP_TOAST = 'POP_TOAST';
 export const addVideo = video => ({
 	type: ADD_VIDEO,
 	video,
+	date: Date.now(),
 });
 
 export const deleteVideo = index => ({
@@ -106,6 +107,7 @@ export const reconnectFailed = () => ({
 
 export const pushToast = message => ({
 	type: PUSH_TOAST,
+	key: Date.now(),
 	message,
 });
 

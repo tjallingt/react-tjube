@@ -4,7 +4,7 @@ const toasts = (state = [], action) => {
 	switch (action.type) {
 	case PUSH_TOAST:
 		return [...state, {
-			key: Date.now(),
+			key: action.key,
 			message: action.message,
 		}];
 	case POP_TOAST:
