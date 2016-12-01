@@ -58,18 +58,16 @@ if (process.env.NODE_ENV !== 'production') {
 
 	const compiler = webpack(webpackConfig);
 
-	// Step 2: Attach the dev middleware to the compiler & the server
 	app.use(devMiddleware(compiler, {
-		noInfo: true, publicPath: webpackConfig.output.publicPath,
+		publicPath: webpackConfig.output.publicPath,
+		noInfo: true,
 	}));
 
-	app.use(hotMiddleware(compiler, {
-		log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
-	}));
+	app.use(hotMiddleware(compiler));
+} else {
+	// Serve build files
+	app.use(express.static('./build'));
 }
-
-// Serve build files
-app.use(express.static('./build'));
 
 // Serve static files
 app.use(express.static('./static'));
