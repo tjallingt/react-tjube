@@ -11,45 +11,12 @@
 	background: #eee;
 }
 
-.loader {
+.spinner {
 	position: absolute;
 	top: 3em;
 	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
-.loader ~ .item {
+.spinner ~ .item {
 	opacity: 0.25;
-}
-
-.loader>span {
-	background: white;
-	display: inline-block;
-	border-radius: 50%;
-	margin: 0 1em;
-	width: 1em;
-	height: 1em;
-	animation: loading 1.8s infinite ease-in-out;
-	animation-fill-mode: both;
-}
-
-.loader>span:first-child {
-	animation-delay: -0.16s;
-}
-
-.loader>span:last-child {
-	animation-delay: 0.16s;
-}
-
-@keyframes loading {
-	0%,
-	80%,
-	100% {
-		opacity: 1;
-	}
-	40% {
-		opacity: 0;
-	}
 }

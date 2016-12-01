@@ -1,21 +1,15 @@
 import React from 'react';
 import VideoCard from '../VideoCard/VideoCard';
+import Spinner from '../Spinner/Spinner';
 import styles from './SearchResults.css';
 
 function SearchResults({ id, className, results, isFetching, addVideo }) {
-	let loader;
-	if (isFetching) {
-		loader = (
-			<div className={styles.loader}>
-				<span />
-				<span />
-				<span />
-			</div>
-		);
-	}
 	return (
 		<div id={id} className={className}>
-			{loader}
+			<Spinner
+				className={styles.spinner}
+				show={isFetching}
+			/>
 			{results.map(video => (
 				<VideoCard
 					key={video.key}
