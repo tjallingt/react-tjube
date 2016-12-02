@@ -5,37 +5,39 @@ import Dialog from '../Dialog/Dialog';
 
 import config from '../../Config';
 
+const wrapDialog = dialog => (
+	<ReactCSSTransitionGroup
+		transitionName="dialogs"
+		transitionEnterTimeout={250}
+		transitionLeaveTimeout={250}
+	>
+		{dialog}
+	</ReactCSSTransitionGroup>
+);
+
 function Dialogs({ className, socket }) {
-	let dialog;
 	if (!socket.connected) {
 		let message;
 		if (socket.reconnect.failed) {
-			message = 'Reconnecting failed, please reload the page to connect again.';
+			message = 'Reconnecting failed. Please reload the page to connect again.';
 		} else {
-			message = 'Trying to reconnect, please wait or reload the page.';
+			message = 'Attempting to reconnect. Please wait or reload the page.';
 			message += ` Attempt ${socket.reconnect.attempt} of ${config.reconnectionAttempts}`;
 		}
-		dialog = (
+		return wrapDialog(
 			<Dialog
 				className={className}
 				key="disconnected"
 				onClose={() => location.reload()}
+				confirmText="reload"
 			>
-				<h3>You are disconnected, do you want to reload the page?</h3>
-				<p>Your playlist will remain available if you choose to reload.</p>
+				<h3>You have been disconnected</h3>
+				<p>No need to worry; your playlist will be here when you return.</p>
 				{message}
 			</Dialog>
 		);
 	}
-	return (
-		<ReactCSSTransitionGroup
-			transitionName="dialogs"
-			transitionEnterTimeout={250}
-			transitionLeaveTimeout={250}
-		>
-			{dialog}
-		</ReactCSSTransitionGroup>
-	);
+	return wrapDialog();
 }
 
 Dialogs.propTypes = {

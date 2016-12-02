@@ -15,7 +15,7 @@
 	margin-top: 10px;
 }
 
-.button {
+.confirm, .close {
 	margin-left: 8px;
 	min-width: 64px;
 	height: 36px;
@@ -25,6 +25,10 @@
 	text-transform: uppercase;
 	color: #009688;
 	cursor: pointer;
+}
+
+.close {
+	color: #777777;
 }
 
 .backdrop {

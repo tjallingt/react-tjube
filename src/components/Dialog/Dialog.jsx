@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 import styles from './Dialog.css';
 
-function Dialog({ className, onConfirm, onClose, children }) {
-	let close = <button onClick={onClose} className={styles.button}>OK</button>;
+function Dialog({ className, closeText, confirmText, onConfirm, onClose, children }) {
+	let close = <button onClick={onClose} className={styles.confirm}>{confirmText}</button>;
 	let confirm;
 	if (onConfirm) {
-		close = <button onClick={onClose} className={styles.button}>Cancel</button>;
-		confirm = <button onClick={onConfirm} className={styles.button}>OK</button>;
+		close = <button onClick={onClose} className={styles.close}>{closeText}</button>;
+		confirm = <button onClick={onConfirm} className={styles.confirm}>{confirmText}</button>;
 	}
 
 	return (
@@ -29,9 +29,16 @@ function Dialog({ className, onConfirm, onClose, children }) {
 
 Dialog.propTypes = {
 	className: React.PropTypes.string,
+	confirmText: React.PropTypes.string,
+	closeText: React.PropTypes.string,
 	onConfirm: React.PropTypes.func,
 	onClose: React.PropTypes.func.isRequired,
 	children: React.PropTypes.node.isRequired,
+};
+
+Dialog.defaultProps = {
+	confirmText: 'ok',
+	closeText: 'cancel',
 };
 
 export default Dialog;
