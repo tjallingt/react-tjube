@@ -1,4 +1,5 @@
 .controls {
+	font-size: 18px;
 	padding: 5px;
 	opacity: 0.75;
 	background: black;
@@ -9,6 +10,48 @@
 	margin: 0px 5px;
 }
 
-.toggleFill {
+.button {
 	cursor: pointer;
+}
+
+.shake {
+	animation: shake 2s ease 2s 4;
+}
+
+@keyframes shake {
+	10% {
+		transform: rotate(15deg);
+	}
+
+	20% {
+		transform: rotate(-30deg);
+	}
+
+	30% {
+		transform: rotate(30deg);
+	}
+
+	40% {
+		transform: rotate(-30deg);
+	}
+
+	50% {
+		transform: rotate(30deg);
+	}
+
+	60% {
+		transform: rotate(-30deg);
+	}
+
+	70% {
+		transform: rotate(30deg);
+	}
+
+	80% {
+		transform: rotate(-15deg);
+	}
+
+	90% {
+		transform: rotate(0deg);
+	}
 }

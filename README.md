@@ -1,12 +1,15 @@
 # React-Tjube
 React port of the tjube.ninja party video player.
+
+## Purpose
 Tjube.ninja is a party video player that allows people to add videos to a public screen.
 People can add videos by visiting the remote.
 The screens and remotes can all be accessed through the tjube.ninja webapp on any device with a webbrowser that supports JavaScript.
 
 Website: http://tjube.ninja
 
-Inspired by: http://protu.be/
+## Prior Art
+This project has been inspired by [ProTube](http://protu.be/) and [YouTube Tv](https://www.youtube.com/tv/).
 
 ## Install and run
 ```

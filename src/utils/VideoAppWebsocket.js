@@ -1,4 +1,3 @@
-/* global room */
 import io from 'socket.io-client';
 import {
 	addVideoWithToast,
@@ -12,12 +11,13 @@ import {
 import config from '../Config';
 
 class VideoAppWebsocket {
-	constructor(opts = { isReceiver: false }) {
+	constructor(room, opts = { isReceiver: false }) {
+		this.room = room;
 		this.store = { dispatch: () => null };
 		this.socket = io({ reconnectionAttempts: config.reconnectionAttempts });
 
 		this.socket.on('connect', () => {
-			this.socket.emit('registerRoom', room);
+			this.socket.emit('registerRoom', this.room);
 			this.store.dispatch(connect());
 		});
 

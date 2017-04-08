@@ -21,11 +21,11 @@ function VideoAppPlayer() {
 				fillStyle={styles.fill}
 			/>
 
-			<Headline className={styles.headline} />
+			<Headline id="title" className={styles.headline} />
 
 			<PlayList id="playlist" />
 
-			<div className={styles.search}>
+			<div id="search" className={styles.search}>
 				<SearchBar
 					className={styles.searchBar}
 					placeholder="Search YouTube"
@@ -33,11 +33,11 @@ function VideoAppPlayer() {
 				<SearchResults className={styles.searchResults} />
 			</div>
 
-			<Controls className={styles.controls} />
+			<Controls id="controls" className={styles.controls} />
 
 			<Toaster className={styles.toaster} />
 
-			<ProgressBar id="progress-bar" />
+			<ProgressBar id="progress" />
 
 			<Dialogs className={styles.dialogs} />
 		</div>

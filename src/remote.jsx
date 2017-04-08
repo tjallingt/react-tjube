@@ -1,4 +1,3 @@
-/* global room */
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,7 +7,7 @@ import remote from './reducers/remote';
 import VideoAppWebsocket from './utils/VideoAppWebsocket';
 import VideoAppRemote from './components/VideoAppRemote';
 
-const socket = new VideoAppWebsocket();
+const socket = new VideoAppWebsocket(window.room);
 const middlewares = [thunk, socket.senderMiddleware];
 if (process.env.NODE_ENV !== 'production') {
 	const createLogger = require('redux-logger'); // eslint-disable-line

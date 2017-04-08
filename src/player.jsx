@@ -1,4 +1,3 @@
-/* global room */
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -28,10 +27,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 const enhancer = compose(
 	applyMiddleware(...middlewares),
-	persistState(storage, room)
+	persistState(storage, window.room)
 );
 
-const socket = new VideoAppWebsocket({ isReceiver: true });
+const socket = new VideoAppWebsocket(window.room, { isReceiver: true });
 const store = createStore(
 	reducer,
 	enhancer

@@ -7,19 +7,27 @@ import filterYoutubeData from '../utils/FilterYoutubeData';
  * action types
  */
 
+// Playlist
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const DELETE_VIDEO = 'DELETE_VIDEO';
 export const MOVE_VIDEO = 'MOVE_VIDEO';
+export const SEND_VIDEO = 'SEND_VIDEO';
+// Player
 export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
+export const START_TUTORIAL = 'START_TUTORIAL';
+export const NEXT_TUTORIAL = 'NEXT_TUTORIAL';
+export const END_TUTORIAL = 'END_TUTORIAL';
+// Search
 export const FETCH_SEARCH_RESULTS = 'FETCH_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
-export const SEND_VIDEO = 'SEND_VIDEO';
+// Socket
 export const CONNECT = 'CONNECT';
 export const DISCONNECT = 'DISCONNECT';
 export const RECONNECT = 'RECONNECT';
 export const RECONNECT_FAILED = 'RECONNECT_FAILED';
+// Toasts
 export const PUSH_TOAST = 'PUSH_TOAST';
 export const POP_TOAST = 'POP_TOAST';
 
@@ -27,6 +35,7 @@ export const POP_TOAST = 'POP_TOAST';
  * action creators
  */
 
+// Playlist
 export const addVideo = video => ({
 	type: ADD_VIDEO,
 	video,
@@ -49,6 +58,7 @@ export const sendVideo = video => ({
 	video,
 });
 
+// Player
 export const toggleFill = () => ({
 	type: TOGGLE_FILL,
 });
@@ -58,6 +68,19 @@ export const setYoutube = youtube => ({
 	youtube,
 });
 
+export const startTutorial = () => ({
+	type: START_TUTORIAL,
+});
+
+export const nextTutorial = () => ({
+	type: NEXT_TUTORIAL,
+});
+
+export const endTutorial = () => ({
+	type: END_TUTORIAL,
+});
+
+// Search
 export const receiveSearchResults = json => ({
 	type: RECEIVE_SEARCH_RESULTS,
 	results: json.items.map(filterYoutubeData),
@@ -88,6 +111,7 @@ export const clearSearch = () => ({
 	type: CLEAR_SEARCH_RESULTS,
 });
 
+// Socket
 export const connect = () => ({
 	type: CONNECT,
 });
@@ -105,6 +129,7 @@ export const reconnectFailed = () => ({
 	type: RECONNECT_FAILED,
 });
 
+// Toasts
 export const pushToast = message => ({
 	type: PUSH_TOAST,
 	key: Date.now(),

@@ -64,5 +64,19 @@ h2 { font-size: 1.2em; margin-bottom: 0.5em; }
 h3 { font-size: 1.1em; font-weight: bold; margin-bottom: 0.5em; }
 
 a {
-	color: white;
+	color: inherit;
+}
+
+#not-supported {
+	display: none;
+}
+
+@media not screen, (orientation: portrait) {
+	#app {
+		display: none;
+	}
+
+	#not-supported{
+		display: inline-block;
+	}
 }
