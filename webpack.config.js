@@ -3,7 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const postcssNested = require('postcss-nested');
 
 module.exports = {
 	entry: {
@@ -16,23 +15,36 @@ module.exports = {
 		filename: '[name].js',
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx?$/,
-				loader: 'babel-loader',
+				use: 'babel-loader',
 				include: path.join(__dirname, 'src'),
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'),
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								importLoaders: 1,
+								localIdentName: '[name]__[local]___[hash:base64:5]',
+							},
+						},
+						'postcss-loader',
+					],
+				}),
 			},
 		],
 	},
-	postcss: [
-		postcssNested(),
-	],
 	plugins: [
-		new ExtractTextPlugin('[name].css', { allChunks: true }),
+		new ExtractTextPlugin({
+			filename: '[name].css',
+			allChunks: true,
+		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -40,6 +52,7 @@ module.exports = {
 		}),
 	],
 	resolve: {
-		extensions: ['', '.js', '.jsx'],
+		extensions: ['.js', '.jsx'],
+		enforceExtension: false,
 	},
 };

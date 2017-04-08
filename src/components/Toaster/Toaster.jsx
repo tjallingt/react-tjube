@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Toast from './Toast';
@@ -22,9 +23,9 @@ function Toaster({ id, className, toasts }) {
 }
 
 Toaster.propTypes = {
-	toasts: React.PropTypes.array,
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
+	toasts: PropTypes.array,
+	id: PropTypes.string,
+	className: PropTypes.string,
 };
 
 Toaster.defaultProps = {

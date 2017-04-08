@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Headline.css';
@@ -25,12 +26,12 @@ function Headline({ id, className, canSkip, title, subtitle, onSkip }) {
 }
 
 Headline.propTypes = {
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
-	title: React.PropTypes.string,
-	subtitle: React.PropTypes.string,
-	onSkip: React.PropTypes.func,
-	canSkip: React.PropTypes.bool,
+	id: PropTypes.string,
+	className: PropTypes.string,
+	title: PropTypes.string,
+	subtitle: PropTypes.string,
+	onSkip: PropTypes.func,
+	canSkip: PropTypes.bool,
 };
 
 Headline.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 
@@ -62,12 +63,12 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
-	onChange: React.PropTypes.func,
-	onClear: React.PropTypes.func,
-	onSearch: React.PropTypes.func,
-	placeholder: React.PropTypes.string,
+	id: PropTypes.string,
+	className: PropTypes.string,
+	onChange: PropTypes.func,
+	onClear: PropTypes.func,
+	onSearch: PropTypes.func,
+	placeholder: PropTypes.string,
 };
 
 SearchBar.defaultProps = {

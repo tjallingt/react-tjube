@@ -10,17 +10,17 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client';
 config.entry.player = [config.entry.player, hotMiddlewareScript];
 config.entry.remote = [config.entry.remote, hotMiddlewareScript];
 
-config.module.loaders.unshift({
+config.module.rules.unshift({
 	test: /\.jsx?$/,
-	loader: 'react-hot-loader',
+	use: 'react-hot-loader',
 	include: path.join(__dirname, 'src'),
 });
 
 config.plugins = [
-	new ExtractTextPlugin('[name].css', { disable: true }),
+	new ExtractTextPlugin({ disable: true }),
 	new webpack.optimize.OccurrenceOrderPlugin(),
 	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NoErrorsPlugin(),
+	new webpack.NoEmitOnErrorsPlugin(),
 ];
 
 module.exports = config;

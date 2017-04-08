@@ -1,5 +1,6 @@
 /* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import classNames from 'classnames';
@@ -109,13 +110,13 @@ class PlayListItem extends React.Component {
 }
 
 PlayListItem.propTypes = {
-	video: React.PropTypes.object.isRequired,
-	index: React.PropTypes.number,
-	onDelete: React.PropTypes.func,
-	moveVideo: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
-	connectDragSource: React.PropTypes.func,
-	connectDropTarget: React.PropTypes.func,
-	isDragging: React.PropTypes.bool,
+	video: PropTypes.object.isRequired,
+	index: PropTypes.number,
+	onDelete: PropTypes.func,
+	moveVideo: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+	connectDragSource: PropTypes.func,
+	connectDropTarget: PropTypes.func,
+	isDragging: PropTypes.bool,
 };
 
 export default PlayListItem;

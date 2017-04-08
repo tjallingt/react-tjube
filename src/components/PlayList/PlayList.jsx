@@ -1,5 +1,6 @@
 /* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -36,11 +37,11 @@ class PlayList extends React.Component {
 }
 
 PlayList.propTypes = {
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
-	playlist: React.PropTypes.array.isRequired,
-	moveVideo: React.PropTypes.func,
-	deleteVideo: React.PropTypes.func,
+	id: PropTypes.string,
+	className: PropTypes.string,
+	playlist: PropTypes.array.isRequired,
+	moveVideo: PropTypes.func,
+	deleteVideo: PropTypes.func,
 };
 
 PlayList.defaultProps = {

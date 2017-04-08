@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Dialog.css';
@@ -28,12 +29,12 @@ function Dialog({ className, closeText, confirmText, onConfirm, onClose, childre
 }
 
 Dialog.propTypes = {
-	className: React.PropTypes.string,
-	confirmText: React.PropTypes.string,
-	closeText: React.PropTypes.string,
-	onConfirm: React.PropTypes.func,
-	onClose: React.PropTypes.func.isRequired,
-	children: React.PropTypes.node.isRequired,
+	className: PropTypes.string,
+	confirmText: PropTypes.string,
+	closeText: PropTypes.string,
+	onConfirm: PropTypes.func,
+	onClose: PropTypes.func.isRequired,
+	children: PropTypes.node.isRequired,
 };
 
 Dialog.defaultProps = {

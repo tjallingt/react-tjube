@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import YouTube from 'react-youtube';
@@ -37,12 +38,12 @@ function Player({ className, fill, fillStyle, videoId, setYoutube, skipVideo }) 
 }
 
 Player.propTypes = {
-	className: React.PropTypes.string,
-	fill: React.PropTypes.bool,
-	fillStyle: React.PropTypes.string,
-	setYoutube: React.PropTypes.func,
-	skipVideo: React.PropTypes.func,
-	videoId: React.PropTypes.string,
+	className: PropTypes.string,
+	fill: PropTypes.bool,
+	fillStyle: PropTypes.string,
+	setYoutube: PropTypes.func,
+	skipVideo: PropTypes.func,
+	videoId: PropTypes.string,
 };
 
 Player.defaultProps = {

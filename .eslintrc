@@ -9,9 +9,18 @@
 		"linebreak-style": 0,
 		"no-tabs": 0,
 		"indent": [2, "tab"],
+		"comma-dangle": ["error", {
+			"arrays": "always-multiline",
+			"objects": "always-multiline",
+			"imports": "always-multiline",
+			"exports": "always-multiline",
+			"functions": "only-multiline"
+		}],
 		"react/jsx-indent": [2, "tab"],
 		"react/jsx-indent-props": [2, "tab"],
+		
 		"react/forbid-prop-types": 0,
+		"react/require-default-props": 0,
 		"jsx-a11y/no-static-element-interactions": 0
 	}
 }

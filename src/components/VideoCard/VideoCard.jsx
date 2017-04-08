@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './VideoCard.css';
@@ -32,12 +33,12 @@ function VideoCard({ video, thumbnailQuality, thumbnailWidth, noWrap, className,
 }
 
 VideoCard.propTypes = {
-	className: React.PropTypes.string,
-	onClick: React.PropTypes.func,
-	video: React.PropTypes.object,
-	thumbnailQuality: React.PropTypes.string,
-	thumbnailWidth: React.PropTypes.number,
-	noWrap: React.PropTypes.bool,
+	className: PropTypes.string,
+	onClick: PropTypes.func,
+	video: PropTypes.object,
+	thumbnailQuality: PropTypes.string,
+	thumbnailWidth: PropTypes.number,
+	noWrap: PropTypes.bool,
 };
 
 VideoCard.defaultProps = {

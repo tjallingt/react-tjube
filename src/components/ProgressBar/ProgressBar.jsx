@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ProgressBar extends React.Component {
 	static propTypes = {
-		id: React.PropTypes.string,
-		className: React.PropTypes.string,
-		youtube: React.PropTypes.object,
+		id: PropTypes.string,
+		className: PropTypes.string,
+		youtube: PropTypes.object,
 	};
 
 	componentDidUpdate() {

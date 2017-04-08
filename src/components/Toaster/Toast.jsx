@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Toast.css';
@@ -12,8 +13,8 @@ function Toast({ className, children }) {
 }
 
 Toast.propTypes = {
-	className: React.PropTypes.string,
-	children: React.PropTypes.node,
+	className: PropTypes.string,
+	children: PropTypes.node,
 };
 
 export default Toast;

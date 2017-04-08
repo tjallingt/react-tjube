@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Dialog from '../Dialog/Dialog';
@@ -52,11 +53,11 @@ function Dialogs({ className, socket, tutorial, nextTutorial, endTutorial }) {
 }
 
 Dialogs.propTypes = {
-	className: React.PropTypes.string,
-	socket: React.PropTypes.object,
-	tutorial: React.PropTypes.number,
-	nextTutorial: React.PropTypes.func,
-	endTutorial: React.PropTypes.func,
+	className: PropTypes.string,
+	socket: PropTypes.object,
+	tutorial: PropTypes.number,
+	nextTutorial: PropTypes.func,
+	endTutorial: PropTypes.func,
 };
 
 export default Dialogs;

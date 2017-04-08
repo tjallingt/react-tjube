@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Controls.css';
@@ -33,11 +34,11 @@ function Controls({ id, className, fill, startTutorial, toggleFill }) {
 }
 
 Controls.propTypes = {
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
-	fill: React.PropTypes.bool,
-	startTutorial: React.PropTypes.func,
-	toggleFill: React.PropTypes.func,
+	id: PropTypes.string,
+	className: PropTypes.string,
+	fill: PropTypes.bool,
+	startTutorial: PropTypes.func,
+	toggleFill: PropTypes.func,
 };
 
 export default Controls;

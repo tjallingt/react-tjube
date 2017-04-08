@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Spinner.css';
@@ -15,8 +16,8 @@ function SearchResults({ className, show }) {
 }
 
 SearchResults.propTypes = {
-	className: React.PropTypes.string,
-	show: React.PropTypes.bool,
+	className: PropTypes.string,
+	show: PropTypes.bool,
 };
 
 export default SearchResults;

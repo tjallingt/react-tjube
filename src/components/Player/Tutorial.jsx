@@ -1,6 +1,7 @@
 /* eslint max-len: 0 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Dialog from '../Dialog/Dialog';
 
@@ -24,13 +25,13 @@ const TutorialDialog = ({ className, step, close, next, end, last, children }) =
 );
 
 TutorialDialog.propTypes = {
-	className: React.PropTypes.string,
-	step: React.PropTypes.number,
-	close: React.PropTypes.func,
-	next: React.PropTypes.func,
-	end: React.PropTypes.func,
-	last: React.PropTypes.bool,
-	children: React.PropTypes.node,
+	className: PropTypes.string,
+	step: PropTypes.number,
+	close: PropTypes.func,
+	next: PropTypes.func,
+	end: PropTypes.func,
+	last: PropTypes.bool,
+	children: PropTypes.node,
 };
 
 TutorialDialog.defaultProps = {
@@ -135,7 +136,7 @@ function Tutorial(props) {
 }
 
 Tutorial.propTypes = {
-	step: React.PropTypes.number,
+	step: PropTypes.number,
 };
 
 export default Tutorial;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Dialog from '../Dialog/Dialog';
@@ -58,11 +59,11 @@ function Dialogs({ className, video, socket, sendVideo, deleteVideo }) {
 }
 
 Dialogs.propTypes = {
-	className: React.PropTypes.string,
-	video: React.PropTypes.object,
-	socket: React.PropTypes.object,
-	sendVideo: React.PropTypes.func,
-	deleteVideo: React.PropTypes.func,
+	className: PropTypes.string,
+	video: PropTypes.object,
+	socket: PropTypes.object,
+	sendVideo: PropTypes.func,
+	deleteVideo: PropTypes.func,
 };
 
 export default Dialogs;

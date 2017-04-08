@@ -20,8 +20,7 @@ const storage = compose(
 
 const middlewares = [thunk];
 if (process.env.NODE_ENV !== 'production') {
-	const createLogger = require('redux-logger'); // eslint-disable-line
-	const logger = createLogger();
+	const { logger } = require('redux-logger'); // eslint-disable-line
 	middlewares.push(logger);
 }
 

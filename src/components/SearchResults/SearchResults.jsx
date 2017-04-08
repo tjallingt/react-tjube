@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import VideoCard from '../VideoCard/VideoCard';
 import Spinner from '../Spinner/Spinner';
 import styles from './SearchResults.css';
@@ -26,11 +27,11 @@ function SearchResults({ id, className, results, isFetching, addVideo }) {
 }
 
 SearchResults.propTypes = {
-	id: React.PropTypes.string,
-	className: React.PropTypes.string,
-	isFetching: React.PropTypes.bool,
-	results: React.PropTypes.array.isRequired,
-	addVideo: React.PropTypes.func,
+	id: PropTypes.string,
+	className: PropTypes.string,
+	isFetching: PropTypes.bool,
+	results: PropTypes.array.isRequired,
+	addVideo: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
