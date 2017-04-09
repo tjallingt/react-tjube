@@ -10,7 +10,7 @@ import VideoAppRemote from './components/VideoAppRemote';
 const socket = new VideoAppWebsocket(window.room);
 const middlewares = [thunk, socket.senderMiddleware];
 if (process.env.NODE_ENV !== 'production') {
-	const { logger } = require('redux-logger'); // eslint-disable-line
+	const { logger } = require('redux-logger'); // eslint-disable-line global-require
 	middlewares.push(logger);
 }
 

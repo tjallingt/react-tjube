@@ -1,7 +1,5 @@
-/* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import classNames from 'classnames';
 import styles from './PlayListItem.css';
@@ -16,16 +14,13 @@ const videoTarget = {
 		const dragIndex = monitor.getItem().index;
 		const hoverIndex = props.index;
 
-		// Don't replace items with themselves
-		if (dragIndex === hoverIndex) {
-			return;
-		}
-		// Don't replace currently playing video
-		if (hoverIndex === 0) {
+		// Don't replace items with themselves and don't replace currently playing video
+		if (dragIndex === hoverIndex || hoverIndex === 0) {
 			return;
 		}
 
-		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+		// avoid findDOMNode(component) by accessing the decorated components ref
+		const hoverBoundingRect = component.decoratedComponentInstance.ref.getBoundingClientRect();
 		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
 		const clientOffset = monitor.getClientOffset();
@@ -52,7 +47,7 @@ const videoTarget = {
 		// Generally it's better to avoid mutations,
 		// but it's good here for the sake of performance
 		// to avoid expensive index searches.
-		monitor.getItem().index = hoverIndex;
+		monitor.getItem().index = hoverIndex; // eslint-disable-line no-param-reassign
 	},
 };
 
@@ -63,7 +58,7 @@ const videoTarget = {
 	connectDragSource: connect.dragSource(),
 	isDragging: monitor.isDragging(),
 }))
-class PlayListItem extends React.Component {
+class PlayListItem extends React.Component { // eslint-disable-line react/prefer-stateless-function
 	render() {
 		const {
 			video,
@@ -84,6 +79,7 @@ class PlayListItem extends React.Component {
 
 		return connectDragSource(connectDropTarget(
 			<div
+				ref={(item) => { this.ref = item; }}
 				className={itemStyle}
 				style={{ backgroundImage: `url( ${video.thumbnails.medium.url} )` }}
 			>

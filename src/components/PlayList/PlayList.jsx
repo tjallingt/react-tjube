@@ -1,4 +1,3 @@
-/* eslint new-cap: "off", react/prefer-stateless-function: "off" */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -8,7 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import PlayListItem from './PlayListItem';
 
 @DragDropContext(HTML5Backend)
-class PlayList extends React.Component {
+class PlayList extends React.Component { // eslint-disable-line react/prefer-stateless-function
 	render() {
 		const { id, className, playlist, ...props } = this.props;
 
