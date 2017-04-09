@@ -23,4 +23,6 @@ config.plugins = [
 	new webpack.NoEmitOnErrorsPlugin(),
 ];
 
+config.devtool = 'cheap-module-eval-source-map';
+
 module.exports = config;

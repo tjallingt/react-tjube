@@ -1,4 +1,4 @@
-import update from 'react-addons-update';
+import update from 'immutability-helper';
 import { ADD_VIDEO, DELETE_VIDEO, MOVE_VIDEO } from '../actions';
 
 const playlist = (state = [], action) => {

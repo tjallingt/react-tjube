@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.jsx?$/,
-				use: 'babel-loader',
+				use: 'babel-loader', // somehow use ["es2015", { modules: false }] in production only...
 				include: path.join(__dirname, 'src'),
 			},
 			{
@@ -44,11 +44,6 @@ module.exports = {
 		new ExtractTextPlugin({
 			filename: '[name].css',
 			allChunks: true,
-		}),
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-			},
 		}),
 	],
 	resolve: {
