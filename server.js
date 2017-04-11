@@ -10,6 +10,7 @@
 
 const http = require('http');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 const server = http.createServer(app);
@@ -71,6 +72,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Serve static files
 app.use(express.static('./static'));
+
+// Logging express routes
+app.use(morgan('short'));
 
 // Parse application/json post body
 app.use(bodyParser.json());
