@@ -17,9 +17,10 @@ function Headline({ id, className, canSkip, title, subtitle, onSkip }) {
 
 			<h2
 				className={subtitleStyle}
-				onClick={(canSkip) ? onSkip : undefined}
 			>
-				{subtitle}
+				<a onClick={(canSkip) ? onSkip : undefined}>
+					{subtitle}
+				</a>
 			</h2>
 		</div>
 	);
