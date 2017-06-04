@@ -4,11 +4,10 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import remote from './reducers/remote';
-import VideoAppWebsocket from './utils/VideoAppWebsocket';
+import socketMiddleware from './utils/socketMiddleware';
 import VideoAppRemote from './components/VideoAppRemote';
 
-const socket = new VideoAppWebsocket(window.room);
-const middlewares = [thunk, socket.senderMiddleware];
+const middlewares = [thunk, socketMiddleware({ room: window.room })];
 if (process.env.NODE_ENV !== 'production') {
 	const { logger } = require('redux-logger'); // eslint-disable-line global-require
 	middlewares.push(logger);
@@ -18,7 +17,6 @@ const store = createStore(
 	remote,
 	applyMiddleware(...middlewares),
 );
-socket.setStore(store);
 
 render(
 	<Provider store={store}>

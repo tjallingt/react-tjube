@@ -6,7 +6,7 @@ import persistState, { mergePersistedState } from 'redux-localstorage';
 import adapter from 'redux-localstorage/lib/adapters/sessionStorage';
 import filter from 'redux-localstorage-filter';
 import thunk from 'redux-thunk';
-import VideoAppWebsocket from './utils/VideoAppWebsocket';
+import socketMiddleware from './utils/socketMiddleware';
 import player from './reducers/player';
 import VideoAppPlayer from './components/VideoAppPlayer';
 
@@ -18,7 +18,7 @@ const storage = compose(
   filter('playlist')
 )(adapter(window.sessionStorage));
 
-const middlewares = [thunk];
+const middlewares = [thunk, socketMiddleware({ room: window.room, isReceiver: true })];
 if (process.env.NODE_ENV !== 'production') {
 	const { logger } = require('redux-logger'); // eslint-disable-line global-require
 	middlewares.push(logger);
@@ -29,12 +29,10 @@ const enhancer = compose(
 	persistState(storage, window.room)
 );
 
-const socket = new VideoAppWebsocket(window.room, { isReceiver: true });
 const store = createStore(
 	reducer,
 	enhancer
 );
-socket.setStore(store);
 
 render(
 	<Provider store={store}>
