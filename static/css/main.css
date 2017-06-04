@@ -72,11 +72,11 @@ a {
 }
 
 @media not screen, (orientation: portrait) {
-	#app {
+	body.player #app {
 		display: none;
 	}
 
-	#not-supported{
+	body.player #not-supported{
 		display: inline-block;
 	}
 }
