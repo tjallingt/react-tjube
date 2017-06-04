@@ -33,10 +33,17 @@ class VideoAppWebsocket {
 			this.store.dispatch(reconnectFailed());
 		});
 
-		if (opts.isReceiver) {
+		if (opts.isReceiver) { // is player
 			this.socket.on('addVideo', (video) => {
 				this.store.dispatch(addVideoWithToast(video));
 			});
+			// this.socket.on('requestPlaylist', () => {
+			// 	this.socket.emit('playlist', this.store.getState().playlist);
+			// });
+		} else { // is remote
+			// this.socket.on('playlist', (playlist) => {
+			// 	this.store.dispatch(setPlaylist(playlist));
+			// });
 		}
 	}
 
@@ -45,10 +52,17 @@ class VideoAppWebsocket {
 	}
 
 	senderMiddleware = () => next => (action) => {
-		if (action.type === SEND_VIDEO) {
+		switch (action.type) {
+		case SEND_VIDEO:
 			this.socket.emit('addVideo', action.video, () => {
 				this.store.dispatch(showToast(`${action.video.title} was added to the playlist`));
 			});
+			break;
+		// case REQUEST_PLAYLIST:
+		// 	this.socket.emit('requestPlaylist');
+		// 	break;
+		default:
+			break;
 		}
 		return next(action);
 	};
