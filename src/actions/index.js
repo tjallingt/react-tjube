@@ -15,9 +15,9 @@ export const SEND_VIDEO = 'SEND_VIDEO';
 // Player
 export const TOGGLE_FILL = 'TOGGLE_FILL';
 export const SET_YOUTUBE = 'SET_YOUTUBE';
-export const START_TUTORIAL = 'START_TUTORIAL';
-export const NEXT_TUTORIAL = 'NEXT_TUTORIAL';
-export const END_TUTORIAL = 'END_TUTORIAL';
+export const START_TOUR = 'START_TOUR';
+export const NEXT_TOUR = 'NEXT_TOUR';
+export const END_TOUR = 'END_TOUR';
 // Search
 export const FETCH_SEARCH_RESULTS = 'FETCH_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
@@ -68,16 +68,16 @@ export const setYoutube = youtube => ({
 	youtube,
 });
 
-export const startTutorial = () => ({
-	type: START_TUTORIAL,
+export const startTour = () => ({
+	type: START_TOUR,
 });
 
-export const nextTutorial = () => ({
-	type: NEXT_TUTORIAL,
+export const nextTour = () => ({
+	type: NEXT_TOUR,
 });
 
-export const endTutorial = () => ({
-	type: END_TUTORIAL,
+export const endTour = () => ({
+	type: END_TOUR,
 });
 
 // Search

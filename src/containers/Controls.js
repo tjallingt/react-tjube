@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { startTutorial, toggleFill } from '../actions';
+import { startTour, toggleFill } from '../actions';
 
 import Controls from '../components/Player/Controls';
 
@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-	startTutorial,
+	startTour,
 	toggleFill,
 };
 

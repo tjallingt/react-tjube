@@ -3,12 +3,12 @@ import playlist from './playlist';
 import search from './search';
 import toasts from './toasts';
 import socket from './socket';
-import { SET_YOUTUBE, TOGGLE_FILL, START_TUTORIAL, NEXT_TUTORIAL, END_TUTORIAL } from '../actions';
+import { SET_YOUTUBE, TOGGLE_FILL, START_TOUR, NEXT_TOUR, END_TOUR } from '../actions';
 
 const initialState = {
 	youtube: null,
 	fill: false,
-	tutorial: 0,
+	tour: 0,
 };
 
 const player = (state = initialState, action) => {
@@ -24,20 +24,20 @@ const player = (state = initialState, action) => {
 			fill: !state.fill,
 		};
 
-	case START_TUTORIAL:
+	case START_TOUR:
 		return {
 			...state,
-			tutorial: 1,
+			tour: 1,
 		};
-	case NEXT_TUTORIAL:
+	case NEXT_TOUR:
 		return {
 			...state,
-			tutorial: state.tutorial + 1,
+			tour: state.tour + 1,
 		};
-	case END_TUTORIAL:
+	case END_TOUR:
 		return {
 			...state,
-			tutorial: 0,
+			tour: 0,
 		};
 	default:
 		return state;

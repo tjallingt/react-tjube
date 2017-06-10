@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import socketMiddleware from './utils/socketMiddleware';
 import player from './reducers/player';
 import VideoAppPlayer from './components/VideoAppPlayer';
+import { startTour } from './actions';
 
 const reducer = compose(
   mergePersistedState()
@@ -16,7 +17,7 @@ const reducer = compose(
 
 const storage = compose(
   filter('playlist')
-)(adapter(window.sessionStorage));
+)(adapter(sessionStorage));
 
 const middlewares = [thunk, socketMiddleware({ room: window.room, isReceiver: true })];
 if (process.env.NODE_ENV !== 'production') {
@@ -33,6 +34,11 @@ const store = createStore(
 	reducer,
 	enhancer
 );
+
+if (localStorage.getItem('visited') == null) {
+	store.dispatch(startTour());
+	localStorage.setItem('visited', true);
+}
 
 render(
 	<Provider store={store}>

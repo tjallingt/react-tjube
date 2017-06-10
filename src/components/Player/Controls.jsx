@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import styles from './Controls.css';
 
-function Controls({ id, className, fill, startTutorial, toggleFill }) {
+function Controls({ id, className, fill, startTour, toggleFill }) {
 	const toggleFillStyle = classNames(styles.button, 'fa', {
 		'fa-compress': fill,
 		'fa-expand': !fill,
@@ -23,7 +23,7 @@ function Controls({ id, className, fill, startTutorial, toggleFill }) {
 
 			<i
 				className={`fa fa-question-circle ${styles.button} ${styles.shake}`}
-				onClick={startTutorial}
+				onClick={startTour}
 			/>
 
 			<a href="https://github.com/tjallingt/react-tjube">
@@ -37,7 +37,7 @@ Controls.propTypes = {
 	id: PropTypes.string,
 	className: PropTypes.string,
 	fill: PropTypes.bool,
-	startTutorial: PropTypes.func,
+	startTour: PropTypes.func,
 	toggleFill: PropTypes.func,
 };
 

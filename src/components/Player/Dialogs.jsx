@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import Dialog from '../Dialog/Dialog';
-import Tutorial from './Tutorial';
+import Tour from './Tour';
 
 import config from '../../Config';
 
@@ -17,7 +17,7 @@ const wrapDialog = dialog => (
 	</ReactCSSTransitionGroup>
 );
 
-function Dialogs({ className, socket, tutorial, nextTutorial, endTutorial }) {
+function Dialogs({ className, socket, tour, nextTour, endTour }) {
 	if (!socket.connected) {
 		let message;
 		if (socket.reconnect.failed) {
@@ -39,13 +39,13 @@ function Dialogs({ className, socket, tutorial, nextTutorial, endTutorial }) {
 			</Dialog>
 		);
 	}
-	if (tutorial) {
+	if (tour) {
 		return wrapDialog(
-			<Tutorial
+			<Tour
 				className={className}
-				step={tutorial}
-				next={nextTutorial}
-				end={endTutorial}
+				step={tour}
+				next={nextTour}
+				end={endTour}
 			/>
 		);
 	}
@@ -55,9 +55,9 @@ function Dialogs({ className, socket, tutorial, nextTutorial, endTutorial }) {
 Dialogs.propTypes = {
 	className: PropTypes.string,
 	socket: PropTypes.object,
-	tutorial: PropTypes.number,
-	nextTutorial: PropTypes.func,
-	endTutorial: PropTypes.func,
+	tour: PropTypes.number,
+	nextTour: PropTypes.func,
+	endTour: PropTypes.func,
 };
 
 export default Dialogs;

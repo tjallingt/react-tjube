@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 
 import Dialog from '../Dialog/Dialog';
 
-const TutorialDialog = ({ className, step, close, next, end, last, children }) => (
+const TourDialog = ({ className, step, close, next, end, last, children }) => (
 	<Dialog
 		className={className}
-		key={`tutorial${step}`}
-		closeText="skip"
+		key={`tour-${step}`}
+		closeText="end tour"
 		confirmText={last ? 'end' : 'next'}
 		onClose={() => {
 			close();
@@ -24,7 +24,7 @@ const TutorialDialog = ({ className, step, close, next, end, last, children }) =
 	</Dialog>
 );
 
-TutorialDialog.propTypes = {
+TourDialog.propTypes = {
 	className: PropTypes.string,
 	step: PropTypes.number,
 	close: PropTypes.func,
@@ -34,11 +34,11 @@ TutorialDialog.propTypes = {
 	children: PropTypes.node,
 };
 
-TutorialDialog.defaultProps = {
+TourDialog.defaultProps = {
 	close: () => null,
 };
 
-function Tutorial(props) {
+function Tour(props) {
 	const search = document.getElementById('search');
 	const playlist = document.getElementById('playlist');
 	const title = document.getElementById('title');
@@ -46,7 +46,7 @@ function Tutorial(props) {
 	switch (props.step) {
 	case 1:
 		return (
-			<TutorialDialog
+			<TourDialog
 				{...props}
 			>
 				<h3>About Tjube.ninja</h3>
@@ -55,15 +55,15 @@ function Tutorial(props) {
 					The videos are played back from a single public screen, I recommend placing it on a projector!
 					You can add videos to the playlist using the remote at <a href={`/${window.room}`}>{`${location.host}/${window.room}`}</a>.
 					<br />
-					Tjube.ninja was made with <i className="fa fa-bolt" /> by <a href="http://tjallingt.com/">Tjalling Tolle</a>
+					Tjube.ninja was made with <i className="fa fa-heart" style={{ color: 'red' }} /> by <a href="http://tjallingt.com/">Tjalling Tolle</a>
 				</p>
-			</TutorialDialog>
+			</TourDialog>
 		);
 	case 2:
 		search.style.zIndex = 10;
 		search.style.opacity = 1;
 		return (
-			<TutorialDialog
+			<TourDialog
 				{...props}
 				close={() => {
 					search.style = {};
@@ -75,14 +75,14 @@ function Tutorial(props) {
 					On the bottom of the screen is a progress bar that you can click on to scrub through the video.
 					The search bar allows you to add videos right from the public screen.
 				</p>
-			</TutorialDialog>
+			</TourDialog>
 		);
 	case 3:
 		playlist.style.zIndex = 10;
 		playlist.style.opacity = 1;
 		playlist.style.width = '25%';
 		return (
-			<TutorialDialog
+			<TourDialog
 				{...props}
 				close={() => {
 					playlist.style = {};
@@ -94,12 +94,12 @@ function Tutorial(props) {
 					You can remove videos from the playlist using the <i className="fa fa-times" /> button
 					Drag and drop videos to sort the playlist in any way you want.
 				</p>
-			</TutorialDialog>
+			</TourDialog>
 		);
 	case 4:
 		title.style.zIndex = 10;
 		return (
-			<TutorialDialog
+			<TourDialog
 				{...props}
 				close={() => {
 					title.style = {};
@@ -110,12 +110,12 @@ function Tutorial(props) {
 					When the playlist is empty it also gives you short instructions.
 					The subtitle is the title of the next video, you can click it to skip the current video.
 				</p>
-			</TutorialDialog>
+			</TourDialog>
 		);
 	case 5:
 		controls.style.zIndex = 10;
 		return (
-			<TutorialDialog
+			<TourDialog
 				{...props}
 				close={() => {
 					controls.style = {};
@@ -126,17 +126,17 @@ function Tutorial(props) {
 				<p>
 					You can press the <i className="fa fa-expand" /> to toggle between your default and a 16:9 ratio video.
 					Here you can always find the room code that you can use to visit the remote.
-					If there is a problem please visit the <a href="https://github.com/tjallingt/react-tjube">GitHub <i className="fa fa-github" /></a> to let me know.
+					If there is a problem please visit <a href="https://github.com/tjallingt/react-tjube"><i className="fa fa-github" /> GitHub</a> to let me know.
 				</p>
-			</TutorialDialog>
+			</TourDialog>
 		);
 	default:
 		return null;
 	}
 }
 
-Tutorial.propTypes = {
+Tour.propTypes = {
 	step: PropTypes.number,
 };
 
-export default Tutorial;
+export default Tour;
