@@ -81,7 +81,7 @@ class PlayListItem extends React.Component { // eslint-disable-line react/prefer
 			<div
 				ref={(item) => { this.ref = item; }}
 				className={itemStyle}
-				style={{ backgroundImage: `url( ${video.thumbnails.medium.url} )` }}
+				style={{ backgroundImage: `url( ${video.thumbnail} )` }}
 			>
 				<div className={styles.title}>{video.title}</div>
 				<div className={styles.channelTitle}>{video.channelTitle}</div>

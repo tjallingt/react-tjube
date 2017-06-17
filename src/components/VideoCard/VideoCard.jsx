@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 import styles from './VideoCard.css';
 
-function VideoCard({ video, thumbnailQuality, thumbnailWidth, noWrap, className, onClick }) {
+function VideoCard({ video, showThumbnail, thumbnailWidth, noWrap, className, onClick }) {
 	let image;
-	if (thumbnailQuality) {
+	if (showThumbnail) {
 		image = (
 			<img
 				className={styles.thumbnail}
-				src={video.thumbnails[thumbnailQuality].url}
+				src={video.thumbnail}
 				style={{
 					width: thumbnailWidth,
 					minWidth: thumbnailWidth, // without this images get squashed by the text...
@@ -36,12 +36,13 @@ VideoCard.propTypes = {
 	className: PropTypes.string,
 	onClick: PropTypes.func,
 	video: PropTypes.object,
-	thumbnailQuality: PropTypes.string,
+	showThumbnail: PropTypes.bool,
 	thumbnailWidth: PropTypes.number,
 	noWrap: PropTypes.bool,
 };
 
 VideoCard.defaultProps = {
+	showThumbnail: false,
 	thumbnailWidth: 130,
 	noWrap: false,
 };

@@ -16,7 +16,7 @@ function filterYoutubeData(data) {
 			id: data.id,
 			title: data.snippet.title,
 			channelTitle: data.snippet.channelTitle,
-			thumbnails: data.snippet.thumbnails,
+			thumbnail: data.snippet.thumbnails.medium.url,
 		};
 		if (data.kind === YTTYPE.SEARCHRESULT) { // id for searchresult is wrapped in id object
 			newData.key = newData.id.videoId;

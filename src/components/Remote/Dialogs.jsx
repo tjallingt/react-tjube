@@ -50,7 +50,7 @@ function Dialogs({ className, video, socket, sendVideo, deleteVideo }) {
 				<h3>Do you want to add this video to the playlist?</h3>
 				<VideoCard
 					video={video}
-					thumbnailQuality="medium"
+					showThumbnail
 				/>
 			</Dialog>
 		);

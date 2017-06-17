@@ -17,7 +17,7 @@ function SearchResults({ id, className, results, isFetching, addVideo }) {
 					className={styles.item}
 					video={video}
 					onClick={() => addVideo(video)}
-					thumbnailQuality="default"
+					showThumbnail
 					thumbnailWidth={80}
 					noWrap
 				/>
