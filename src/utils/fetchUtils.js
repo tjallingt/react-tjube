@@ -11,12 +11,17 @@ export const serialize = obj => (
 );
 
 export const checkStatus = (response) => {
-	if (response.status >= 200 && response.status < 300) {
+	if (response.ok) {
 		return response;
 	}
-	const error = new Error(response.statusText);
-	error.response = response;
-	throw error;
+	throw Error(response.statusText);
+};
+
+export const checkYTResponse = (json) => {
+	if (json.error) {
+		throw Error(json.error.message);
+	}
+	return json;
 };
 
 export const parseJSON = response => response.json();

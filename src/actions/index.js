@@ -1,6 +1,6 @@
 import 'whatwg-fetch'; // fetch API polyfill
 import config from '../Config';
-import { serialize, checkStatus, parseJSON } from '../utils/fetchUtils';
+import { serialize, checkYTResponse, parseJSON } from '../utils/fetchUtils';
 import filterYoutubeData from '../utils/FilterYoutubeData';
 
 /*
@@ -21,6 +21,7 @@ export const END_TOUR = 'END_TOUR';
 // Search
 export const FETCH_SEARCH_RESULTS = 'FETCH_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
+export const ERROR_SEARCH_RESULTS = 'ERROR_SEARCH_RESULTS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 // Socket
 export const CONNECT = 'CONNECT';
@@ -86,6 +87,11 @@ export const receiveSearchResults = json => ({
 	results: json.items.map(filterYoutubeData),
 });
 
+export const errorSearchResults = error => ({
+	type: ERROR_SEARCH_RESULTS,
+	error,
+});
+
 export const fetchSearchResults = query => (dispatch) => {
 	if (query.length < 3) return null;
 	dispatch({ type: FETCH_SEARCH_RESULTS });
@@ -98,13 +104,10 @@ export const fetchSearchResults = query => (dispatch) => {
 		q: query,
 	});
 	return fetch(`https://www.googleapis.com/youtube/v3/search?${parameters}`)
-		.then(checkStatus)
 		.then(parseJSON)
+		.then(checkYTResponse)
 		.then(json => dispatch(receiveSearchResults(json)))
-		.catch((error) => {
-			// dispatch error
-			console.log('request failed', error);
-		});
+		.catch(error => dispatch(errorSearchResults(error.message)));
 };
 
 export const clearSearch = () => ({

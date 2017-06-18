@@ -11,6 +11,13 @@
 	background: #eee;
 }
 
+.error {
+	color: red;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
 .spinner {
 	position: absolute;
 	top: 3em;

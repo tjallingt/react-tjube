@@ -5,6 +5,7 @@ import SearchResults from '../components/SearchResults/SearchResults';
 
 const mapStateToProps = state => ({
 	isFetching: state.search.isFetching,
+	error: state.search.error,
 	results: state.search.results,
 });
 
