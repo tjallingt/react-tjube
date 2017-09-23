@@ -12,11 +12,11 @@ import VideoAppPlayer from './components/VideoAppPlayer';
 import { startTour } from './actions';
 
 const reducer = compose(
-  mergePersistedState()
+	mergePersistedState()
 )(player);
 
 const storage = compose(
-  filter('playlist')
+	filter('playlist')
 )(adapter(sessionStorage));
 
 const middlewares = [thunk, socketMiddleware({ room: window.room, isReceiver: true })];
