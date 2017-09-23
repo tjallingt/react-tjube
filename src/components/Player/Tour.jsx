@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 
 import Dialog from '../Dialog/Dialog';
 
-const TourDialog = ({ className, step, close, next, end, last, children }) => (
+const TourDialog = ({ className, close, next, end, last, children }) => (
 	<Dialog
 		className={className}
-		key={`tour-${step}`}
 		closeText="end tour"
 		confirmText={last ? 'end' : 'next'}
 		onClose={() => {
@@ -26,7 +25,6 @@ const TourDialog = ({ className, step, close, next, end, last, children }) => (
 
 TourDialog.propTypes = {
 	className: PropTypes.string,
-	step: PropTypes.number,
 	close: PropTypes.func,
 	next: PropTypes.func,
 	end: PropTypes.func,
@@ -38,11 +36,12 @@ TourDialog.defaultProps = {
 	close: () => null,
 };
 
+// TODO: somehow my neat highlight functionality got broken...
 function Tour(props) {
-	const search = document.getElementById('search');
-	const playlist = document.getElementById('playlist');
-	const title = document.getElementById('title');
-	const controls = document.getElementById('controls');
+	// const search = document.getElementById('search');
+	// const playlist = document.getElementById('playlist');
+	// const title = document.getElementById('title');
+	// const controls = document.getElementById('controls');
 	switch (props.step) {
 	case 1:
 		return (
@@ -60,14 +59,15 @@ function Tour(props) {
 			</TourDialog>
 		);
 	case 2:
-		search.style.zIndex = 10;
-		search.style.opacity = 1;
+		// search.style.zIndex = 10;
+		// search.style.opacity = 1;
 		return (
 			<TourDialog
 				{...props}
-				close={() => {
-					search.style = {};
-				}}
+				// close={() => {
+				// 	search.style.removeProperty('zIndex');
+				// 	search.style.removeProperty('opacity');
+				// }}
 			>
 				<h3>Check out the video and search bar <i className="fa fa-search" /></h3>
 				<p>
@@ -78,15 +78,15 @@ function Tour(props) {
 			</TourDialog>
 		);
 	case 3:
-		playlist.style.zIndex = 10;
-		playlist.style.opacity = 1;
-		playlist.style.width = '25%';
+		// playlist.style.zIndex = 10;
+		// playlist.style.opacity = 1;
+		// playlist.style.width = '25%';
 		return (
 			<TourDialog
 				{...props}
-				close={() => {
-					playlist.style = {};
-				}}
+				// close={() => {
+				// 	playlist.style = {};
+				// }}
 			>
 				<h3>This is the playlist <i className="fa fa-th-list" /></h3>
 				<p>
@@ -97,13 +97,13 @@ function Tour(props) {
 			</TourDialog>
 		);
 	case 4:
-		title.style.zIndex = 10;
+		// title.style.zIndex = 10;
 		return (
 			<TourDialog
 				{...props}
-				close={() => {
-					title.style = {};
-				}}
+				// close={() => {
+				// 	title.style = {};
+				// }}
 			>
 				<h3>Here is the title (shock)</h3>
 				<p>
@@ -113,13 +113,13 @@ function Tour(props) {
 			</TourDialog>
 		);
 	case 5:
-		controls.style.zIndex = 10;
+		// controls.style.zIndex = 10;
 		return (
 			<TourDialog
 				{...props}
-				close={() => {
-					controls.style = {};
-				}}
+				// close={() => {
+				// 	controls.style = {};
+				// }}
 				last
 			>
 				<h3>These are the controls</h3>

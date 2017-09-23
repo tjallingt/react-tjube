@@ -1,23 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import Dialog from '../Dialog/Dialog';
 import Tour from './Tour';
 
 import config from '../../Config';
 
-const wrapDialog = dialog => (
-	<ReactCSSTransitionGroup
-		transitionName="dialogs"
-		transitionEnterTimeout={250}
-		transitionLeaveTimeout={250}
-	>
-		{dialog}
-	</ReactCSSTransitionGroup>
-);
-
-function Dialogs({ className, socket, tour, nextTour, endTour }) {
+// TODO: all this dialog logic is pretty creaky, needs to be cleaned up
+function PlayerDialogs({ className, socket, tour, nextTour, endTour, ...props }) {
 	if (!socket.connected) {
 		let message;
 		if (socket.reconnect.failed) {
@@ -26,33 +18,58 @@ function Dialogs({ className, socket, tour, nextTour, endTour }) {
 			message = 'Attempting to reconnect. Please wait or reload the page.';
 			message += ` Attempt ${socket.reconnect.attempt} of ${config.reconnectionAttempts}`;
 		}
-		return wrapDialog(
-			<Dialog
-				className={className}
+		return (
+			<CSSTransition
 				key="disconnected"
-				onClose={() => location.reload()}
-				confirmText="reload"
+				timeout={250}
+				classNames="fade"
+				{...props}
 			>
-				<h3>You have been disconnected</h3>
-				<p>No need to worry; your playlist will be here when you return.</p>
-				{message}
-			</Dialog>
+				<Dialog
+					className={className}
+					onClose={() => location.reload()}
+					confirmText="reload"
+				>
+					<h3>You have been disconnected</h3>
+					<p>No need to worry; your playlist will be here when you return.</p>
+					{message}
+				</Dialog>
+			</CSSTransition>
 		);
 	}
 	if (tour) {
-		return wrapDialog(
-			<Tour
-				className={className}
-				step={tour}
-				next={nextTour}
-				end={endTour}
-			/>
+		return (
+			<CSSTransition
+				key={`tour-${tour}`}
+				timeout={250}
+				classNames="fade"
+				{...props}
+			>
+				<Tour
+					className={className}
+					step={tour}
+					next={nextTour}
+					end={endTour}
+				/>
+			</CSSTransition>
 		);
 	}
-	return wrapDialog();
+	return null;
 }
 
-Dialogs.propTypes = {
+function Dialogs(props) {
+	// Dont render dialogs using jsx, it will break the exit animation
+	// as the TransitionGroup is looking for any direct decendents that
+	// of the Transition type when its children are getting removed
+	// See todo above...
+	return (
+		<TransitionGroup>
+			{ PlayerDialogs(props) }
+		</TransitionGroup>
+	);
+}
+
+PlayerDialogs.propTypes = {
 	className: PropTypes.string,
 	socket: PropTypes.object,
 	tour: PropTypes.number,

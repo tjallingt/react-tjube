@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransition from 'react-transition-group/CSSTransition';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -13,23 +14,23 @@ class PlayList extends React.Component { // eslint-disable-line react/prefer-sta
 
 		return (
 			<div id={id} className={className}>
-				<ReactCSSTransitionGroup
-					transitionName="playlist"
-					transitionAppear
-					transitionAppearTimeout={500}
-					transitionEnterTimeout={500}
-					transitionLeaveTimeout={500}
-				>
+				<TransitionGroup>
 					{playlist.map((video, index) => (
-						<PlayListItem
+						<CSSTransition
 							key={video.key}
-							index={index}
-							video={video}
-							moveVideo={props.moveVideo}
-							onDelete={() => props.deleteVideo(index)}
-						/>
+							classNames="playlist"
+							timeout={500}
+							appear
+						>
+							<PlayListItem
+								index={index}
+								video={video}
+								moveVideo={props.moveVideo}
+								onDelete={() => props.deleteVideo(index)}
+							/>
+						</CSSTransition>
 					))}
-				</ReactCSSTransitionGroup>
+				</TransitionGroup>
 			</div>
 		);
 	}

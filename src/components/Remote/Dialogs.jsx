@@ -1,23 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransition from 'react-transition-group/Transition';
 
 import Dialog from '../Dialog/Dialog';
 import VideoCard from '../VideoCard/VideoCard';
 
 import config from '../../Config';
 
-const wrapDialog = dialog => (
-	<ReactCSSTransitionGroup
-		transitionName="dialogs"
-		transitionEnterTimeout={250}
-		transitionLeaveTimeout={250}
-	>
-		{dialog}
-	</ReactCSSTransitionGroup>
-);
-
-function Dialogs({ className, video, socket, sendVideo, deleteVideo }) {
+// TODO: all this dialog logic is pretty creaky, needs to be cleaned up
+// TODO: use react-boostrap fade component?
+function RemoteDialogs({ className, video, socket, sendVideo, deleteVideo, ...props }) {
 	if (!socket.connected) {
 		let message;
 		if (socket.reconnect.failed) {
@@ -26,39 +19,63 @@ function Dialogs({ className, video, socket, sendVideo, deleteVideo }) {
 			message = 'Attempting to reconnect. Please wait or reload the page.';
 			message += ` Attempt ${socket.reconnect.attempt} of ${config.reconnectionAttempts}`;
 		}
-		return wrapDialog(
-			<Dialog
-				className={className}
+		return (
+			<CSSTransition
 				key="disconnected"
-				onClose={() => location.reload()}
-				confirmText="reload"
+				timeout={250}
+				classNames="fade"
+				{...props}
 			>
-				<h3>You have been disconnected</h3>
-				{message}
-			</Dialog>
+				<Dialog
+					className={className}
+					onClose={() => location.reload()}
+					confirmText="reload"
+				>
+					<h3>You have been disconnected</h3>
+					{message}
+				</Dialog>
+			</CSSTransition>
 		);
 	}
 	if (video) {
-		return wrapDialog(
-			<Dialog
-				className={className}
+		return (
+			<CSSTransition
 				key={video.id}
-				onConfirm={() => sendVideo(video)}
-				onClose={deleteVideo}
-				confirmText="add video"
+				timeout={250}
+				classNames="fade"
+				{...props}
 			>
-				<h3>Do you want to add this video to the playlist?</h3>
-				<VideoCard
-					video={video}
-					showThumbnail
-				/>
-			</Dialog>
+				<Dialog
+					className={className}
+					onConfirm={() => sendVideo(video)}
+					onClose={deleteVideo}
+					confirmText="add video"
+				>
+					<h3>Do you want to add this video to the playlist?</h3>
+					<VideoCard
+						video={video}
+						showThumbnail
+					/>
+				</Dialog>
+			</CSSTransition>
 		);
 	}
-	return wrapDialog();
+	return null;
 }
 
-Dialogs.propTypes = {
+function Dialogs(props) {
+	// Dont render dialogs using jsx, it will break the exit animation
+	// as the TransitionGroup is looking for any direct decendents that
+	// of the Transition type when its children are getting removed
+	// See todo above...
+	return (
+		<TransitionGroup>
+			{ RemoteDialogs(props) }
+		</TransitionGroup>
+	);
+}
+
+RemoteDialogs.propTypes = {
 	className: PropTypes.string,
 	video: PropTypes.object,
 	socket: PropTypes.object,

@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import Toast from './Toast';
 
 function Toaster({ id, className, toasts }) {
 	return (
 		<div id={id} className={className}>
-			<ReactCSSTransitionGroup
-				transitionName="toaster"
-				transitionEnterTimeout={500}
-				transitionLeaveTimeout={500}
-			>
+			<TransitionGroup>
 				{toasts.map(toast => (
-					<Toast key={toast.key}>
-						{toast.message}
-					</Toast>
+					<CSSTransition
+						key={toast.key}
+						timeout={500}
+						classNames="fade"
+					>
+						<Toast>
+							{toast.message}
+						</Toast>
+					</CSSTransition>
 				))}
-			</ReactCSSTransitionGroup>
+			</TransitionGroup>
 		</div>
 	);
 }
