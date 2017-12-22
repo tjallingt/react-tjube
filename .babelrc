@@ -1,4 +1,14 @@
 {
-	presets: ["es2015", "react", "stage-0"],
-	plugins: ["babel-plugin-transform-decorators-legacy"]
+	"presets": [
+		[
+			"env", {
+				"targets": {
+					"browsers": "> 1%"
+				}
+			}
+		],
+		"react",
+		"stage-0"
+	],
+	"plugins": ["babel-plugin-transform-decorators-legacy"]
 }
