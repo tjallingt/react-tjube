@@ -36,8 +36,7 @@ Headline.propTypes = {
 };
 
 Headline.defaultProps = {
-	skipVideo: () => null,
-	subtitle: `Add videos remotely at ${location.host}/${window.room}`,
+	subtitle: `Add videos remotely at ${window.location.host}/${window.room}`,
 	title: 'Add videos to the playlist to begin watching!',
 };
 

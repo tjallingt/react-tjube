@@ -28,7 +28,7 @@ function RemoteDialogs({ className, video, socket, sendVideo, deleteVideo, ...pr
 			>
 				<Dialog
 					className={className}
-					onClose={() => location.reload()}
+					onClose={() => window.location.reload()}
 					confirmText="reload"
 				>
 					<h3>You have been disconnected</h3>

@@ -52,7 +52,7 @@ function Tour(props) {
 				<p>
 					Tjube.ninja allows you to play videos from a shared playlist.
 					The videos are played back from a single public screen, I recommend placing it on a projector!
-					You can add videos to the playlist using the remote at <a href={`/${window.room}`}>{`${location.host}/${window.room}`}</a>.
+					You can add videos to the playlist using the remote at <a href={`/${window.room}`}>{`${window.location.host}/${window.room}`}</a>.
 					<br />
 					Tjube.ninja was made with <i className="fa fa-heart" style={{ color: 'red' }} /> by <a href="http://tjallingt.com/">Tjalling Tolle</a>
 				</p>

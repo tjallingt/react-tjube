@@ -45,7 +45,6 @@ PlayList.propTypes = {
 };
 
 PlayList.defaultProps = {
-	playlist: [],
 	moveVideo: () => null,
 	deleteVideo: () => null,
 };

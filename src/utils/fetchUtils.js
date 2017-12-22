@@ -1,6 +1,6 @@
 export const URIEncodeValues = (strings, ...values) => (
-	strings.reduce((previous, current, index) =>
-		previous + encodeURIComponent(values[index - 1]) + current
+	strings.reduce(
+		(previous, current, index) => previous + encodeURIComponent(values[index - 1]) + current
 	)
 );
 

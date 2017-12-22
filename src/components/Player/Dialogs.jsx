@@ -27,7 +27,7 @@ function PlayerDialogs({ className, socket, tour, nextTour, endTour, ...props })
 			>
 				<Dialog
 					className={className}
-					onClose={() => location.reload()}
+					onClose={() => window.location.reload()}
 					confirmText="reload"
 				>
 					<h3>You have been disconnected</h3>
