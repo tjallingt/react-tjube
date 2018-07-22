@@ -1,5 +1,5 @@
 {
-  "name": "react.tjube.ninja",
+  "name": "tjube.ninja",
   "version": "1.0.0",
   "description": "tjube.ninja rewrite using react",
   "main": "server.js",
