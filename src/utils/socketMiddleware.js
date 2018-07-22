@@ -10,7 +10,7 @@ import {
 } from '../actions';
 
 export default function socketMiddleware({ room = '', isReceiver = false }) {
-	const socket = io({ reconnectionAttempts: process.env.RECONNECT_ATTEMPTS });
+	const socket = io({ reconnectionAttempts: parseInt(process.env.RECONNECT_ATTEMPTS, 10) });
 
 	return (store) => {
 		socket.on('connect', () => {
