@@ -1,6 +1,6 @@
 {
   "name": "tjube-ninja",
-  "alias": "tjube-ninja",
+  "alias": "tjube-ninja.now.sh",
   "scale": {
     "bru1": {
       "min": 1,
