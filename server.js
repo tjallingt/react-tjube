@@ -61,7 +61,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 	app.use(devMiddleware(compiler, {
 		publicPath: webpackConfig.output.publicPath,
-		noInfo: true,
 	}));
 
 	app.use(hotMiddleware(compiler));

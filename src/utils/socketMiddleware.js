@@ -8,10 +8,9 @@ import {
 	reconnectFailed,
 	SEND_VIDEO,
 } from '../actions';
-import config from '../Config';
 
 export default function socketMiddleware({ room = '', isReceiver = false }) {
-	const socket = io({ reconnectionAttempts: config.reconnectionAttempts });
+	const socket = io({ reconnectionAttempts: parseInt(process.env.RECONNECT_ATTEMPTS, 10) });
 
 	return (store) => {
 		socket.on('connect', () => {

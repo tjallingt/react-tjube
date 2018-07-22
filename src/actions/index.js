@@ -1,5 +1,4 @@
 import 'whatwg-fetch'; // fetch API polyfill
-import config from '../Config';
 import { serialize, checkYTResponse, parseJSON } from '../utils/fetchUtils';
 import filterYoutubeData from '../utils/FilterYoutubeData';
 
@@ -100,7 +99,7 @@ export const fetchSearchResults = query => (dispatch) => {
 		part: 'snippet',
 		type: 'video',
 		maxResults: 20,
-		key: config.youtubeApiKey,
+		key: process.env.YOUTUBE_API_KEY,
 		q: query,
 	});
 	return fetch(`https://www.googleapis.com/youtube/v3/search?${parameters}`)

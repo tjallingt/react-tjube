@@ -1,16 +1,26 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 
 const path = require('path');
-// const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const here = (...args) => path.resolve(__dirname, ...args);
+
+const devMode = process.env.NODE_ENV !== 'production';
+
+if (devMode) {
+	// eslint-disable-next-line
+	require('now-env');
+}
 
 module.exports = {
+	mode: 'production',
 	entry: {
 		player: './src/player.jsx',
 		remote: './src/remote.jsx',
 	},
 	output: {
-		path: path.join(__dirname, 'build'),
+		path: here('build'),
 		publicPath: '/',
 		filename: '[name].js',
 	},
@@ -19,31 +29,29 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				use: 'babel-loader', // somehow use ["es2015", { modules: false }] in production only...
-				include: path.join(__dirname, 'src'),
+				include: here('src'),
 			},
 			{
 				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						{
-							loader: 'css-loader',
-							options: {
-								modules: true,
-								importLoaders: 1,
-								localIdentName: '[name]__[local]___[hash:base64:5]',
-							},
+				use: [
+					devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+							importLoaders: 1,
+							localIdentName: '[name]__[local]___[hash:base64:5]',
 						},
-						'postcss-loader',
-					],
-				}),
+					},
+					'postcss-loader',
+				],
 			},
 		],
 	},
 	plugins: [
-		new ExtractTextPlugin({
+		new webpack.EnvironmentPlugin(['YOUTUBE_API_KEY', 'RECONNECT_ATTEMPTS']),
+		new MiniCssExtractPlugin({
 			filename: '[name].css',
-			allChunks: true,
 		}),
 	],
 	resolve: {
