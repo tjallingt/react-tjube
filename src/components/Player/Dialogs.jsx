@@ -6,8 +6,6 @@ import CSSTransition from 'react-transition-group/CSSTransition';
 import Dialog from '../Dialog/Dialog';
 import Tour from './Tour';
 
-import config from '../../Config';
-
 // TODO: all this dialog logic is pretty creaky, needs to be cleaned up
 function PlayerDialogs({ className, socket, tour, nextTour, endTour, ...props }) {
 	if (!socket.connected) {
@@ -16,7 +14,7 @@ function PlayerDialogs({ className, socket, tour, nextTour, endTour, ...props })
 			message = 'Reconnecting failed. Please reload the page to connect again.';
 		} else {
 			message = 'Attempting to reconnect. Please wait or reload the page.';
-			message += ` Attempt ${socket.reconnect.attempt} of ${config.reconnectionAttempts}`;
+			message += ` Attempt ${socket.reconnect.attempt} of ${process.env.RECONNECT_ATTEMPTS}`;
 		}
 		return (
 			<CSSTransition
