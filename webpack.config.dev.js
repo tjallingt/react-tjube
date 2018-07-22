@@ -6,6 +6,8 @@ const config = require('./webpack.config.js');
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client';
 
+config.mode = 'development';
+
 config.entry.player = [config.entry.player, hotMiddlewareScript];
 config.entry.remote = [config.entry.remote, hotMiddlewareScript];
 

@@ -2,15 +2,18 @@
 
 const path = require('path');
 // const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const here = (...args) => path.resolve(__dirname, ...args);
 
 module.exports = {
+	mode: 'production',
 	entry: {
 		player: './src/player.jsx',
 		remote: './src/remote.jsx',
 	},
 	output: {
-		path: path.join(__dirname, 'build'),
+		path: here('build'),
 		publicPath: '/',
 		filename: '[name].js',
 	},
@@ -19,31 +22,28 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				use: 'babel-loader', // somehow use ["es2015", { modules: false }] in production only...
-				include: path.join(__dirname, 'src'),
+				include: here('src'),
 			},
 			{
 				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						{
-							loader: 'css-loader',
-							options: {
-								modules: true,
-								importLoaders: 1,
-								localIdentName: '[name]__[local]___[hash:base64:5]',
-							},
+				use: [
+					MiniCssExtractPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+							importLoaders: 1,
+							localIdentName: '[name]__[local]___[hash:base64:5]',
 						},
-						'postcss-loader',
-					],
-				}),
+					},
+					'postcss-loader',
+				],
 			},
 		],
 	},
 	plugins: [
-		new ExtractTextPlugin({
+		new MiniCssExtractPlugin({
 			filename: '[name].css',
-			allChunks: true,
 		}),
 	],
 	resolve: {
