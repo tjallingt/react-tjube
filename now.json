@@ -1,4 +1,6 @@
 {
+  "name": "tjube-ninja",
+  "alias": "tjube-ninja",
   "scale": {
     "bru1": {
       "min": 1,

@@ -1,10 +1,17 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 
 const path = require('path');
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const here = (...args) => path.resolve(__dirname, ...args);
+
+const devMode = process.env.NODE_ENV !== 'production';
+
+if (devMode) {
+	// eslint-disable-next-line
+	require('now-env');
+}
 
 module.exports = {
 	mode: 'production',
@@ -27,7 +34,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					MiniCssExtractPlugin.loader,
+					devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						options: {
@@ -42,6 +49,7 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new webpack.EnvironmentPlugin(['YOUTUBE_API_KEY', 'RECONNECT_ATTEMPTS']),
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 		}),

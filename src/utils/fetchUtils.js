@@ -5,8 +5,8 @@ export const URIEncodeValues = (strings, ...values) => (
 );
 
 export const serialize = obj => (
-	Object.keys(obj)
-		.map(key => URIEncodeValues`${key}=${obj[key]}`)
+	Object.entries(obj)
+		.map(([key, value]) => URIEncodeValues`${key}=${value}`)
 		.join('&')
 );
 
